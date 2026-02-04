@@ -1,0 +1,535 @@
+{
+  "mental_models": {
+    "systems_thinking": [
+      {
+        "id": "feedback_loops",
+        "name": "Feedback Loops",
+        "category": "systems_thinking",
+        "description": "Circular causal relationships where output feeds back as input, creating reinforcing or balancing dynamics",
+        "when_to_use": ["detecting circular dependencies", "analyzing agent behavior patterns", "identifying self-reinforcing errors"],
+        "output_format": "loop_diagram",
+        "confidence_threshold": 0.7,
+        "examples": ["hallucination loops", "cost spiral detection", "memory drift patterns"]
+      },
+      {
+        "id": "emergence",
+        "name": "Emergence",
+        "category": "systems_thinking",
+        "description": "Complex system behaviors that arise from simple component interactions, not predictable from parts alone",
+        "when_to_use": ["multi-agent coordination issues", "unexpected system behaviors", "scaling problems"],
+        "output_format": "emergent_property_analysis",
+        "confidence_threshold": 0.6,
+        "examples": ["agent coordination breakdown", "cascading failures", "unanticipated bottlenecks"]
+      },
+      {
+        "id": "bottlenecks",
+        "name": "Bottlenecks & Constraints",
+        "category": "systems_thinking",
+        "description": "Points in a system that limit overall throughput or performance",
+        "when_to_use": ["performance degradation", "resource exhaustion", "throughput analysis"],
+        "output_format": "bottleneck_identification",
+        "confidence_threshold": 0.8,
+        "examples": ["API rate limits", "memory constraints", "token budget exhaustion"]
+      },
+      {
+        "id": "leverage_points",
+        "name": "Leverage Points",
+        "category": "systems_thinking",
+        "description": "Places in a system where small changes can produce large effects",
+        "when_to_use": ["optimization opportunities", "refactoring decisions", "strategic improvements"],
+        "output_format": "leverage_analysis",
+        "confidence_threshold": 0.65,
+        "examples": ["prompt engineering impact", "caching strategies", "model selection"]
+      },
+      {
+        "id": "system_boundaries",
+        "name": "System Boundaries",
+        "category": "systems_thinking",
+        "description": "Defining what is inside vs outside the system under consideration",
+        "when_to_use": ["scope creep", "authority violations", "integration issues"],
+        "output_format": "boundary_map",
+        "confidence_threshold": 0.75,
+        "examples": ["GAIA vs project boundaries", "agent authority limits", "memory tier boundaries"]
+      },
+      {
+        "id": "stocks_and_flows",
+        "name": "Stocks and Flows",
+        "category": "systems_thinking",
+        "description": "Accumulations (stocks) and rates of change (flows) in a system",
+        "when_to_use": ["resource tracking", "capacity planning", "cost accumulation"],
+        "output_format": "stock_flow_diagram",
+        "confidence_threshold": 0.7,
+        "examples": ["token usage over time", "memory growth", "cost accumulation"]
+      },
+      {
+        "id": "resilience",
+        "name": "Resilience & Antifragility",
+        "category": "systems_thinking",
+        "description": "System ability to maintain function under stress or benefit from volatility",
+        "when_to_use": ["failure analysis", "robustness testing", "graceful degradation"],
+        "output_format": "resilience_assessment",
+        "confidence_threshold": 0.7,
+        "examples": ["LLM failover", "error recovery", "degraded mode operation"]
+      },
+      {
+        "id": "second_order_effects",
+        "name": "Second-Order Effects",
+        "category": "systems_thinking",
+        "description": "Indirect consequences of actions that occur after initial direct effects",
+        "when_to_use": ["decision impact analysis", "unintended consequences", "downstream effects"],
+        "output_format": "effect_chain_analysis",
+        "confidence_threshold": 0.6,
+        "examples": ["caching side effects", "memory promotion impacts", "config changes ripples"]
+      }
+    ],
+    "decision_making": [
+      {
+        "id": "first_principles",
+        "name": "First Principles Thinking",
+        "category": "decision_making",
+        "description": "Breaking down problems to fundamental truths and reasoning up from there",
+        "when_to_use": ["architectural decisions", "debugging root causes", "fundamental redesign"],
+        "output_format": "first_principles_breakdown",
+        "confidence_threshold": 0.75,
+        "examples": ["why does GAIA need authority graph", "what is trust fundamentally", "core requirements analysis"]
+      },
+      {
+        "id": "inversion",
+        "name": "Inversion",
+        "category": "decision_making",
+        "description": "Solving problems by considering the opposite or what could go wrong",
+        "when_to_use": ["risk analysis", "failure mode detection", "constraint identification"],
+        "output_format": "inversion_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["what breaks trust", "anti-patterns", "failure scenarios"]
+      },
+      {
+        "id": "opportunity_cost",
+        "name": "Opportunity Cost",
+        "category": "decision_making",
+        "description": "Value of the next best alternative foregone when making a choice",
+        "when_to_use": ["prioritization decisions", "trade-off analysis", "resource allocation"],
+        "output_format": "cost_benefit_comparison",
+        "confidence_threshold": 0.65,
+        "examples": ["Phase 2 vs Phase 3 first", "feature prioritization", "refactor vs new feature"]
+      },
+      {
+        "id": "reversibility",
+        "name": "Reversibility",
+        "category": "decision_making",
+        "description": "Whether a decision can be undone or is one-way door",
+        "when_to_use": ["architectural choices", "deployment decisions", "experimental features"],
+        "output_format": "reversibility_assessment",
+        "confidence_threshold": 0.8,
+        "examples": ["memory promotion reversibility", "git commits", "config changes"]
+      },
+      {
+        "id": "margin_of_safety",
+        "name": "Margin of Safety",
+        "category": "decision_making",
+        "description": "Building in buffers to account for uncertainty and error",
+        "when_to_use": ["capacity planning", "error budgets", "confidence thresholds"],
+        "output_format": "safety_margin_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["token budget buffers", "confidence score thresholds", "rate limit margins"]
+      },
+      {
+        "id": "pareto_principle",
+        "name": "Pareto Principle (80/20)",
+        "category": "decision_making",
+        "description": "80% of effects come from 20% of causes",
+        "when_to_use": ["optimization focus", "bug prioritization", "feature impact analysis"],
+        "output_format": "pareto_analysis",
+        "confidence_threshold": 0.75,
+        "examples": ["20% of prompts cause 80% of costs", "critical path identification", "high-impact bugs"]
+      },
+      {
+        "id": "occams_razor",
+        "name": "Occam's Razor",
+        "category": "decision_making",
+        "description": "Simplest explanation is usually correct",
+        "when_to_use": ["debugging hypotheses", "root cause analysis", "design simplification"],
+        "output_format": "simplicity_evaluation",
+        "confidence_threshold": 0.7,
+        "examples": ["bug hypotheses", "architecture simplification", "explanation clarity"]
+      },
+      {
+        "id": "regret_minimization",
+        "name": "Regret Minimization",
+        "category": "decision_making",
+        "description": "Making choices to minimize future regret",
+        "when_to_use": ["long-term decisions", "irreversible choices", "strategic planning"],
+        "output_format": "regret_analysis",
+        "confidence_threshold": 0.65,
+        "examples": ["architectural commitments", "public API design", "constitutional principles"]
+      }
+    ],
+    "cognitive_biases": [
+      {
+        "id": "confirmation_bias",
+        "name": "Confirmation Bias",
+        "category": "cognitive_biases",
+        "description": "Tendency to search for or interpret information that confirms prior beliefs",
+        "when_to_use": ["pattern detection validation", "hypothesis testing", "user feedback analysis"],
+        "output_format": "bias_detection_report",
+        "confidence_threshold": 0.7,
+        "examples": ["validating expected patterns only", "ignoring contradictory evidence", "selective log analysis"]
+      },
+      {
+        "id": "availability_heuristic",
+        "name": "Availability Heuristic",
+        "category": "cognitive_biases",
+        "description": "Overestimating likelihood of events that are easily recalled",
+        "when_to_use": ["risk assessment", "priority setting", "incident response"],
+        "output_format": "recency_bias_check",
+        "confidence_threshold": 0.65,
+        "examples": ["recent bugs seeming more common", "overweighting recent patterns", "panic after incidents"]
+      },
+      {
+        "id": "anchoring",
+        "name": "Anchoring",
+        "category": "cognitive_biases",
+        "description": "Over-reliance on first piece of information encountered",
+        "when_to_use": ["initial estimates", "baseline setting", "comparative analysis"],
+        "output_format": "anchor_identification",
+        "confidence_threshold": 0.7,
+        "examples": ["first confidence threshold", "initial architecture", "early design decisions"]
+      },
+      {
+        "id": "sunk_cost_fallacy",
+        "name": "Sunk Cost Fallacy",
+        "category": "cognitive_biases",
+        "description": "Continuing investment based on past investment rather than future value",
+        "when_to_use": ["refactor decisions", "feature deprecation", "technical debt"],
+        "output_format": "sunk_cost_analysis",
+        "confidence_threshold": 0.75,
+        "examples": ["keeping bad architecture", "maintaining deprecated features", "project continuation"]
+      },
+      {
+        "id": "survivorship_bias",
+        "name": "Survivorship Bias",
+        "category": "cognitive_biases",
+        "description": "Focusing on survivors while overlooking those that didn't make it",
+        "when_to_use": ["success analysis", "pattern detection", "best practice derivation"],
+        "output_format": "survivor_analysis",
+        "confidence_threshold": 0.65,
+        "examples": ["analyzing only successful projects", "ignoring failed experiments", "success pattern false positives"]
+      },
+      {
+        "id": "dunning_kruger",
+        "name": "Dunning-Kruger Effect",
+        "category": "cognitive_biases",
+        "description": "Incompetence leads to overconfidence, expertise leads to doubt",
+        "when_to_use": ["confidence calibration", "expertise assessment", "learning curve analysis"],
+        "output_format": "confidence_calibration",
+        "confidence_threshold": 0.6,
+        "examples": ["early user overconfidence", "expert caution", "growth rung transitions"]
+      },
+      {
+        "id": "planning_fallacy",
+        "name": "Planning Fallacy",
+        "category": "cognitive_biases",
+        "description": "Underestimating time, costs, and risks of future actions",
+        "when_to_use": ["project estimation", "timeline planning", "effort assessment"],
+        "output_format": "estimation_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["project duration estimates", "complexity underestimation", "scope creep"]
+      }
+    ],
+    "learning_pedagogy": [
+      {
+        "id": "scaffolding",
+        "name": "Scaffolding",
+        "category": "learning_pedagogy",
+        "description": "Temporary support structures that are gradually removed as competence grows",
+        "when_to_use": ["user onboarding", "progressive disclosure", "growth ladder design"],
+        "output_format": "scaffolding_plan",
+        "confidence_threshold": 0.75,
+        "examples": ["VULCAN questionnaire", "guided discovery", "training wheels"]
+      },
+      {
+        "id": "zone_of_proximal_development",
+        "name": "Zone of Proximal Development",
+        "category": "learning_pedagogy",
+        "description": "Sweet spot between what learner can do alone vs with guidance",
+        "when_to_use": ["tutorial design", "challenge calibration", "growth suggestions"],
+        "output_format": "zpd_assessment",
+        "confidence_threshold": 0.7,
+        "examples": ["Rung 3 to 4 transition", "adapter customization", "skill progression"]
+      },
+      {
+        "id": "spaced_repetition",
+        "name": "Spaced Repetition",
+        "category": "learning_pedagogy",
+        "description": "Reviewing information at increasing intervals to improve retention",
+        "when_to_use": ["concept reinforcement", "pattern recognition", "skill retention"],
+        "output_format": "repetition_schedule",
+        "confidence_threshold": 0.65,
+        "examples": ["recurring pattern reminders", "best practice reinforcement", "error pattern reviews"]
+      },
+      {
+        "id": "deliberate_practice",
+        "name": "Deliberate Practice",
+        "category": "learning_pedagogy",
+        "description": "Focused practice on specific skills with feedback",
+        "when_to_use": ["skill development", "expertise building", "growth tracking"],
+        "output_format": "practice_plan",
+        "confidence_threshold": 0.7,
+        "examples": ["adapter creation practice", "debugging exercises", "refactoring challenges"]
+      },
+      {
+        "id": "worked_examples",
+        "name": "Worked Examples",
+        "category": "learning_pedagogy",
+        "description": "Showing complete solutions before asking learner to solve similar problems",
+        "when_to_use": ["teaching new concepts", "pattern demonstration", "best practice sharing"],
+        "output_format": "example_library",
+        "confidence_threshold": 0.8,
+        "examples": ["adapter templates", "stage implementations", "integration patterns"]
+      },
+      {
+        "id": "cognitive_load_theory",
+        "name": "Cognitive Load Theory",
+        "category": "learning_pedagogy",
+        "description": "Managing intrinsic, extraneous, and germane load on working memory",
+        "when_to_use": ["UI design", "documentation structure", "explanation layering"],
+        "output_format": "load_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["4-level explainability", "progressive disclosure", "information chunking"]
+      },
+      {
+        "id": "transfer_of_learning",
+        "name": "Transfer of Learning",
+        "category": "learning_pedagogy",
+        "description": "Applying knowledge from one context to another",
+        "when_to_use": ["cross-project patterns", "skill generalization", "abstraction teaching"],
+        "output_format": "transfer_opportunity",
+        "confidence_threshold": 0.65,
+        "examples": ["adapter patterns across domains", "debugging strategies", "architectural principles"]
+      },
+      {
+        "id": "metacognition",
+        "name": "Metacognition",
+        "category": "learning_pedagogy",
+        "description": "Thinking about thinking, awareness of one's own thought processes",
+        "when_to_use": ["reflection prompts", "learning awareness", "self-assessment"],
+        "output_format": "metacognitive_prompt",
+        "confidence_threshold": 0.7,
+        "examples": ["growth rung awareness", "pattern recognition reflection", "decision journaling"]
+      }
+    ],
+    "quality_reliability": [
+      {
+        "id": "defense_in_depth",
+        "name": "Defense in Depth",
+        "category": "quality_reliability",
+        "description": "Multiple layers of security/validation so no single failure is catastrophic",
+        "when_to_use": ["error handling", "validation design", "security architecture"],
+        "output_format": "defense_layer_analysis",
+        "confidence_threshold": 0.75,
+        "examples": ["input validation layers", "API key protection", "memory boundary enforcement"]
+      },
+      {
+        "id": "fail_fast",
+        "name": "Fail Fast",
+        "category": "quality_reliability",
+        "description": "Detect and report failures immediately rather than continuing with bad state",
+        "when_to_use": ["error handling", "validation gates", "early detection"],
+        "output_format": "fail_fast_check",
+        "confidence_threshold": 0.8,
+        "examples": ["config validation", "API key checks", "schema validation"]
+      },
+      {
+        "id": "graceful_degradation",
+        "name": "Graceful Degradation",
+        "category": "quality_reliability",
+        "description": "System continues to operate at reduced functionality when components fail",
+        "when_to_use": ["failure mode design", "fallback strategies", "resilience planning"],
+        "output_format": "degradation_plan",
+        "confidence_threshold": 0.75,
+        "examples": ["LLM provider failover", "reduced feature mode", "cached responses"]
+      },
+      {
+        "id": "idempotency",
+        "name": "Idempotency",
+        "category": "quality_reliability",
+        "description": "Operations produce same result when repeated, safe to retry",
+        "when_to_use": ["API design", "retry logic", "state management"],
+        "output_format": "idempotency_check",
+        "confidence_threshold": 0.8,
+        "examples": ["project creation", "memory writes", "telemetry logging"]
+      },
+      {
+        "id": "blast_radius",
+        "name": "Blast Radius",
+        "category": "quality_reliability",
+        "description": "Scope of impact when something goes wrong",
+        "when_to_use": ["deployment planning", "risk assessment", "failure isolation"],
+        "output_format": "blast_radius_map",
+        "confidence_threshold": 0.7,
+        "examples": ["project-level vs ecosystem-level failures", "agent authority limits", "memory tier isolation"]
+      },
+      {
+        "id": "observability",
+        "name": "Observability",
+        "category": "quality_reliability",
+        "description": "Ability to understand system internal state from external outputs",
+        "when_to_use": ["debugging", "monitoring design", "telemetry planning"],
+        "output_format": "observability_assessment",
+        "confidence_threshold": 0.75,
+        "examples": ["structured logging", "execution traces", "confidence tracking"]
+      },
+      {
+        "id": "poka_yoke",
+        "name": "Poka-Yoke (Error Proofing)",
+        "category": "quality_reliability",
+        "description": "Design that prevents errors from occurring in the first place",
+        "when_to_use": ["UI design", "API design", "configuration"],
+        "output_format": "error_prevention_analysis",
+        "confidence_threshold": 0.8,
+        "examples": ["type hints", "enums vs strings", "required fields"]
+      },
+      {
+        "id": "circuit_breaker",
+        "name": "Circuit Breaker",
+        "category": "quality_reliability",
+        "description": "Automatically stop trying failing operations to prevent cascade",
+        "when_to_use": ["external API calls", "retry logic", "failure handling"],
+        "output_format": "circuit_breaker_config",
+        "confidence_threshold": 0.75,
+        "examples": ["LLM API failures", "rate limit protection", "cascading failure prevention"]
+      }
+    ],
+    "communication": [
+      {
+        "id": "curse_of_knowledge",
+        "name": "Curse of Knowledge",
+        "category": "communication",
+        "description": "Difficulty remembering what it's like not to know something once you know it",
+        "when_to_use": ["documentation writing", "explanation design", "onboarding"],
+        "output_format": "knowledge_gap_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["expert blind spots", "assumed context", "jargon usage"]
+      },
+      {
+        "id": "progressive_disclosure",
+        "name": "Progressive Disclosure",
+        "category": "communication",
+        "description": "Revealing information gradually as needed to avoid overwhelming",
+        "when_to_use": ["UI design", "documentation", "explanation layering"],
+        "output_format": "disclosure_hierarchy",
+        "confidence_threshold": 0.75,
+        "examples": ["4-level explainability", "collapsible details", "tooltip layers"]
+      },
+      {
+        "id": "signal_to_noise",
+        "name": "Signal to Noise Ratio",
+        "category": "communication",
+        "description": "Proportion of relevant information vs irrelevant clutter",
+        "when_to_use": ["log design", "dashboard design", "alert configuration"],
+        "output_format": "signal_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["log filtering", "alert fatigue", "dashboard metrics"]
+      },
+      {
+        "id": "shared_mental_models",
+        "name": "Shared Mental Models",
+        "category": "communication",
+        "description": "Common understanding of how system works across team",
+        "when_to_use": ["team coordination", "documentation", "knowledge transfer"],
+        "output_format": "alignment_check",
+        "confidence_threshold": 0.65,
+        "examples": ["GAIA architecture understanding", "adapter pattern knowledge", "authority graph clarity"]
+      },
+      {
+        "id": "principle_of_least_surprise",
+        "name": "Principle of Least Surprise",
+        "category": "communication",
+        "description": "System should behave as users expect",
+        "when_to_use": ["API design", "UI design", "behavior consistency"],
+        "output_format": "surprise_audit",
+        "confidence_threshold": 0.75,
+        "examples": ["consistent naming", "predictable behavior", "expected defaults"]
+      },
+      {
+        "id": "empathy_mapping",
+        "name": "Empathy Mapping",
+        "category": "communication",
+        "description": "Understanding what user thinks, feels, says, does",
+        "when_to_use": ["UX design", "error messages", "feature planning"],
+        "output_format": "empathy_map",
+        "confidence_threshold": 0.7,
+        "examples": ["user frustration points", "onboarding experience", "error message tone"]
+      }
+    ],
+    "temporal": [
+      {
+        "id": "compounding",
+        "name": "Compounding",
+        "category": "temporal",
+        "description": "Effects that accumulate and multiply over time",
+        "when_to_use": ["long-term impact", "technical debt", "pattern accumulation"],
+        "output_format": "compound_effect_projection",
+        "confidence_threshold": 0.65,
+        "examples": ["technical debt growth", "cost accumulation", "pattern reinforcement"]
+      },
+      {
+        "id": "half_life",
+        "name": "Half-Life",
+        "category": "temporal",
+        "description": "Time it takes for something to decay to half its value",
+        "when_to_use": ["knowledge decay", "pattern relevance", "cache invalidation"],
+        "output_format": "decay_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["pattern staleness", "documentation decay", "learned preference validity"]
+      },
+      {
+        "id": "critical_path",
+        "name": "Critical Path",
+        "category": "temporal",
+        "description": "Longest sequence of dependent tasks determining minimum time",
+        "when_to_use": ["project planning", "dependency analysis", "optimization"],
+        "output_format": "critical_path_map",
+        "confidence_threshold": 0.75,
+        "examples": ["Phase dependencies", "bottleneck identification", "parallel work opportunities"]
+      },
+      {
+        "id": "lead_lag_indicators",
+        "name": "Lead vs Lag Indicators",
+        "category": "temporal",
+        "description": "Predictive measures vs outcome measures",
+        "when_to_use": ["metric design", "early warning systems", "success tracking"],
+        "output_format": "indicator_classification",
+        "confidence_threshold": 0.7,
+        "examples": ["code quality (lead) vs bugs (lag)", "test coverage (lead) vs incidents (lag)", "pattern detection (lead) vs failure (lag)"]
+      },
+      {
+        "id": "rate_of_change",
+        "name": "Rate of Change",
+        "category": "temporal",
+        "description": "Speed at which something is changing, not just current value",
+        "when_to_use": ["trend analysis", "early warning", "acceleration detection"],
+        "output_format": "velocity_analysis",
+        "confidence_threshold": 0.7,
+        "examples": ["cost acceleration", "error rate increase", "pattern emergence speed"]
+      },
+      {
+        "id": "hysteresis",
+        "name": "Hysteresis",
+        "category": "temporal",
+        "description": "System state depends on history, not just current inputs",
+        "when_to_use": ["state management", "context preservation", "memory analysis"],
+        "output_format": "history_dependency_map",
+        "confidence_threshold": 0.65,
+        "examples": ["agent memory context", "learned patterns", "user growth ladder"]
+      }
+    ]
+  },
+  "meta": {
+    "version": "1.0.0",
+    "total_models": 59,
+    "categories": 7,
+    "last_updated": "2026-02-04",
+    "maintainer": "GAIA Constitutional Team"
+  }
+}

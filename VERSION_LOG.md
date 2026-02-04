@@ -221,15 +221,84 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 
 ---
 
-## Planned Versions (Roadmap)
+## v0.4.3 - Strategic Refinements (Phase 2/3 Transition) [IN PROGRESS]
 
-### v0.5.0 - ARGUS (Phase 2 Complete)
+**Completed on:** Feb 4, 2026 (Strategic alignment phase)
+
+**Mental Model Library (59 Integrated Models):**
+- Decision-making patterns (9 models)
+- Analysis frameworks (12 models)
+- Communication strategies (8 models)
+- Problem-solving approaches (10 models)
+- Pattern recognition tools (11 models)
+- Learning methodologies (9 models)
+
+**Subconscious Architecture:**
+- Background pattern detection (Process Observer)
+- Implicit pattern recognition without user prompt
+- Confidence-weighted suggestions (0.70+ threshold)
+- Non-interventional sense-making layer
+- Evidence-based hypothesis generation
+
+**Competitive Positioning & Strategic Analysis:**
+- v0 (Vercel UI generation) comparison: GAIA focuses on governance, not code generation
+- 021 (spec generation) comparison: GAIA executes and enforces specs, doesn't author them
+- Differentiation: Runtime governance + multi-agent orchestration (neither competitor has this)
+- UX adoption: Visual feedback, conversational refinement, structure previews (from v0/021)
+- Core moat: Process correctness over artifact beauty; execution governance over generation
+
+**Single-User Focus Confirmed:**
+- Day 1 creative chaos → Day 365 confident architect (individual growth journey)
+- 5-rung learning ladder (Creator → Explorer → Adapter → Architect → Mentor)
+- Pedagogical AI (teaches, doesn't replace)
+- Progressive capability building
+- Reflective cognition only (observe → propose → user decides), never executive cognition
+
+**Constitutional Predictive Capability:**
+- Safe proactive suggestions (observable patterns only)
+- Pattern detection with explicit confidence (≥0.70 threshold)
+- User control on all suggestions (accept/reject/disable)
+- No silent auto-application (always shows reasoning)
+- Reversible learning (user can disable pattern types)
+
+**Deliverables:**
+- `X:\Projects\_gaia\COUNCIL_COMPETITIVE_ANALYSIS.md` (strategic positioning response)
+- `X:\Projects\_gaia\PREDICTIVE_GAIA_SPEC.md` (constitutional specification for predictive behavior)
+- Updated GAIA_BIBLE.md Chapter 1 (Trust Contract, Mental Model Library integration)
+- Updated GAIA_BIBLE.md Chapter 2 (Subconscious layer, Predictive framework)
+- Phase 2/3 implementation readiness assessment
+
+**Phase 2 (ARGUS) Implementation Starting:**
+- Process Observer agent (pattern detection, read-only)
+- Mental Model Library integration (decision support)
+- Conversational VULCAN UX enhancement
+- Visual structure preview functionality
+- Trust Dashboard with transparency metrics
+- Growth Tracker (pedagogical rung detection)
+
+**Phase 3 (LOOM + MNEMIS) Implementation Starting:**
+- Proactive Suggester module (safe predictions)
+- Memory promotion UI (visual flow)
+- LOOM visual node editor
+- MNEMIS integration with Mental Models
+
+**Impact:**
+- GAIA transitions from well-governed system to intelligent meta-governor
+- Strategic moat confirmed: Governance-first, generation-free approach
+- Competitive advantage: Orchestration ecosystem (VULCAN → LOOM → ARGUS + MNEMIS)
+- Single-user focused growth supports team adoption naturally (Rung 5: Mentor)
+
+---
+
+## Planned Versions (Roadmap)
 
 ### v0.5.0 - ARGUS (Phase 2 Complete)
 
 **Observability layer:**
 - Structured telemetry across all GAIA projects
-- Ecosystem dashboard live (Streamlit or web UI)
+- Process Observer agent operational (pattern detection, sense-making)
+- Ecosystem dashboard live (Streamlit, fractal UI design)
+- Mental Model Library integrated in decision support
 - WARDEN v0 governance script operational
 
 **Monitoring capabilities:**
@@ -237,22 +306,32 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 - Error aggregation across projects
 - Health checks for all active services
 - Compliance reporting (secrets, dependencies, licenses)
+- Pattern detection dashboard (anti-patterns, growth opportunities, code duplication)
+
+**Trust Dashboard:**
+- Transparency score (% decisions with reasoning)
+- Graceful degradation tracking
+- Learning velocity metrics
+- Inspectability score (provenance coverage)
 
 ---
 
-### v1.0.0 - LOOM (Phase 3 Complete)
+### v1.0.0 - LOOM + MNEMIS (Phase 3 Complete)
 
 **Full ecosystem operational:**
 - Visual agent editor (LOOM) operational
 - MNEMIS cross-project memory system
 - Glass-box explainability for agent workflows
 - All 8 GAIA components integrated
+- Proactive Suggester (safe, observable-only predictions)
+- Mental Model Library fully interactive
 
 **Milestone criteria:**
-- End-to-end workflow: create in VULCAN > edit in LOOM > monitor in ARGUS
+- End-to-end workflow: create in VULCAN > edit in LOOM > monitor in ARGUS > remember in MNEMIS
 - Shared memory accessible across all projects
 - Agent workflows visualized and editable
 - Production-ready governance and compliance enforcement
+- Proactive suggestions with user control
 
 **GAIA ecosystem fully operational.**
 
@@ -270,10 +349,11 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 | v0.4.0  | Feb 4, 2026 | Complete | Phase 1: VULCAN creator |
 | v0.4.1  | Feb 4, 2026 | Complete | GAIA Bible + Phase 2/3 plans |
 | v0.4.2  | Feb 4, 2026 | Complete | Constitutional amendments (runtime governance) |
+| v0.4.3  | Feb 4, 2026 | In Progress | Strategic refinements (Mental Models, Subconscious, Competitive analysis) |
 | v0.5.0  | TBD | Planned | Phase 2: ARGUS monitoring + sense-making |
-| v1.0.0  | TBD | Planned | Phase 3: LOOM editor + full ecosystem |
+| v1.0.0  | TBD | Planned | Phase 3: LOOM + MNEMIS (visual editor + memory) |
 
 ---
 
 **Maintained by:** GAIA Ecosystem Team
-**Last updated:** Feb 4, 2026 21:30 UTC
+**Last updated:** Feb 4, 2026 23:45 UTC

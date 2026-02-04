@@ -1,0 +1,261 @@
+{
+  "invocation_rules": {
+    "context_patterns": {
+      "performance_degradation": {
+        "description": "System performance declining over time",
+        "trigger_keywords": ["slow", "degradation", "latency", "performance", "timeout"],
+        "recommended_models": [
+          "bottlenecks",
+          "compounding",
+          "rate_of_change",
+          "stocks_and_flows",
+          "lead_lag_indicators"
+        ],
+        "explanation": "Performance issues typically involve bottlenecks, accumulating technical debt, and measurable degradation rates"
+      },
+      "unexpected_behavior": {
+        "description": "System behaving in surprising or unpredictable ways",
+        "trigger_keywords": ["unexpected", "surprising", "weird", "strange", "unpredictable"],
+        "recommended_models": [
+          "emergence",
+          "second_order_effects",
+          "principle_of_least_surprise",
+          "hysteresis",
+          "feedback_loops"
+        ],
+        "explanation": "Unexpected behaviors often emerge from complex interactions, feedback loops, or history-dependent state"
+      },
+      "error_patterns": {
+        "description": "Recurring or cascading errors",
+        "trigger_keywords": ["error", "failure", "exception", "crash", "bug"],
+        "recommended_models": [
+          "feedback_loops",
+          "blast_radius",
+          "defense_in_depth",
+          "fail_fast",
+          "circuit_breaker"
+        ],
+        "explanation": "Error analysis benefits from understanding failure propagation, isolation, and prevention strategies"
+      },
+      "cost_management": {
+        "description": "Managing or reducing costs",
+        "trigger_keywords": ["cost", "expensive", "budget", "token", "API"],
+        "recommended_models": [
+          "pareto_principle",
+          "stocks_and_flows",
+          "compounding",
+          "opportunity_cost",
+          "margin_of_safety"
+        ],
+        "explanation": "Cost optimization requires identifying high-impact areas, tracking accumulation, and maintaining buffers"
+      },
+      "architectural_decision": {
+        "description": "Making structural or design decisions",
+        "trigger_keywords": ["architecture", "design", "structure", "refactor", "redesign"],
+        "recommended_models": [
+          "first_principles",
+          "reversibility",
+          "system_boundaries",
+          "leverage_points",
+          "regret_minimization"
+        ],
+        "explanation": "Architectural decisions benefit from fundamental reasoning, understanding impact points, and long-term thinking"
+      },
+      "user_learning": {
+        "description": "Supporting user growth and learning",
+        "trigger_keywords": ["learn", "tutorial", "onboarding", "growth", "teach"],
+        "recommended_models": [
+          "scaffolding",
+          "zone_of_proximal_development",
+          "cognitive_load_theory",
+          "progressive_disclosure",
+          "worked_examples"
+        ],
+        "explanation": "Learning support requires appropriate challenge level, managed complexity, and structured guidance"
+      },
+      "pattern_detection": {
+        "description": "Identifying patterns in behavior or data",
+        "trigger_keywords": ["pattern", "trend", "correlation", "frequently", "always"],
+        "recommended_models": [
+          "confirmation_bias",
+          "availability_heuristic",
+          "survivorship_bias",
+          "rate_of_change",
+          "lead_lag_indicators"
+        ],
+        "explanation": "Pattern detection must account for cognitive biases and distinguish correlation from causation"
+      },
+      "trust_violation": {
+        "description": "Identifying or preventing trust issues",
+        "trigger_keywords": ["trust", "transparency", "hidden", "silent", "unexpected"],
+        "recommended_models": [
+          "defense_in_depth",
+          "observability",
+          "graceful_degradation",
+          "principle_of_least_surprise",
+          "poka_yoke"
+        ],
+        "explanation": "Trust requires multiple validation layers, visibility, predictable behavior, and error prevention"
+      },
+      "estimation_accuracy": {
+        "description": "Improving time or effort estimates",
+        "trigger_keywords": ["estimate", "timeline", "duration", "scope", "complexity"],
+        "recommended_models": [
+          "planning_fallacy",
+          "margin_of_safety",
+          "critical_path",
+          "anchoring",
+          "sunk_cost_fallacy"
+        ],
+        "explanation": "Estimation requires awareness of systematic biases, buffers, dependencies, and avoiding past investment bias"
+      },
+      "knowledge_transfer": {
+        "description": "Sharing knowledge or documenting systems",
+        "trigger_keywords": ["document", "explain", "share", "teach", "handoff"],
+        "recommended_models": [
+          "curse_of_knowledge",
+          "progressive_disclosure",
+          "shared_mental_models",
+          "transfer_of_learning",
+          "empathy_mapping"
+        ],
+        "explanation": "Knowledge transfer requires awareness of expertise gaps, structured disclosure, and audience understanding"
+      },
+      "failure_analysis": {
+        "description": "Post-mortem or root cause analysis",
+        "trigger_keywords": ["postmortem", "root cause", "why", "investigation", "incident"],
+        "recommended_models": [
+          "first_principles",
+          "inversion",
+          "feedback_loops",
+          "second_order_effects",
+          "occams_razor"
+        ],
+        "explanation": "Failure analysis benefits from fundamental reasoning, considering what went wrong, and preferring simple explanations"
+      },
+      "scaling_challenges": {
+        "description": "Issues that emerge at scale",
+        "trigger_keywords": ["scale", "growth", "capacity", "bottleneck", "limit"],
+        "recommended_models": [
+          "emergence",
+          "bottlenecks",
+          "stocks_and_flows",
+          "resilience",
+          "blast_radius"
+        ],
+        "explanation": "Scaling reveals emergent behaviors, resource constraints, and requires resilience planning"
+      }
+    },
+    "confidence_rules": {
+      "high_confidence": {
+        "threshold": 0.8,
+        "description": "Invoke automatically without user confirmation",
+        "applicable_to": ["fail_fast", "idempotency", "poka_yoke", "worked_examples"],
+        "rationale": "These models have clear, objective criteria and low risk of misapplication"
+      },
+      "medium_confidence": {
+        "threshold": 0.65,
+        "description": "Suggest to user with explanation",
+        "applicable_to": ["most models fall here"],
+        "rationale": "Most mental models require context interpretation and user judgment"
+      },
+      "low_confidence": {
+        "threshold": 0.5,
+        "description": "Mention as possibility, user must explicitly request",
+        "applicable_to": ["dunning_kruger", "hysteresis", "survivorship_bias"],
+        "rationale": "These models are subtle and easy to misapply without deep context"
+      }
+    },
+    "combination_patterns": {
+      "systems_diagnosis": {
+        "description": "Comprehensive system health analysis",
+        "model_sequence": [
+          "observability",
+          "bottlenecks",
+          "feedback_loops",
+          "resilience",
+          "blast_radius"
+        ],
+        "use_case": "Full system assessment before major changes"
+      },
+      "trust_audit": {
+        "description": "Evaluating system trustworthiness",
+        "model_sequence": [
+          "defense_in_depth",
+          "graceful_degradation",
+          "observability",
+          "principle_of_least_surprise",
+          "poka_yoke"
+        ],
+        "use_case": "Trust dashboard computation"
+      },
+      "learning_path_design": {
+        "description": "Creating pedagogical experience",
+        "model_sequence": [
+          "zone_of_proximal_development",
+          "scaffolding",
+          "cognitive_load_theory",
+          "progressive_disclosure",
+          "transfer_of_learning"
+        ],
+        "use_case": "Growth ladder and tutorial design"
+      },
+      "architectural_review": {
+        "description": "Evaluating design decisions",
+        "model_sequence": [
+          "first_principles",
+          "system_boundaries",
+          "leverage_points",
+          "reversibility",
+          "regret_minimization"
+        ],
+        "use_case": "Major architectural decisions"
+      },
+      "cost_optimization": {
+        "description": "Reducing costs while maintaining quality",
+        "model_sequence": [
+          "pareto_principle",
+          "opportunity_cost",
+          "margin_of_safety",
+          "leverage_points",
+          "stocks_and_flows"
+        ],
+        "use_case": "Token/API cost reduction initiatives"
+      }
+    },
+    "anti_patterns": {
+      "over_application": {
+        "description": "Applying mental model when not appropriate",
+        "warning_signs": [
+          "Forcing pattern onto data",
+          "Ignoring contradictory evidence",
+          "Using model outside its domain"
+        ],
+        "mitigation": "Check context match, validate assumptions, seek disconfirming evidence"
+      },
+      "model_mixing": {
+        "description": "Applying too many models simultaneously",
+        "warning_signs": [
+          "Analysis paralysis",
+          "Contradictory recommendations",
+          "Overcomplexity"
+        ],
+        "mitigation": "Start with 1-2 models, add others only if needed, use combination_patterns for guidance"
+      },
+      "bias_blindness": {
+        "description": "Not recognizing cognitive biases in analysis",
+        "warning_signs": [
+          "Only finding expected patterns",
+          "Dismissing anomalies",
+          "Overconfidence in conclusions"
+        ],
+        "mitigation": "Always check confirmation_bias and availability_heuristic, seek peer review"
+      }
+    }
+  },
+  "meta": {
+    "version": "1.0.0",
+    "last_updated": "2026-02-04",
+    "usage_note": "These rules guide context-aware mental model selection. Process Observer uses these to recommend appropriate analytical frameworks."
+  }
+}
