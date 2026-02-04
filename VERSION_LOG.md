@@ -154,6 +154,73 @@
 
 ---
 
+## v0.4.2 - Constitutional Amendments (Runtime Governance) [COMPLETE]
+
+**Completed on:** Feb 4, 2026
+
+**Sr. Council Architectural Review:**
+- Comprehensive feedback analysis on GAIA's transition from "meta-designer" to "meta-governor"
+- Identified critical gap: GAIA orchestrates creation, not runtime cognition
+- Proposed authority graph and runtime governance layer
+
+**Trust Contract (Five Constitutional Principles):**
+1. **GAIA Never Lies** - Explicit uncertainty, immutable logs, confidence tracking
+2. **GAIA Admits Limits** - Authority boundaries, read-only contracts, escalation paths
+3. **GAIA Degrades Gracefully** - No silent failures, structured logs, fallback mechanisms
+4. **GAIA Learns Explicitly** - Proposal-based learning, provenance tracking, approval gates
+5. **GAIA Remains Inspectable** - Decision trails, rationale logging, transparency metrics
+
+**Runtime Authority Graph:**
+```
+GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task-bounded) → Sub-agents (ephemeral)
+                     ↓
+                  Process Observer (non-intervening, sense-making)
+                     ↓
+                  ARGUS (observer only, never actor)
+```
+
+**Authority Rules:**
+- Only Project Agents can mutate state
+- Sub-agents cannot persist memory (must propose promotion)
+- Observers cannot issue commands (produce hypotheses only)
+- GAIA never executes, only ratifies
+
+**New Agent Classes:**
+- **Process Observer Agent** (Phase 2): Read-only sense-making, pattern detection, post-mortem synthesis
+- **Technical PM Agent** (Phase 3): Multi-agent coordination, translation, escalation
+
+**Memory Access Contracts (Phase 3):**
+- Three tiers: GAIA (ecosystem), PROJECT (persistent), AGENT (ephemeral)
+- Read/write authority enforced mechanically
+- Proposal-based promotion protocol
+- Provenance tracking at every level
+
+**ARGUS Scope Expansion:**
+- From monitoring (telemetry) to sense-making (pattern detection)
+- Trust Dashboard with transparency metrics
+- Structural regression identification
+- Cross-project anti-pattern surfacing
+
+**Reflective vs. Executive Cognition:**
+- GAIA has reflective cognition (observe, propose, learn explicitly)
+- GAIA prohibited from executive cognition (autonomous action, silent modification)
+- Boundary: "Should we address X?" (allowed) vs. "I fixed X automatically" (prohibited)
+
+**Deliverables:**
+- `X:\Projects\_gaia\SR_COUNCIL_ANALYSIS.md` (comprehensive architectural response)
+- Updated GAIA_BIBLE.md Chapter 1 (Trust Contract)
+- Updated GAIA_BIBLE.md Chapter 2 (Authority Graph, Runtime Governance, Memory Contracts)
+- Escalation paths documented
+- Sense-making layer specified for Phase 2
+
+**Impact:**
+- GAIA transitions from well-designed system to meta-operating system
+- Constitutional layer now governs runtime cognition
+- Trust principles mechanically enforced
+- Clear separation: reflective (allowed) vs. executive (prohibited) cognition
+
+---
+
 ## Planned Versions (Roadmap)
 
 ### v0.5.0 - ARGUS (Phase 2 Complete)
@@ -202,10 +269,11 @@
 | v0.3.1  | Feb 4, 2026 | Complete | MYCEL Chunk.source critical fix |
 | v0.4.0  | Feb 4, 2026 | Complete | Phase 1: VULCAN creator |
 | v0.4.1  | Feb 4, 2026 | Complete | GAIA Bible + Phase 2/3 plans |
-| v0.5.0  | TBD | Planned | Phase 2: ARGUS monitoring |
+| v0.4.2  | Feb 4, 2026 | Complete | Constitutional amendments (runtime governance) |
+| v0.5.0  | TBD | Planned | Phase 2: ARGUS monitoring + sense-making |
 | v1.0.0  | TBD | Planned | Phase 3: LOOM editor + full ecosystem |
 
 ---
 
 **Maintained by:** GAIA Ecosystem Team
-**Last updated:** Feb 4, 2026 20:15 UTC
+**Last updated:** Feb 4, 2026 21:30 UTC

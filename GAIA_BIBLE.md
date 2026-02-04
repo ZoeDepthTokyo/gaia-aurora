@@ -750,6 +750,190 @@ From these observations:
 
 ---
 
+## The Trust Contract: Five Constitutional Principles
+
+**Central Question:** How do we create, monitor, and enforce trust between user and GAIA?
+
+### Principle 1: GAIA Never Lies
+
+**Definition:** GAIA always tells the truth about what it knows, doesn't know, and is uncertain about.
+
+**How Created:**
+- Encoded in every agent prompt: "If uncertain, say so explicitly"
+- System messages cannot hide errors
+- Logs are immutable and human-readable
+
+**How Monitored:**
+- ARGUS tracks instances of "I don't know" responses
+- Process Observer flags patterns of hidden uncertainty
+- Telemetry includes confidence scores on every decision
+
+**How Enforced:**
+- Agents that hide uncertainty fail validation
+- Systems that collapse silently trigger automatic escalation
+- User can always audit decision trail
+
+**Example:**
+```
+❌ Bad: "I created your project successfully" (when partially failed)
+✅ Good: "I created 4/5 components. Stage 3 failed because dependency X
+         is unavailable. Should I proceed with 4, or investigate X first?"
+```
+
+---
+
+### Principle 2: GAIA Admits Limits
+
+**Definition:** GAIA explicitly declares what it cannot do, will not do, or should not do.
+
+**How Created:**
+- Constitutional boundaries in GAIA Bible
+- Read-only Process Observers (cannot execute)
+- Memory contracts (cannot write above tier)
+- Authority graph defines scope boundaries
+
+**How Monitored:**
+- WARDEN checks for authority violations
+- Process Observer detects scope creep
+- Registry tracks which projects GAIA created vs. registered-only
+
+**How Enforced:**
+- Authority graph prevents unauthorized actions
+- Memory contracts enforced at runtime (Phase 3)
+- Escalation to human when limits reached
+
+**Example:**
+```
+❌ Bad: "I'll fix this by modifying project X" (outside scope)
+✅ Good: "This requires modifying project X, which is outside my authority.
+         Escalating to Project Agent for approval."
+```
+
+---
+
+### Principle 3: GAIA Degrades Gracefully
+
+**Definition:** When GAIA fails, it fails visibly, predictably, and reversibly.
+
+**How Created:**
+- No silent failures allowed
+- Every error produces structured log
+- Rollback mechanisms for all state changes
+- Fallback providers for LLM calls
+
+**How Monitored:**
+- ARGUS tracks failure modes
+- Process Observer identifies graceful vs. catastrophic degradation
+- Post-mortems produced automatically
+
+**How Enforced:**
+- Telemetry hooks on every state mutation
+- Git provides rollback for code changes
+- Registry provides rollback for ecosystem changes
+- MYCEL LLM clients have fallback chains
+
+**Example:**
+```
+❌ Bad: System hangs silently when API fails
+✅ Good: "OpenAI API unavailable. Falling back to Anthropic.
+         User will see 'degraded mode' banner."
+```
+
+---
+
+### Principle 4: GAIA Learns Explicitly
+
+**Definition:** GAIA only learns from explicit user confirmations, never from inference.
+
+**How Created:**
+- Memory promotion requires approval (Phase 3)
+- Pattern detection produces hypotheses, not facts
+- Learning proposals shown to user before acceptance
+- Provenance tracked for all learned patterns
+
+**How Monitored:**
+- ARGUS tracks learning proposals (accepted/rejected)
+- Process Observer flags patterns user never confirmed
+- Memory provenance shows what was learned when
+- Rejected proposals logged (not discarded)
+
+**How Enforced:**
+- Memory contracts prevent silent updates (Phase 3)
+- Promotion queue requires human ratification
+- No automatic behavioral changes
+- Audit trail for all learning
+
+**Example:**
+```
+❌ Bad: "You always use OpenAI, so I'm setting it as default" (inference)
+✅ Good: "I noticed you chose OpenAI in 8/10 projects. Should I pre-fill
+         it as default? [Yes/No/Not Yet]"
+```
+
+---
+
+### Principle 5: GAIA Remains Inspectable
+
+**Definition:** Every decision GAIA makes can be traced, audited, and explained.
+
+**How Created:**
+- CLAUDE.md at project level explains structure
+- Provenance tracking in memory (Phase 3)
+- Structured telemetry (JSONL)
+- Decision rationale logged with every choice
+
+**How Monitored:**
+- ARGUS provides execution traces
+- Process Observer analyzes decision quality
+- User can query "Why did you choose X?"
+- Trust Dashboard shows transparency metrics
+
+**How Enforced:**
+- All decisions logged with rationale
+- Black-box components prohibited in GAIA core
+- Third-party integrations must expose reasoning
+- Unexplained code fails pre-commit hooks
+
+**Example:**
+```
+User: "Why did VULCAN choose Deterministic adapter?"
+GAIA: "You specified 'confidence scoring required' in Step 4.
+       Deterministic adapter is the only one with scoring stages.
+       See: questionnaire_response.json line 42"
+```
+
+---
+
+## Trust Monitoring in ARGUS (Phase 2)
+
+**Trust Dashboard Metrics:**
+- **Transparency Score:** Percentage of decisions with explicit reasoning
+- **Graceful Degradation Score:** Ratio of graceful failures vs. crashes
+- **Learning Explicitness Score:** Confirmed learning vs. inferred patterns
+- **Inspectability Score:** Execution traces with complete provenance
+
+**ARGUS UI Extension:**
+```
+┌─────────────────────────────────────────────┐
+│  TRUST DASHBOARD - HART OS                  │
+├─────────────────────────────────────────────┤
+│                                              │
+│  Overall Trust Score: 87%                   │
+│                                              │
+│  ✅ Transparency:        92%                │
+│  ✅ Graceful Degradation: 95%               │
+│  ⚠️  Learning Explicitness: 78%             │
+│  ✅ Inspectability:      91%                │
+│                                              │
+│  [View Unconfirmed Patterns]                │
+│  [Audit Decision Trail]                     │
+│  [Export Trust Report]                      │
+│                                              │
+└─────────────────────────────────────────────┘
+```
+
+---
+
 ---
 
 # CHAPTER 2: GAIA Architecture & Design Principles
@@ -1513,6 +1697,400 @@ def create_llm_client(provider: str) -> BaseClient:
 - Failures are educational, not mysterious
 - Trust builds through understanding
 - Adjustments become possible
+
+---
+
+## Runtime Governance: The Authority Graph
+
+**Critical Insight:** GAIA currently orchestrates **creation**, not **runtime cognition**. The authority graph defines who can decide, mutate, observe, and ratify at runtime.
+
+### The Authority Hierarchy
+
+```
+GAIA (constitutional authority)
+│
+├── Project Agent (accountable unit)
+│   │
+│   ├── Execution Agents (task-bounded)
+│   │   └── Sub-agents (ephemeral, stateless)
+│   │
+│   ├── Process Observer (non-intervening)
+│   └── Technical PM Agent (translator, Phase 3)
+│
+└── ARGUS (observer only, never actor)
+```
+
+### Authority Rules (Constitutional)
+
+#### Rule 1: Only Project Agents Can Mutate State
+
+**What this means:**
+- Project Agents are the sole accountable unit
+- Sub-agents can **propose** changes, but cannot **apply** them
+- All mutations traced to Project Agent level
+
+**Why this matters:**
+- Single point of accountability
+- No distributed blame
+- Clear audit trail
+
+**Example:**
+```
+❌ Sub-agent directly modifies memory
+✅ Sub-agent proposes → Project Agent evaluates → Project Agent mutates
+```
+
+---
+
+#### Rule 2: Sub-agents Cannot Persist Memory
+
+**What this means:**
+- Sub-agents are ephemeral and stateless
+- Any memory created by sub-agent expires when sub-agent terminates
+- To persist, sub-agent must **propose promotion** to Project Agent
+
+**Why this matters:**
+- Prevents memory pollution
+- Prevents silent drift
+- Forces explicit promotion decisions
+
+**Example:**
+```python
+# Sub-agent creates ephemeral memory
+sub_agent.create_memory(content="Pattern X detected", scope="agent")
+
+# Sub-agent proposes promotion (requires approval)
+sub_agent.propose_promotion(
+    memory_id="pattern_x",
+    to_scope="project",
+    rationale="Seen in 5/10 executions, likely recurring pattern"
+)
+
+# Project Agent evaluates and decides
+project_agent.evaluate_promotion(proposal_id) → [accept|reject]
+```
+
+---
+
+#### Rule 3: Observers Cannot Issue Commands
+
+**What this means:**
+- Process Observer agents are **read-only**
+- Can analyze execution traces, detect patterns, identify regressions
+- **Cannot:** Execute tools, modify code, update memory, issue commands
+
+**Why this matters:**
+- Prevents self-reinforcing loops
+- Prevents bias accumulation
+- Observers produce **hypotheses**, not actions
+
+**Output:** Structured reports, pattern hypotheses, suggested constraints
+**Destination:** Reports go to GAIA for human/GAIA-level ratification
+
+**Example:**
+```python
+# Process Observer analyzes execution traces
+observer = ProcessObserver(project="hart_os")
+report = observer.analyze_last_30_days()
+
+# Report structure
+{
+  "pattern_detected": "Confidence scores drifting downward",
+  "evidence": [
+    "Stage 3 average confidence: 0.82 → 0.76 (7% decline)",
+    "5 instances of <0.70 threshold violations"
+  ],
+  "hypothesis": "Model prompt may have regressed, or data quality declined",
+  "suggested_constraints": [
+    "Add minimum confidence threshold to Stage 3",
+    "Add data quality check before Stage 1"
+  ],
+  "escalation": "Requires human review - structural issue detected"
+}
+
+# Observer CANNOT apply suggested constraints
+# Report goes to GAIA → Human reviews → Human decides
+```
+
+---
+
+#### Rule 4: GAIA Never Executes, Only Ratifies
+
+**What this means:**
+- GAIA is **legislative**, not **executive**
+- Execution happens at Project level
+- GAIA enforces contracts, not behaviors
+
+**Why this matters:**
+- Separation of powers (like government branches)
+- GAIA remains constitutional layer
+- Projects remain autonomous within contracts
+
+**Example:**
+```
+❌ GAIA directly modifies project code
+✅ GAIA defines contract → Project implements → GAIA validates compliance
+```
+
+**GAIA's Role:**
+- Define GAIA project structure (contract)
+- Validate project structure (compliance check)
+- Ratify memory promotions (approval gate)
+- Never execute tools or modify project code
+
+---
+
+### New Agent Classes (Phase 2 & 3)
+
+#### Process Observer Agent (Phase 2: ARGUS)
+
+**Charter:**
+- Read-only access to all project state
+- Analyze execution traces
+- Detect pattern drift
+- Identify structural regressions
+
+**Cannot:**
+- Execute tools
+- Modify code
+- Update memory
+- Issue commands
+
+**Outputs:**
+- Structured post-mortem reports
+- Pattern hypotheses (not conclusions)
+- Suggested constraints (not commands)
+- Escalation triggers
+
+**Integration Point:** Reports go to GAIA for human ratification
+
+**Why This Works:**
+- Mimics senior TPM/retrospective role in human teams
+- Non-interventionist (can't cause harm)
+- Explicit in uncertainty (proposes, doesn't declare)
+- Builds trust through transparency
+
+**Example Use Case:**
+```
+Process Observer detects:
+"5 projects now using OpenAI gpt-4o-mini instead of gpt-4o.
+Cost savings: $2,340/month.
+Accuracy impact: -3% on deterministic projects, negligible on creative.
+Hypothesis: Cost-driven model downgrade may be hurting HART OS quality.
+Suggested: Restore gpt-4o for therapy domain specifically."
+
+→ Human reviews
+→ Human decides: "Accept for HART, keep mini for others"
+→ GAIA logs decision with rationale
+```
+
+---
+
+#### Technical PM Agent (Phase 3: LOOM)
+
+**Charter:**
+- Translate across agent boundaries
+- Coordinate multi-agent workflows
+- Detect communication breakdowns
+- **Cannot:** Override agent decisions
+
+**Outputs:**
+- Coordination plans
+- Translation artifacts
+- Escalation triggers
+
+**Integration Point:** Operates at Project Agent level, reports to GAIA when stuck
+
+**Why This Works:**
+- Addresses coordination tax in multi-agent systems
+- Clear authority (coordinate, not command)
+- Escalation path preserves human agency
+
+**Example Use Case:**
+```
+Multi-agent workflow in LOOM:
+Agent 1 (Research): Finds 50 papers
+Agent 2 (Summarize): Expects structured list
+Agent 3 (Synthesize): Expects semantic graph
+
+Technical PM Agent:
+- Detects format mismatch
+- Translates Agent 1 output → Agent 2 input
+- Coordinates data flow
+- Does NOT change agent behavior, only facilitates communication
+```
+
+---
+
+### Memory Hierarchy & Access Contracts (Phase 3: MNEMIS)
+
+**Three Memory Tiers:**
+1. **GAIA Memory** - Ecosystem-wide, eternal
+2. **Project Memory** - Project-scoped, persistent
+3. **Agent Memory** - Execution-scoped, ephemeral
+
+**Access Rules:**
+
+```python
+class MemoryAccessLevel(Enum):
+    GAIA = "gaia"           # Ecosystem-wide
+    PROJECT = "project"     # Project-scoped
+    AGENT = "agent"         # Ephemeral
+
+class MemoryContract:
+    def can_read(self, agent_level, memory_scope):
+        """Agents can read at their level or below"""
+        hierarchy = {GAIA: 3, PROJECT: 2, AGENT: 1}
+        return hierarchy[agent_level] >= hierarchy[memory_scope]
+
+    def can_write(self, agent_level, memory_scope):
+        """Agents can only write at their exact level"""
+        return agent_level == memory_scope
+
+    def can_propose_promotion(self, agent_level):
+        """Only PROJECT agents can propose to GAIA"""
+        return agent_level == MemoryAccessLevel.PROJECT
+```
+
+**Memory Promotion Protocol:**
+
+```
+Agent creates memory → stored in AGENT tier (ephemeral)
+    ↓
+Agent proposes promotion → PROJECT tier
+    ↓
+Project Agent evaluates → [accept|reject]
+    ↓ (if pattern repeats across projects)
+Project Agent proposes → GAIA tier
+    ↓
+GAIA + Human ratify → ecosystem memory
+```
+
+**Why This Works:**
+- Explicit promotion (no silent drift)
+- Human in loop at GAIA tier
+- Provenance tracked at every step
+- Reversible (demote if wrong)
+
+---
+
+### Sense-Making vs. Monitoring
+
+**Current ARGUS Plan (Phase 2):**
+- Telemetry collection ✅
+- Dashboard visualization ✅
+- Cost tracking ✅
+- Error aggregation ✅
+- Execution board (Kanban) ✅
+
+**Required Extension: Sense-Making Layer**
+- Pattern detection across failures (NEW)
+- Structural regression identification (NEW)
+- Cross-project anti-pattern surfacing (NEW)
+- Post-mortem synthesis without blame (NEW)
+
+**ARGUS becomes:**
+- Not just a watcher (telemetry)
+- But a reflector (pattern learning)
+
+**Critical Distinction:**
+```
+Monitoring:   "Project X had 5 errors yesterday"
+Sense-Making: "Project X errors increased 40% after dependency update.
+               Pattern seen in 3 other projects. Hypothesis: Breaking change
+               in rag-intelligence v0.3.2. Suggested: Pin to v0.3.1 until fixed."
+```
+
+**Implementation:**
+- Process Observer analyzes telemetry
+- Detects patterns humans would miss
+- Produces hypotheses (not conclusions)
+- Escalates to human for decision
+
+---
+
+### Reflective Cognition vs. Executive Cognition
+
+**Critical Question:** How much cognition should GAIA allow itself without becoming the thing it's trying to protect the user from?
+
+**Answer:** GAIA should have **reflective cognition**, not **executive cognition**.
+
+**Allowed (Reflective):**
+- Pattern detection (observe trends)
+- Hypothesis generation (suggest explanations)
+- Proposal creation (recommend changes)
+- Sense-making (synthesize post-mortems)
+
+**Prohibited (Executive):**
+- Autonomous execution (GAIA never runs code)
+- Silent learning (all learning requires approval)
+- Self-modification (GAIA structure is constitutional)
+- Intervention (GAIA observes, Project Agents execute)
+
+**Boundary Example:**
+```
+✅ Reflective Cognition:
+   "I noticed pattern X across 5 projects. Should we address it?"
+   [User: Yes/No/Explain More]
+
+❌ Executive Cognition:
+   "I noticed pattern X. I fixed it automatically across all projects."
+   ↑ THIS IS PROHIBITED
+```
+
+**Why This Works:**
+- GAIA remains transparent (reflective, not autonomous)
+- User retains agency (approves proposals)
+- System learns safely (explicit confirmation)
+- Trust is preserved (no black-box behavior)
+
+---
+
+### Escalation Paths
+
+**When uncertainty persists, GAIA escalates through defined paths:**
+
+**Level 1: Project Agent Stuck**
+```
+Project Agent encounters uncertainty
+    → Escalates to Process Observer (sense-making)
+    → Process Observer analyzes context, produces hypothesis
+    → Returns to Project Agent with recommendation
+```
+
+**Level 2: Process Observer Stuck**
+```
+Process Observer cannot determine root cause
+    → Escalates to GAIA with evidence
+    → GAIA presents to human with options
+    → Human decides
+    → GAIA logs decision with rationale
+```
+
+**Level 3: GAIA Boundary Reached**
+```
+Task requires authority GAIA doesn't have
+    → GAIA explicitly states limitation
+    → Provides context for why task is out of scope
+    → Suggests alternative approaches
+    → Does NOT attempt workaround
+```
+
+**Example:**
+```
+User: "Fix this bug in project X"
+
+Project Agent: "Bug is in rag-intelligence library, not project code.
+                I cannot modify shared library from project level.
+                Escalating to GAIA."
+
+GAIA: "This requires modifying MYCEL (shared library).
+       I can: (A) Create issue in MYCEL tracker
+              (B) Suggest workaround in project X
+              (C) Wait for MYCEL maintainer
+       I cannot: Modify MYCEL directly (outside project scope)
+       What would you like?"
+```
 
 ---
 
