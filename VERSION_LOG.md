@@ -297,29 +297,86 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 
 ---
 
+## v0.5.0 - ARGUS Dashboard + Calibration (Feb 5, 2026) [COMPLETE]
+
+**Dashboard-First Approach:**
+- ARGUS Dashboard MVP operational (Streamlit)
+- Ecosystem component graph with status indicators
+- Live event trace viewer
+- MNEMIS memory hierarchy visualization
+- Interactive scenario runner (2 scenarios)
+
+**Folder Restructure:**
+- Root renamed: _gaia → _GAIA
+- Components consolidated with _PREFIX naming
+- MYCEL, VULCAN, ECHO moved into _GAIA/
+- Documentation organized into docs/ subdirectories
+- RAVEN placeholder created
+- WARDEN scanner implemented
+
+**New Components:**
+- WARDEN minimal compliance scanner (secret detection, file checks)
+- EventBus central event system (SQLite-backed)
+- Scenario 1: New Project Creation wizard
+- Scenario 2: Existing Project Integration wizard
+
+**Infrastructure:**
+- Centralized event bus for component communication
+- Real-time event tracing across all GAIA components
+- Export functionality for delta analysis
+- Constitutional compliance indicators in dashboard
+
+**Deliverables:**
+- `_GAIA/_ARGUS/dashboard/` - Complete dashboard package
+- `_GAIA/_WARDEN/scanner.py` - Compliance scanner
+- `_GAIA/_RAVEN/README.md` - Placeholder documentation
+- `_GAIA/docs/` - Organized documentation structure
+- Updated registry.json with new paths
+
+---
+
+## v0.5.1 - GECO v1.1.0 + ARGUS Dashboard Fixes (Feb 8-9, 2026) [COMPLETE]
+
+**GECO v1.1.0 Deliverables (Feb 8 swarm session):**
+- WARDEN CLI scaffolded with pre-commit hook installer and compliance scanner
+- Pre-commit configuration for ecosystem projects
+- CI/CD GitHub Actions workflow templates created
+- GitHub organization structure defined
+- VULCAN generator improvements
+- PROTEUS → jSeeker rename completed across codebase and registry
+- DOS and ABIS project scaffolds created with registry entries
+- RAVEN formally defined in registry
+- GECO Audit Report (GECO_AUDIT.md) — full ecosystem diagnostic
+- GECO Review Matrix (GECO_REVIEW_MATRIX.md) — Claude Code feature audit across 16 components
+- AURORA UX/UI Lead component created with design system structure
+- Registry expanded from 10 → 17 registered projects
+
+**ARGUS Dashboard Fixes (Feb 9):**
+- Fixed MNEMIS data path (old `_gaia/` → `_GAIA/_MNEMIS/`)
+- Fixed registry reader path (old `_gaia/` → `_GAIA/`)
+- Fixed registry schema key (`components` → `projects`)
+- Fixed ecosystem graph to render real registry data with correct status colors
+- Updated sidebar from hardcoded stale list to dynamic registry-driven components
+- Removed stale "COUNCIL" and "PROTEUS" references, replaced with real ecosystem names
+- Updated live trace color map for all 17 ecosystem components
+- ARGUS version bumped to 0.5.1
+
+**Registry Updates:**
+- ARGUS: 0.5.0-dev → 0.5.1
+- WARDEN: git=true (was false)
+- AURORA: added (v0.1.0, development)
+- 17 projects total (8 shared services + 9 products/libraries)
+
+**Deliverables:**
+- `_GAIA/_ARGUS/dashboard/` — 6 files fixed (app.py, registry_reader.py, ecosystem_graph.py, memory_tree.py, live_trace.py)
+- `_GAIA/registry.json` — updated with 17 projects
+- `_GAIA/VERSION_LOG.md` — current
+- `_GAIA/GAIA_BIBLE.md` — status section updated
+- `_GAIA/.pre-commit-config.yaml` — ecosystem-wide pre-commit config
+
+---
+
 ## Planned Versions (Roadmap)
-
-### v0.5.0 - ARGUS (Phase 2 Complete)
-
-**Observability layer:**
-- Structured telemetry across all GAIA projects
-- Process Observer agent operational (pattern detection, sense-making)
-- Ecosystem dashboard live (Streamlit, fractal UI design)
-- Mental Model Library integrated in decision support
-- WARDEN v0 governance script operational
-
-**Monitoring capabilities:**
-- LLM usage tracking (tokens, cost, latency)
-- Error aggregation across projects
-- Health checks for all active services
-- Compliance reporting (secrets, dependencies, licenses)
-- Pattern detection dashboard (anti-patterns, growth opportunities, code duplication)
-
-**Trust Dashboard:**
-- Transparency score (% decisions with reasoning)
-- Graceful degradation tracking
-- Learning velocity metrics
-- Inspectability score (provenance coverage)
 
 ---
 
@@ -357,10 +414,11 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 | v0.4.1  | Feb 4, 2026 | Complete | GAIA Bible + Phase 2/3 plans |
 | v0.4.2  | Feb 4, 2026 | Complete | Constitutional amendments (runtime governance) |
 | v0.4.3  | Feb 4, 2026 | Complete | Strategic refinements + Phase 2/3 implementation (78 files, 19,796 lines) |
-| v0.5.0  | Feb 2026 | In Progress | ARGUS Streamlit dashboard + user testing validation |
-| v1.0.0  | Mar 2026 | In Progress | LOOM visual editor + production readiness |
+| v0.5.0  | Feb 5, 2026 | Complete | ARGUS Dashboard MVP + folder restructure + WARDEN scanner + EventBus |
+| v0.5.1  | Feb 8-9, 2026 | Complete | GECO v1.1.0 + ARGUS dashboard fixes + 17-project registry |
+| v1.0.0  | Mar 2026 | Planned | LOOM visual editor + production readiness |
 
 ---
 
 **Maintained by:** GAIA Ecosystem Team
-**Last updated:** Feb 5, 2026 00:15 UTC
+**Last updated:** Feb 9, 2026 (v0.5.1 entry) UTC

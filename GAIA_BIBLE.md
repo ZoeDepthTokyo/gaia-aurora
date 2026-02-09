@@ -1,7 +1,7 @@
 # THE GAIA BIBLE
 ## Constitutional Document for the GAIA Ecosystem
 
-**Status:** Phase 2 & 3 Complete ✅ | GAIA v0.4.3 | Last Updated: February 4, 2026
+**Status:** Phase 2 & 3 Complete ✅ | GAIA v0.5.1 | Last Updated: February 9, 2026
 
 ---
 
@@ -34,15 +34,17 @@
 
 **GAIA is the master layer** that sits above all AI projects in a local ecosystem. It solves fragmentation, lack of governance, and the complexity of managing multiple AI tools with different APIs and architectures.
 
-**Current Status:** v0.4.3 (Phases 1, 2 & 3 Complete)
+**Current Status:** v0.5.1 (Phases 1, 2 & 3 Complete + GECO v1.1.0)
 - All production projects under git version control
 - VULCAN (The Forge) operational and tested
-- ARGUS (Mental Model Library + Subconscious Layer) implemented
+- ARGUS (Mental Model Library + Subconscious Layer + Dashboard) implemented
 - LOOM (Workflow Engine) + MNEMIS (Memory Hierarchy) operational
+- WARDEN (Governance & Compliance) active with scanner and pre-commit hooks
+- AURORA (UX/UI Design Lead) design system scaffolded
 - 59 mental models with context-aware selection
 - Layered explainability (4 levels mapped to Growth Rungs)
 - Memory contracts and promotion protocol enforced
-- Registry operational with 10 registered projects
+- Registry operational with 17 registered projects
 
 **Phase Progress:**
 - ✅ v0.0.0 - Pre-GAIA fragmented state
@@ -53,6 +55,7 @@
 - ✅ v0.4.0 - VULCAN creator operational
 - ✅ v0.4.3 - ARGUS (Mental Models + Subconscious) + LOOM/MNEMIS complete
 - ✅ v0.5.0 - Phase 2 complete (59 models, layered explainability)
+- ✅ v0.5.1 - GECO v1.1.0 (ARGUS dashboard fixes, 17-project registry, WARDEN/RAVEN/ABIS/DOS/AURORA defined)
 - ✅ v1.0.0 - Phase 3 complete (memory hierarchy, workflow engine)
 
 ---
@@ -67,11 +70,13 @@
 | **ARGUS** | Monitoring & Telemetry | v0.5.0 ✅ | Greek 100-eyed watchman |
 | **MYCEL** | Shared Intelligence Library | v0.3.1 ✅ | Mycelium -- nature's neural network |
 | **MNEMIS** | Cross-Project Memory | v1.0.0 ✅ | Mnemosyne, titan of memory |
-| **WARDEN** | Governance & Enforcement | v0.0.0 (planned) | Forest guardian |
-| **RAVEN** | Research Agent | v0.0.0 (deferred) | Odin's knowledge-gathering ravens |
-| **ECHO** | ChatGPT Archaeology | v0.1.0 (stale) | Echoes past conversations |
+| **WARDEN** | Governance & Enforcement | v0.3.0 ✅ | Forest guardian |
+| **RAVEN** | Research Agent | v0.1.0 (defined) | Odin's knowledge-gathering ravens |
+| **GPT_ECHO** | ChatGPT Archaeology (Product) | v0.1.0 (stale) | Echoes past conversations |
+| **ABIS** | No-Code Agent System Builder | v0.0.1 (planning) | Agentic Builder & Integration System |
+| **AURORA** | UX/UI Lead | v0.1.0 (development) | Aurora, goddess of dawn |
 
-**Existing Projects (Keep Names):** HART OS, VIA, DATA FORGE, THE PALACE
+**Existing Projects (Keep Names):** HART OS, VIA, DATA FORGE, THE PALACE, Waymo Data, DOS, jSeeker, GPT_ECHO
 
 ---
 
@@ -121,12 +126,75 @@ Decision gates     structure   Self-healing     Cross-project
 - **Output:** Growth rung-aligned explanations, pattern detection, model selection
 - **Status:** v0.5.0 operational (mental models, subconscious layer, explainability system)
 
-**Shared Layer (MYCEL, MNEMIS, WARDEN, RAVEN)**
+**Shared Layer (8 Services: MYCEL, MNEMIS, WARDEN, RAVEN, ARGUS, LOOM, VULCAN, ABIS)**
 - **MYCEL:** Unified LLM clients (OpenAI, Anthropic, Gemini), configuration, chunking, retrieval
 - **MNEMIS:** Cross-project memory with promotion discipline (v1.0.0 - 5-tier hierarchy, contracts enforced)
 - **WARDEN:** Governance, compliance enforcement, git/test/secrets validation
 - **RAVEN:** Research agent for ad-hoc investigations (deferred)
-- **ARGUS Subconscious:** External memory, pattern detection, model library (59 models)
+- **ARGUS:** Monitoring, mental models (59), subconscious layer, pattern detection
+- **LOOM:** Workflow engine, agent authority, execution state management
+- **VULCAN:** Project creator, The Forge, scaffolding with GAIA compliance
+- **ABIS:** Visual system builder, no-code agent editor (planned)
+
+### WARDEN — Governance & Enforcement (Planned)
+- **Purpose:** Constitutional compliance enforcement
+- **Enforcement Model:** Hard blocks (secrets in code, missing .gitignore) + Soft warnings (missing tests, stale docs)
+- **Integration Points:** Pre-commit hooks, VULCAN scaffold validation, LOOM edit gates, CI/CD checks
+- **Hard Blocks:** API keys in code, missing .gitignore, broken imports
+- **Soft Warnings:** Low test coverage, outdated dependencies, missing documentation
+- **Status:** v0.0.0 — scanner.py exists but not integrated into any workflow
+
+### ABIS — Visual System Builder (Planning)
+- **Purpose:** No-code agent system builder with visual node editor
+- **Distinction from LOOM:** LOOM edits individual agents/workflows; ABIS builds entire multi-agent systems visually
+- **Tech Stack (planned):** React + React Flow (visual canvas) + Python FastAPI (graph compilation)
+- **Key Feature:** System Graph Spec v1 — canonical schema for user-designed agent systems
+- **Status:** v0.0.1 — PRD exists at `X:\Projects\ABIS\docs\ABIS-PRD_v2.0.md`
+
+---
+
+## GECO Hierarchy (Authoritative)
+
+```
+GAIA (Ecosystem Governance)
+├── Shared Services (8)
+│   ├── ARGUS      (Monitoring, Mental Models, Subconscious)
+│   ├── LOOM       (Workflow Engine, Agent Editor)
+│   ├── MNEMIS     (Memory Hierarchy, Cross-Project Learning)
+│   ├── MYCEL      (LLM Clients, Config, RAG Intelligence)
+│   ├── RAVEN      (Research Agent — planned)
+│   ├── VULCAN     (Project Creator, The Forge)
+│   ├── WARDEN     (Governance, Compliance)
+│   └── ABIS       (Visual System Builder, No-Code Agent Editor)
+│
+├── Products (8)
+│   ├── HART OS    (Therapy Assistant, v6.2.8)
+│   ├── VIA        (Investment Research, v6.4)
+│   ├── DATA FORGE (Data Processing, v1.1)
+│   ├── The Palace (Case Study, v1.0)
+│   ├── Waymo Data (Reference Dataset)
+│   ├── DOS        (Multi-Agent Decision System)
+│   ├── jSeeker    (Job Seeking & Resume Adaptation, formerly PROTEUS)
+│   └── GPT_ECHO   (ChatGPT Archaeology & Search, v0.1.0 stale)
+│
+└── Python Tools (Standalone utilities)
+```
+
+**Key distinction:** Shared services live under `X:\Projects\_GAIA\_*`. Products live at `X:\Projects\*` (root level). jSeeker will be moved from `_GAIA/_PROTEUS/` to `X:\Projects\jSeeker/` during cleanup.
+
+---
+
+## Operational Metrics (Current State)
+
+| Metric | Current | Target | Gap |
+|--------|---------|--------|-----|
+| CLAUDE.md Coverage | 4/13 modules (31%) | 100% | 69% |
+| Git Remotes | 1/15 projects | 100% | 93% |
+| WARDEN Enforcement | 0% | Hard blocks active | 100% |
+| LLM Cost Visibility | jSeeker only | All products | 85% |
+| ARGUS Telemetry | 1/9 services | All services | 89% |
+| CI/CD Pipelines | 0 | Core services | 100% |
+| Pre-commit Hooks | 0 | All modules | 100% |
 
 ---
 
@@ -202,6 +270,17 @@ Decision gates     structure   Self-healing     Cross-project
 - Glass-box explainability integrated into workflow execution
 - End-to-end workflow: create in VULCAN > edit in LOOM > monitor in ARGUS
 
+### Planned Versions
+
+**v1.1.0 - GECO Consolidation (February 2026)**
+- Add ABIS to shared services (visual system builder)
+- Add DOS to products (multi-agent decision system)
+- Rename PROTEUS → jSeeker, reclassify as product
+- Master cleanup: consolidate folder structure
+- Deploy pre-commit hooks ecosystem-wide
+- Push core services to GitHub
+- WARDEN Phase 1: pre-commit enforcement
+
 ---
 
 ## Current Ecosystem State
@@ -261,7 +340,7 @@ X:\Projects\
 │   ├── tests/                   # 137 tests, 85% coverage
 │   └── docs/                    # 31,000+ lines of documentation
 │
-├── ABIS/                        # PHASE 2 & 3: ARGUS + LOOM + MNEMIS
+├── ABIS/                        # PHASE 2 & 3: ARGUS + LOOM + MNEMIS + Visual Builder
 │   ├── argus/                   # Mental Model Library & Subconscious
 │   │   ├── mental_models/       # 59 models across 6 categories
 │   │   ├── subconscious/        # External memory & pattern detection
@@ -269,13 +348,17 @@ X:\Projects\
 │   ├── loom/                    # Workflow Engine
 │   │   ├── workflow/            # Agent authority & execution
 │   │   └── state/               # State management
-│   └── mnemis/                  # Memory Hierarchy
-│       ├── memory_manager.py    # 5-tier promotion protocol
-│       └── contracts/           # Runtime enforcement
+│   ├── mnemis/                  # Memory Hierarchy
+│   │   ├── memory_manager.py    # 5-tier promotion protocol
+│   │   └── contracts/           # Runtime enforcement
+│   └── docs/                    # ABIS PRD (visual system builder planning)
 │
 ├── hart_os/                     # Production therapy assistant
 ├── via/                         # Production investment research
 ├── data_forge/                  # Production data processing
+├── jSeeker/                     # Product: Job seeking & resume adaptation (formerly PROTEUS)
+├── dos/                         # Product: Multi-agent decision system
+├── waymo_data/                  # Product: Reference dataset
 ├── echo/                        # Stale chat archaeology
 └── the_palace/                  # Complete case study
 ```

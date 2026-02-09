@@ -1,0 +1,53 @@
+GAIA debugging and meta learning
+
+Main Claude install:
+C:\Users\Fede\.claude\
+
+GAIA project:
+X:\Projects\_GAIA
+
+Full debug report with 5 shortcomings analysis is in the plan file at: 
+C:\Users\Fede\.claude\plans\tender-hatching-pixel.md
+
+GAIA ECOSYSTEM = GAIA + modules + agents + sub agents
+GECO = GAIA ECOSYSTEM
+
+Where is the official GAIA PRD?
+
+Current user state:
+The main user is non technical and finds many challenges and pain points running and understanding errors from GAIA.
+While the user's understanding is that GAIA is being built and tested slowly before full deployment, issues arise from
+running different GAIA modules:
+
+The user finds that whenever working with GAIA, GAIA Agents:, ECHO, MYCEL, PROTEUS, etc.. 
+1. Coding errors persist. Examples: Bad syntax, pycache after bulks edit, stale processes, and more 
+2. Instructions and task assignment enforcement errors persist, sub agents don't follow rules, tasks, tools, mcps, python plug ins are not being sourced or recorded to memory and if they they are not enforced, or the user has no idea how to check, no visibility. 
+3. Inefficient use of models and model speed selection remain black box, monitoring agents and subagents is not being tracked or shown on a visual dashboard via ARGUS.
+4. Do agents working on GAIA follow Test driven development and best practices (TDD). How are these enforeced?
+5. User finds that Agent cannot fulfill all feedback requirements, it gets lazy, it does not break entire feedback loops into small chunks and tasks. So many times it will forget to address ongoing bugs or errors.
+6. How does GAIA and agents learn from there mistakes? how do they get better and how do they enforce new knowledge?
+7. Where is the official GAIA PRD to hand over to ENG, UX and PRODUCT teams.
+8. Can GECO breakdown huge projects into mvp and phased development, how does GAIA plan? track and learn?
+9. How can GECO not cheat and ensure high threshold marks for passing tests. Avod lazy LLM
+10.How does GECO prevent degradation or regressions?
+11. I have provided many GITHUB and URL references to best practices, where are these stored?
+12. Does GECO carry out Spec drive dev?
+13. How does GECO carry out background tasks
+14. How does GECO reduce context over head, does it have an MCP tool search or rules? how does it enforce it.
+15. Are MCP servers added
+16. Does GECO have a list of Skills and how doe they get enforced? Does it perform auto skill discovery?
+17. Does GECO use progressive disclosure principles (token management)
+18. Does GECO learn from interacting with the user?
+19. Where are Hooks and hook events and are they enforced through out the GECO
+20. How does GECO show context, so user can see exactly where tokes are going?
+21. Does the GECO have a GitHub REPO?
+
+The main user frustrations include long planning sessions that lead to plan documents but not connected ecosystems of agents that actually produce the work. 
+
+Dont simulate the answers, trace them to processes and documentation, show if the yare missing or if not how they are registered and enforced, if processes are missing a link in the chain of execution, mark it clearly. 
+
+Create an analysis Matrix that answers EACH and every single query, no just the 21 questions. In the Matrix show initial assumption, real state, and proposed changes, also include chain of reasoning and if failures or gaps are identified, explain why.
+
+The goal is to have clarity, governance and true state analysis of the entire GECO. 
+
+

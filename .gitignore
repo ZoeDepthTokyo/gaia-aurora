@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs and databases (runtime artifacts)
+logs/*.db
+logs/*.jsonl
+*.db-journal
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.test_tmp/
+.pytest_tmp/
+
+# Large data directories (belong in their own repos)
+_ECHO/
+
+# Claude Code local state
+.claude/

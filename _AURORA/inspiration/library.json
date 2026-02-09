@@ -1,0 +1,86 @@
+{
+  "$schema": "aurora-inspiration-v1",
+  "$version": "0.1.0",
+  "references": [
+    {
+      "id": "ref-001",
+      "url": "https://godly.website",
+      "name": "Godly.website",
+      "tags": ["landing-pages", "premium-design", "animation"],
+      "screenshot": null,
+      "notes": "Curated gallery of premium web designs. Great for landing page inspiration.",
+      "used_by": [],
+      "added": "2026-02-09"
+    },
+    {
+      "id": "ref-002",
+      "url": "https://dribbble.com",
+      "name": "Dribbble",
+      "tags": ["ui-design", "components", "dashboards", "mobile"],
+      "screenshot": null,
+      "notes": "Design community with high-quality UI shots. Filter by 'Product Design' and 'Web Design'.",
+      "used_by": [],
+      "added": "2026-02-09"
+    },
+    {
+      "id": "ref-003",
+      "url": "https://www.awwwards.com",
+      "name": "Awwwards",
+      "tags": ["premium-design", "animation", "interaction"],
+      "screenshot": null,
+      "notes": "Award-winning websites. Focus on Sites of the Day for top-tier execution.",
+      "used_by": [],
+      "added": "2026-02-09"
+    },
+    {
+      "id": "ref-004",
+      "url": "https://21st.dev",
+      "name": "21st.dev",
+      "tags": ["components", "react", "shadcn", "tailwind"],
+      "screenshot": null,
+      "notes": "Community component library. Excellent for grabbing production-ready UI patterns.",
+      "used_by": [],
+      "added": "2026-02-09"
+    },
+    {
+      "id": "ref-005",
+      "url": "https://ui.shadcn.com",
+      "name": "shadcn/ui",
+      "tags": ["components", "react", "accessible", "design-system"],
+      "screenshot": null,
+      "notes": "Accessible component library built on Radix UI. Gold standard for component patterns.",
+      "used_by": [],
+      "added": "2026-02-09"
+    },
+    {
+      "id": "ref-006",
+      "url": "https://streamlit.io/gallery",
+      "name": "Streamlit Gallery",
+      "tags": ["streamlit", "dashboards", "data-apps"],
+      "screenshot": null,
+      "notes": "Official Streamlit showcase. Useful for understanding framework capabilities and limitations.",
+      "used_by": [],
+      "added": "2026-02-09"
+    },
+    {
+      "id": "ref-007",
+      "url": "https://openhands.dev",
+      "name": "OpenHands.dev",
+      "tags": ["node-editor", "dark-theme", "developer-tool", "canvas"],
+      "screenshot": null,
+      "notes": "Agent IDE with canvas interaction. Great reference for ABIS node editor UX.",
+      "used_by": ["abis"],
+      "added": "2026-02-09"
+    },
+    {
+      "id": "ref-008",
+      "url": "https://linear.app",
+      "name": "Linear",
+      "tags": ["project-management", "keyboard-nav", "minimal", "fast"],
+      "screenshot": null,
+      "notes": "Best-in-class keyboard-first UI. Reference for command palette, shortcuts, speed.",
+      "used_by": [],
+      "added": "2026-02-09"
+    }
+  ]
+}

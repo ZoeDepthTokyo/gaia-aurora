@@ -1,6 +1,6 @@
 {
   "$schema": "gaia-registry-v1",
-  "updated": "2026-02-04",
+  "updated": "2026-02-09",
   "projects": {
     "hart_os": {
       "name": "HART OS",
@@ -47,7 +47,7 @@
     "mycel": {
       "name": "MYCEL",
       "gaia_role": "Shared Intelligence Library",
-      "path": "X:/Projects/Python tools/rag-intelligence",
+      "path": "X:/Projects/_GAIA/_MYCEL",
       "version": "0.2.0",
       "status": "active",
       "git": true,
@@ -62,7 +62,7 @@
     "vulcan": {
       "name": "VULCAN - The Forge",
       "gaia_role": "Project Creator (The Forge)",
-      "path": "X:/Projects/vulcan",
+      "path": "X:/Projects/_GAIA/_VULCAN",
       "version": "0.4.0-dev",
       "status": "development",
       "git": true,
@@ -77,7 +77,7 @@
     "loom": {
       "name": "LOOM",
       "gaia_role": "Visual Agent Editor (The Workbench)",
-      "path": "X:/Projects/_gaia/loom",
+      "path": "X:/Projects/_GAIA/_LOOM",
       "version": "0.1.0",
       "status": "development",
       "git": true,
@@ -92,7 +92,7 @@
     "mnemis": {
       "name": "MNEMIS",
       "gaia_role": "Cross-Project Memory (Mnemosyne)",
-      "path": "X:/Projects/_gaia/mnemis",
+      "path": "X:/Projects/_GAIA/_MNEMIS",
       "version": "0.1.0",
       "status": "development",
       "git": true,
@@ -107,8 +107,8 @@
     "argus": {
       "name": "ARGUS",
       "gaia_role": "Monitoring + Kanban (The Watchman)",
-      "path": "X:/Projects/_gaia/argus",
-      "version": "0.5.0-dev",
+      "path": "X:/Projects/_GAIA/_ARGUS",
+      "version": "0.5.1",
       "status": "development",
       "git": true,
       "git_remote": null,
@@ -122,7 +122,7 @@
     "mental_models": {
       "name": "Mental Model Library",
       "gaia_role": "Decision Support Framework",
-      "path": "X:/Projects/_gaia/mental_models",
+      "path": "X:/Projects/_GAIA/mental_models",
       "version": "1.0.0",
       "status": "active",
       "git": true,
@@ -134,9 +134,10 @@
       "depends_on": [],
       "tags": ["mental-models", "decision-support", "context-aware", "pedagogical"]
     },
-    "echo": {
-      "name": "ECHO",
-      "path": "X:/Projects/Python tools/ChatGTP/chatgpt_personal_os",
+    "gpt_echo": {
+      "name": "GPT_ECHO - ChatGPT Archaeology & Search",
+      "gaia_role": "ChatGPT conversation archaeology, search, organization, and taxonomy (reclassified from shared service to product)",
+      "path": "X:/Projects/GPT_ECHO",
       "version": "0.1.0",
       "status": "stale",
       "git": false,
@@ -145,8 +146,38 @@
       "framework": "streamlit",
       "port": null,
       "providers": ["gemini"],
-      "depends_on": [],
-      "tags": ["chat-archaeology", "taxonomy", "conversation-processing"]
+      "depends_on": ["mycel"],
+      "tags": ["product", "chat-archaeology", "taxonomy", "conversation-processing", "search"]
+    },
+    "warden": {
+      "name": "WARDEN",
+      "gaia_role": "Governance & Compliance Service (pre-commit hooks, secrets scanning, validation)",
+      "path": "X:/Projects/_GAIA/_WARDEN",
+      "version": "0.3.0",
+      "status": "active",
+      "git": true,
+      "git_remote": null,
+      "python": "3.10+",
+      "framework": "library",
+      "port": null,
+      "providers": [],
+      "depends_on": ["mycel"],
+      "tags": ["security", "compliance", "validation", "guardrails"]
+    },
+    "raven": {
+      "name": "RAVEN",
+      "gaia_role": "Autonomous Research Agent (ad-hoc investigations, competitive analysis, dependency audits)",
+      "path": "X:/Projects/_GAIA/_RAVEN",
+      "version": "0.1.0",
+      "status": "defined",
+      "git": false,
+      "git_remote": null,
+      "python": "3.10+",
+      "framework": "library",
+      "port": null,
+      "providers": ["anthropic"],
+      "depends_on": ["mycel", "mnemis", "argus"],
+      "tags": ["gaia-core", "research", "autonomous-agent", "investigation", "scouting"]
     },
     "the_palace": {
       "name": "THE PALACE",
@@ -161,6 +192,66 @@
       "providers": [],
       "depends_on": [],
       "tags": ["case-study", "agents", "visualization"]
+    },
+    "jseeker": {
+      "name": "jSeeker - Job Seeking & Resume Adaptation",
+      "gaia_role": "Automated resume adaptation, ATS optimization, recruiter outreach, and application tracking (formerly PROTEUS)",
+      "path": "X:/Projects/jSeeker",
+      "version": "0.2.1",
+      "status": "active",
+      "git": true,
+      "git_remote": null,
+      "python": "3.10+",
+      "framework": "streamlit",
+      "port": null,
+      "providers": ["anthropic"],
+      "depends_on": ["mycel"],
+      "tags": ["product", "job-seeking", "resume", "ats", "automation", "document-generation"]
+    },
+    "abis": {
+      "name": "ABIS",
+      "gaia_role": "Visual System Builder (No-Code Agent Editor)",
+      "path": "X:/Projects/_GAIA/_ABIS",
+      "version": "0.0.1",
+      "status": "planning",
+      "git": false,
+      "git_remote": null,
+      "python": "3.10+",
+      "framework": "fastapi",
+      "port": null,
+      "providers": [],
+      "depends_on": ["mycel", "loom", "argus", "mnemis"],
+      "tags": ["gaia-core", "visual-editor", "no-code", "system-builder"]
+    },
+    "aurora": {
+      "name": "AURORA",
+      "gaia_role": "UX/UI Lead — Design systems, experience specifications, and frontend prototyping for GAIA ecosystem",
+      "path": "X:/Projects/_GAIA/_AURORA",
+      "version": "0.1.0",
+      "status": "development",
+      "git": false,
+      "git_remote": null,
+      "python": "3.10+",
+      "framework": "library",
+      "port": null,
+      "providers": [],
+      "depends_on": ["mnemis"],
+      "tags": ["gaia-core", "ux-ui", "design-system", "prototyping", "figma", "user-experience"]
+    },
+    "dos": {
+      "name": "DOS",
+      "gaia_role": "Multi-Agent Decision System",
+      "path": "X:/Projects/DOS",
+      "version": "0.0.1",
+      "status": "planning",
+      "git": false,
+      "git_remote": null,
+      "python": "3.10+",
+      "framework": "streamlit",
+      "port": null,
+      "providers": ["anthropic", "openai"],
+      "depends_on": ["mycel", "mnemis", "argus"],
+      "tags": ["product", "multi-agent", "decision-system", "synthesis"]
     }
   }
 }
