@@ -1,0 +1,24 @@
+[submodule "_ABIS"]
+	path = _ABIS
+	url = https://github.com/ZoeDepthTokyo/gaia-abis.git
+[submodule "_ARGUS"]
+	path = _ARGUS
+	url = https://github.com/ZoeDepthTokyo/gaia-argus.git
+[submodule "_LOOM"]
+	path = _LOOM
+	url = https://github.com/ZoeDepthTokyo/gaia-loom.git
+[submodule "_MNEMIS"]
+	path = _MNEMIS
+	url = https://github.com/ZoeDepthTokyo/gaia-mnemis.git
+[submodule "_MYCEL"]
+	path = _MYCEL
+	url = https://github.com/ZoeDepthTokyo/gaia-mycel.git
+[submodule "_RAVEN"]
+	path = _RAVEN
+	url = https://github.com/ZoeDepthTokyo/gaia-raven.git
+[submodule "_VULCAN"]
+	path = _VULCAN
+	url = https://github.com/ZoeDepthTokyo/gaia-vulcan.git
+[submodule "_WARDEN"]
+	path = _WARDEN
+	url = https://github.com/ZoeDepthTokyo/gaia-warden.git
