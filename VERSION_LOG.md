@@ -376,6 +376,52 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 
 ---
 
+## v0.5.2 - GECO Enforcement Sprint (Feb 9, 2026) [COMPLETE]
+
+**Session:** f2fa2749 | **Agent:** Claude Opus 4.6 + 6 parallel subagents
+
+**GitHub Deployment:**
+- GAIA parent repo pushed to https://github.com/ZoeDepthTokyo/GAIA (public)
+- 8 sub-component repos created and pushed (private): gaia-abis, gaia-argus, gaia-loom, gaia-mnemis, gaia-mycel, gaia-raven, gaia-vulcan, gaia-warden
+- All 8 registered as git submodules in parent repo
+- Registry updated with `git_remote` URLs for all sub-components
+
+**CI/CD Pipelines Created (GitHub Actions):**
+- MYCEL: pytest + coverage (80% min) + ruff lint, Python 3.10/3.12
+- ARGUS: pytest + import checks + ruff lint
+- VULCAN: pytest + coverage (60% min) + ruff lint
+- WARDEN: pytest + ruff lint (tests newly created)
+
+**Pre-commit Hooks Activated:**
+- `pre-commit install` run in all 9 repos (GAIA root + 8 sub-components)
+- Hooks enforce: trailing whitespace, YAML/JSON validation, ruff lint
+
+**WARDEN Test Suite Created:**
+- tests/test_scanner.py — compliance scanner tests
+- tests/test_cli.py — CLI interface tests
+- tests/conftest.py — shared fixtures
+
+**Shared Logging Standard:**
+- docs/LOGGING_STANDARD.md — ecosystem logging conventions
+- Logging config module for reusable setup across components
+
+**README.md:**
+- Professional GitHub landing page with architecture overview, component table, submodule links
+
+**GECO Audit Progress:**
+- Resolved: Q1, Q4, Q9, Q10, Q19, Q21 (6 items)
+- Partially addressed: Q2, Q7, Q24, Q25 (4 items)
+- Total addressed: 10 of 27 (37%) — up from 2 of 27 (7%)
+- Remaining: 17 of 27
+
+**Deliverables:**
+- 4 CI/CD workflow files (.github/workflows/ci.yml)
+- 3 WARDEN test files
+- 1 README.md, 1 LOGGING_STANDARD.md, 1 logging_config module
+- Registry, CALIBRATION.md, VERSION_LOG updated
+
+---
+
 ## Planned Versions (Roadmap)
 
 ---
@@ -416,9 +462,10 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 | v0.4.3  | Feb 4, 2026 | Complete | Strategic refinements + Phase 2/3 implementation (78 files, 19,796 lines) |
 | v0.5.0  | Feb 5, 2026 | Complete | ARGUS Dashboard MVP + folder restructure + WARDEN scanner + EventBus |
 | v0.5.1  | Feb 8-9, 2026 | Complete | GECO v1.1.0 + ARGUS dashboard fixes + 17-project registry |
+| v0.5.2  | Feb 9, 2026 | Complete | GECO Enforcement Sprint: GitHub deploy, CI/CD, pre-commit activation, WARDEN tests, logging standard |
 | v1.0.0  | Mar 2026 | Planned | LOOM visual editor + production readiness |
 
 ---
 
 **Maintained by:** GAIA Ecosystem Team
-**Last updated:** Feb 9, 2026 (v0.5.1 entry) UTC
+**Last updated:** Feb 9, 2026 (v0.5.2 entry, session f2fa2749) UTC

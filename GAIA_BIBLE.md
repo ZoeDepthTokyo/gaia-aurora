@@ -1,7 +1,7 @@
 # THE GAIA BIBLE
 ## Constitutional Document for the GAIA Ecosystem
 
-**Status:** Phase 2 & 3 Complete ✅ | GAIA v0.5.1 | Last Updated: February 9, 2026
+**Status:** Phase 2 & 3 Complete ✅ | GAIA v0.5.2 | Last Updated: February 9, 2026
 
 ---
 
