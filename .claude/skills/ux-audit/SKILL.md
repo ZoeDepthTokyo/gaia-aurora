@@ -1,0 +1,316 @@
+---
+name: ux-audit
+description: Comprehensive UX audit using AURORA's 7-pass analysis framework
+disable-model-invocation: false
+---
+
+# UX Audit
+
+Performs AURORA's 7-pass UX analysis on any GAIA component or external product. Identifies usability issues, accessibility gaps, and UX improvements aligned with GAIA constitutional principles.
+
+## Usage
+```
+/ux-audit <component_name> [--pass <1-7>] [--export-report]
+/ux-audit --url <demo_url> [--screenshot]
+```
+
+## AURORA's 7-Pass Analysis Framework
+
+### Pass 1: Mental Model Alignment
+**Question**: What does the user THINK should happen?
+
+**Checks**:
+- Does UI match user's conceptual model?
+- Are actions where users expect them?
+- Does terminology align with domain language?
+- Are outcomes predictable?
+
+**Output**: Mental model gaps and misalignments
+
+### Pass 2: Information Architecture
+**Question**: How are concepts organized?
+
+**Checks**:
+- Is navigation intuitive?
+- Are groupings logical?
+- Is hierarchy clear (primary vs secondary actions)?
+- Can users find what they need in <3 clicks?
+
+**Output**: IA issues, navigation bottlenecks
+
+### Pass 3: Affordance & Action
+**Question**: How do we signal interactivity?
+
+**Checks**:
+- Are clickable elements obvious?
+- Do buttons look like buttons?
+- Is hover state clear?
+- Are disabled states distinguishable?
+
+**Output**: Affordance violations, unclear interactions
+
+### Pass 4: Progressive Disclosure
+**Question**: What shows immediately vs on-demand?
+
+**Checks**:
+- Is complexity hidden until needed?
+- Are advanced features accessible but not overwhelming?
+- Does primary path stay clear?
+- Are details available on hover/expand?
+
+**Output**: Information overload, buried features
+
+### Pass 5: System Feedback
+**Question**: How does the system communicate state?
+
+**Checks**:
+- Empty states: Are they helpful?
+- Loading states: Is progress clear?
+- Error states: Are errors actionable?
+- Success states: Is completion confirmed?
+
+**Output**: Missing feedback, unhelpful error messages
+
+### Pass 6: Interaction Patterns
+**Question**: How do mouse, keyboard, touch, and responsive work?
+
+**Checks**:
+- Keyboard navigation: Can user tab through all actions?
+- Touch targets: Are they ≥44x44px?
+- Responsive: Does it work on mobile/tablet/desktop?
+- Shortcuts: Are power-user shortcuts available?
+
+**Output**: Interaction gaps, poor responsive behavior
+
+### Pass 7: Accessibility (WCAG 2.1 AA)
+**Question**: Can everyone use this?
+
+**Checks**:
+- Color contrast: Text readable for low vision?
+- Screen reader: Semantic HTML, ARIA labels?
+- Keyboard-only: Can user complete all tasks?
+- Focus indicators: Are they visible?
+
+**Output**: WCAG violations, accessibility blockers
+
+## Process
+
+1. **Component Discovery**
+   - Identify UI files (Streamlit, HTML, or screenshot)
+   - Load CLAUDE.md for context
+   - Understand component role in GAIA
+
+2. **Run 7 Passes**
+   - Execute each pass sequentially
+   - Document findings with severity (Critical/High/Medium/Low)
+   - Screenshot examples (if applicable)
+
+3. **GAIA Constitutional Validation**
+   - Glass-box: Is reasoning visible?
+   - HITL: Are destructive actions gated?
+   - Progressive trust: Does complexity scale?
+   - Sovereignty: Can user override?
+
+4. **Generate Report**
+   - Executive summary
+   - Pass-by-pass findings
+   - Prioritized recommendations
+   - Wireframe suggestions (if needed)
+
+## Example Output
+
+```
+UX Audit Report: _ARGUS Dashboard
+==================================
+
+Component: ARGUS Streamlit Dashboard (v0.5.1)
+Auditor: AURORA UX/UI Lead
+Date: Feb 9, 2026
+Framework: 7-Pass Analysis
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Executive Summary
+─────────────────
+Overall Score: 72/100 (B-)
+
+Strengths:
+✅ Mental models well-integrated
+✅ Glass-box transparency (reasoning visible)
+✅ Good keyboard navigation
+
+Issues Found:
+🔴 1 Critical: No loading state during pattern detection
+🟠 3 High: Navigation not intuitive, buried features
+🟡 5 Medium: Color contrast issues, missing hover states
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Pass 1: Mental Model Alignment (Score: 8/10)
+─────────────────────────────────────────────
+
+✅ PASS: Dashboard metaphor matches user expectations
+✅ PASS: Mental model library terminology consistent
+⚠️  ISSUE [Medium]: "Subconscious Layer" confusing for non-technical users
+   → Suggest: Rename to "Pattern Detection" or add tooltip
+
+Pass 2: Information Architecture (Score: 6/10)
+───────────────────────────────────────────────
+
+🔴 ISSUE [High]: Primary features buried 3 levels deep
+   - Scenario runner hidden in sidebar
+   - Users expect it as main dashboard tab
+   → Fix: Promote to top-level navigation
+
+🟠 ISSUE [High]: No clear "home" or default view
+   → Fix: Dashboard should default to ecosystem overview
+
+✅ PASS: Sidebar navigation grouping logical
+
+Pass 3: Affordance & Action (Score: 7/10)
+──────────────────────────────────────────
+
+⚠️  ISSUE [Medium]: Buttons lack hover states
+   - "Run Scenario" button doesn't change on hover
+   → Fix: Add st.button(..., use_container_width=True, type="primary")
+
+⚠️  ISSUE [Medium]: Disabled states unclear
+   - Grayed-out buttons look clickable
+   → Fix: Add explicit "disabled" visual treatment
+
+Pass 4: Progressive Disclosure (Score: 8/10)
+─────────────────────────────────────────────
+
+✅ PASS: Advanced options hidden in expanders
+✅ PASS: Mental model details on-demand
+⚠️  ISSUE [Low]: Too many expanders on one screen
+   → Suggest: Group related expanders into tabs
+
+Pass 5: System Feedback (Score: 4/10)
+──────────────────────────────────────
+
+🔴 ISSUE [Critical]: No loading state during pattern detection
+   - Users don't know if system is working or frozen
+   → Fix: Add st.spinner("Detecting patterns...") or progress bar
+
+🟠 ISSUE [High]: Empty state unhelpful
+   - When no patterns detected: shows blank table
+   → Fix: Add friendly empty state: "No patterns detected yet. Try running a scenario."
+
+🟠 ISSUE [High]: Error messages too technical
+   - Shows Python stack traces to users
+   → Fix: Catch exceptions, show user-friendly messages
+
+Pass 6: Interaction Patterns (Score: 7/10)
+───────────────────────────────────────────
+
+✅ PASS: Keyboard navigation works (tab through sidebar)
+⚠️  ISSUE [Medium]: No mobile responsive testing
+   - Dashboard likely breaks on tablet/mobile
+   → Note: Streamlit dashboards typically desktop-only (acceptable)
+
+✅ PASS: Touch targets adequate (Streamlit defaults)
+
+Pass 7: Accessibility (WCAG 2.1 AA) (Score: 6/10)
+──────────────────────────────────────────────────
+
+🟠 ISSUE [High]: Color contrast failures
+   - Light gray text on white background (ratio 2.1:1, needs 4.5:1)
+   → Fix: Use st.markdown with darker colors
+
+⚠️  ISSUE [Medium]: Missing alt text on visualizations
+   - Ecosystem graph has no text alternative
+   → Fix: Add ARIA labels or text description
+
+✅ PASS: Semantic HTML (Streamlit generates good structure)
+✅ PASS: Focus indicators visible
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Constitutional Compliance
+─────────────────────────
+
+✅ Glass-box Transparency: Pattern reasoning visible
+✅ Human-in-Loop: No autonomous actions (read-only)
+✅ Progressive Trust: Advanced features hidden initially
+⚠️  Sovereignty: User can't override mental model selection
+   → Suggest: Add manual model selection override
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Prioritized Recommendations
+────────────────────────────
+
+🔥 Must Fix (Before Next Release)
+1. Add loading spinner during pattern detection
+2. Improve empty state messaging
+3. Fix color contrast (WCAG violation)
+
+🎯 Should Fix (This Sprint)
+4. Promote scenario runner to top-level nav
+5. Add default "home" dashboard view
+6. Catch errors and show user-friendly messages
+
+💡 Nice to Have (Backlog)
+7. Add hover states to all buttons
+8. Group expanders into tabs for better organization
+9. Add alt text to visualizations
+10. Allow manual mental model override
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Next Steps
+──────────
+
+1. Share report with ARGUS team
+2. Create GitHub issues for Must Fix items
+3. Schedule design review with AURORA
+4. Re-audit after fixes implemented
+
+Report saved to: _ARGUS/docs/UX_AUDIT_2026-02-09.md
+```
+
+## Options
+
+- `--pass <1-7>`: Run only specific pass (for focused audits)
+- `--export-report`: Save markdown report to component's docs/
+- `--url <demo_url>`: Audit external URL (requires screenshots)
+- `--screenshot`: Capture screenshots for visual issues
+- `--wcag-only`: Run only Pass 7 (accessibility)
+
+## Integration
+
+### With AURORA Agent
+```
+claude --agent aurora-ux-lead
+/ux-audit _ARGUS
+```
+
+### With Design Review
+```
+/ux-audit _VULCAN
+/design-review _VULCAN --findings ux_audit_report.md
+```
+
+### Before Launch
+```
+# Pre-launch UX checklist
+/ux-audit <component>
+/accessibility-check <component>
+```
+
+## Anti-Patterns Detected
+
+AURORA automatically flags common anti-patterns:
+- ANTI-001: Too many clicks (jSeeker v0.1.0)
+- ANTI-002: Hidden primary actions
+- ANTI-003: No loading feedback
+- ANTI-004: Technical error messages shown to users
+- ANTI-005: Poor color contrast
+
+## Output Artifacts
+
+- Markdown report (detailed findings)
+- Issue list (GitHub-ready)
+- Wireframe suggestions (if needed)
+- Before/after mockups (for critical fixes)

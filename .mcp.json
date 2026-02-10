@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "$(gh auth token)"
+      },
+      "description": "Multi-repo management for GAIA submodules (PRs, issues, CI status)"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "description": "Live documentation for Anthropic SDK, Streamlit, Pydantic, PyYAML"
+    }
+  }
+}
