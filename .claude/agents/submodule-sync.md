@@ -1,3 +1,7 @@
+---
+name: submodule-sync
+---
+
 # Submodule Sync Coordinator
 
 Manages git submodule updates across GAIA ecosystem. Handles batch updates, conflict detection, and sync reporting for 8+ submodules.

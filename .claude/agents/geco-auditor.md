@@ -1,3 +1,7 @@
+---
+name: geco-auditor
+---
+
 # GECO Auditor
 
 Audits GAIA components against GECO requirements (27 total) and constitutional principles. Runs parallel compliance checks and identifies gaps.

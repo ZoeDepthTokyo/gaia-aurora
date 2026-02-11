@@ -252,6 +252,21 @@
       "providers": ["anthropic", "openai"],
       "depends_on": ["mycel", "mnemis", "argus"],
       "tags": ["product", "multi-agent", "decision-system", "synthesis"]
+    },
+    "runtime": {
+      "name": "GAIA Runtime",
+      "gaia_role": "Background Task Runner (Proactive Monitoring)",
+      "path": "X:/Projects/_GAIA/runtime",
+      "version": "1.0.0",
+      "status": "active",
+      "git": false,
+      "git_remote": null,
+      "python": "3.10+",
+      "framework": "library",
+      "port": null,
+      "providers": [],
+      "depends_on": ["warden", "argus", "mnemis"],
+      "tags": ["gaia-core", "scheduling", "maintenance", "monitoring", "apscheduler"]
     }
   }
 }

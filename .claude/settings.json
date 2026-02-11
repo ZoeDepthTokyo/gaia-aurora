@@ -4,20 +4,32 @@
       {
         "pattern": "Edit|Write",
         "pathPattern": "\\.py$",
-        "command": "ruff format {{path}}",
-        "continueOnError": true
+        "hooks": [
+          {
+            "command": "ruff format {{path}}",
+            "continueOnError": true
+          }
+        ]
       }
     ],
     "PreToolUse": [
       {
         "pattern": "Edit|Write",
         "pathPattern": "registry\\.json$",
-        "command": "echo '⚠️  BLOCKED: Use /registry-sync skill or manually validate with WARDEN after edit. Run: python -m warden.cli validate' && exit 1"
+        "hooks": [
+          {
+            "command": "echo '⚠️  BLOCKED: Use /registry-sync skill or manually validate with WARDEN after edit. Run: python -m warden.cli validate' && exit 1"
+          }
+        ]
       },
       {
         "pattern": "Edit|Write",
         "pathPattern": "GAIA_BIBLE\\.md$",
-        "command": "echo '⚠️  WARNING: Editing constitutional document. Ensure GECO compliance.' && exit 0"
+        "hooks": [
+          {
+            "command": "echo '⚠️  WARNING: Editing constitutional document. Ensure GECO compliance.' && exit 0"
+          }
+        ]
       }
     ]
   },
