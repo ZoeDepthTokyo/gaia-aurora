@@ -34,6 +34,7 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+        exclude: '^_ECHO/|^_PROTEUS_ARCHIVED/'
 
       - id: no-env-files
         name: Prevent .env commits

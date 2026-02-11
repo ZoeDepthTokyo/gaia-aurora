@@ -1,0 +1,58 @@
+{
+  "icons": {
+    "sizes": {
+      "xs": "12px",
+      "sm": "16px",
+      "md": "20px",
+      "lg": "24px",
+      "xl": "32px",
+      "xxl": "48px"
+    },
+    "strokeWidth": {
+      "thin": "1px",
+      "default": "2px",
+      "thick": "2.5px"
+    },
+    "usage": {
+      "xs": "Inline with caption text, tight spaces, data density",
+      "sm": "Inline with body text, list items, compact UI",
+      "md": "Form inputs, buttons, navigation items, default size",
+      "lg": "Section headers, feature highlights, primary actions",
+      "xl": "Page headers, empty states, prominent features",
+      "xxl": "Hero sections, large empty states, onboarding"
+    },
+    "semantic": {
+      "inline": {
+        "size": "16px",
+        "description": "Icons that appear inline with text (body or caption)"
+      },
+      "button": {
+        "size": "20px",
+        "description": "Icons inside buttons, links, interactive elements"
+      },
+      "navigation": {
+        "size": "20px",
+        "description": "Sidebar navigation, menu items, tabs"
+      },
+      "status": {
+        "size": "16px",
+        "description": "Status indicators, badges, tags alongside text"
+      },
+      "header": {
+        "size": "24px",
+        "description": "Section headers, page titles, feature callouts"
+      },
+      "empty": {
+        "size": "48px",
+        "description": "Empty states, placeholders, onboarding screens"
+      }
+    },
+    "library": "lucide-react",
+    "notes": {
+      "consistency": "Use md (20px) for most interactive elements to maintain visual hierarchy",
+      "alignment": "Icons should vertically align with adjacent text using flexbox",
+      "color": "Icons inherit color from parent or use semantic colors for status/state",
+      "accessibility": "Always provide aria-label or sr-only text for icon-only buttons"
+    }
+  }
+}

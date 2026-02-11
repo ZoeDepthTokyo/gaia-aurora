@@ -1,0 +1,62 @@
+{
+  "typography": {
+    "fontFamily": {
+      "system": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+      "mono": "'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace"
+    },
+    "fontSize": {
+      "h1": "32px",
+      "h2": "24px",
+      "h3": "18px",
+      "bodyL": "16px",
+      "body": "14px",
+      "caption": "12px",
+      "metric": "32px"
+    },
+    "fontWeight": {
+      "h1": 700,
+      "h2": 600,
+      "h3": 600,
+      "bodyL": 400,
+      "body": 400,
+      "caption": 400,
+      "metric": 700,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "lineHeight": {
+      "h1": "40px",
+      "h2": "32px",
+      "h3": "24px",
+      "bodyL": "24px",
+      "body": "20px",
+      "caption": "16px",
+      "metric": "40px",
+      "tight": "1.25",
+      "normal": "1.5",
+      "relaxed": "1.75"
+    },
+    "letterSpacing": {
+      "tight": "-0.02em",
+      "normal": "0",
+      "wide": "0.02em",
+      "uppercase": "0.05em"
+    },
+    "usage": {
+      "h1": "Page titles, primary headings",
+      "h2": "Section headers, card titles",
+      "h3": "Subsection headers, form labels",
+      "bodyL": "Primary body text, form inputs (desktop)",
+      "body": "Default body text, table cells, buttons",
+      "caption": "Helper text, timestamps, metadata",
+      "metric": "Cost displays, progress percentages, key numbers"
+    },
+    "notes": {
+      "minFontSize": "12px - minimum for accessibility compliance",
+      "systemFonts": "Using system font stack for performance and native feel",
+      "fixedLineHeights": "Fixed pixel values ensure predictable vertical rhythm and spacing",
+      "metricStyle": "Bold, large numbers for scanning operational data (costs, counts, percentages)"
+    }
+  }
+}

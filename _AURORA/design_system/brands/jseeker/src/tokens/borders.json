@@ -1,0 +1,67 @@
+{
+  "borders": {
+    "width": {
+      "none": "0px",
+      "thin": "1px",
+      "medium": "2px",
+      "thick": "4px"
+    },
+    "radius": {
+      "none": "0px",
+      "sm": "4px",
+      "md": "8px",
+      "lg": "12px",
+      "xl": "16px",
+      "full": "9999px"
+    },
+    "semantic": {
+      "card": {
+        "width": "1px",
+        "radius": "8px",
+        "description": "Standard card containers, list items, content blocks"
+      },
+      "input": {
+        "width": "1px",
+        "widthFocus": "2px",
+        "radius": "8px",
+        "description": "Text inputs, textareas, form controls. Focus state uses medium border."
+      },
+      "button": {
+        "width": "1px",
+        "radius": "8px",
+        "description": "Primary and secondary buttons, CTAs"
+      },
+      "badge": {
+        "width": "0px",
+        "radius": "12px",
+        "description": "Status badges, pills, tags. No border, high border radius for pill shape."
+      },
+      "modal": {
+        "width": "0px",
+        "radius": "12px",
+        "description": "Dialogs, modals, overlays. No border, relies on shadow for separation."
+      },
+      "avatar": {
+        "width": "1px",
+        "radius": "9999px",
+        "description": "User avatars, profile images. Full radius for perfect circle."
+      }
+    },
+    "usage": {
+      "none": "Remove all borders, flush designs",
+      "thin": "Default for cards, inputs, separators, most UI elements",
+      "medium": "Focus states, selected items, active borders, emphasis",
+      "thick": "Strong visual separation, loading indicators, progress bars",
+      "sm": "Minimal rounding, tight spaces, utility components",
+      "md": "Standard rounding for cards, buttons, inputs",
+      "lg": "Prominent rounding for modals, badges, featured cards",
+      "xl": "Maximum rounding for special components",
+      "full": "Perfect circles/pills for avatars, badges, icon buttons"
+    },
+    "notes": {
+      "consistency": "Use md (8px) radius for most components to maintain visual consistency",
+      "accessibility": "2px focus borders meet WCAG requirements for visible focus indicators",
+      "states": "Interactive elements should increase border weight on focus/active states"
+    }
+  }
+}

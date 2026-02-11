@@ -1,0 +1,74 @@
+{
+  "spacing": {
+    "scale": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "xxl": "48px"
+    },
+    "grid": {
+      "base": "4px",
+      "description": "All spacing values are multiples of 4px for consistent vertical and horizontal rhythm"
+    },
+    "responsive": {
+      "desktop": {
+        "cardPadding": "24px",
+        "sectionGap": "32px",
+        "containerPadding": "24px"
+      },
+      "tablet": {
+        "cardPadding": "16px",
+        "sectionGap": "24px",
+        "containerPadding": "16px",
+        "note": "Reduced by 33% from desktop to maintain density on smaller screens"
+      },
+      "mobile": {
+        "cardPadding": "16px",
+        "sectionGap": "16px",
+        "containerPadding": "16px",
+        "note": "Stack layouts vertically, maintain minimum touch targets (44px)"
+      }
+    },
+    "component": {
+      "buttonPadding": {
+        "horizontal": "16px",
+        "vertical": "8px"
+      },
+      "inputPadding": {
+        "horizontal": "12px",
+        "vertical": "8px"
+      },
+      "cardPadding": {
+        "compact": "12px",
+        "default": "16px",
+        "spacious": "24px"
+      },
+      "stackGap": {
+        "tight": "4px",
+        "default": "8px",
+        "loose": "16px"
+      },
+      "gridGap": {
+        "dense": "8px",
+        "default": "16px",
+        "spacious": "24px"
+      }
+    },
+    "layout": {
+      "headerHeight": "64px",
+      "sidebarWidth": "240px",
+      "maxContentWidth": "1280px",
+      "minTouchTarget": "44px"
+    },
+    "usage": {
+      "xs": "Icon spacing, badge padding, tight inline elements",
+      "sm": "Button padding (vertical), input padding, list item gaps",
+      "md": "Card padding (compact), section spacing, form field gaps",
+      "lg": "Card padding (default), component spacing, page sections",
+      "xl": "Page margins, major section breaks, modal padding",
+      "xxl": "Hero sections, empty states, maximum visual separation"
+    }
+  }
+}

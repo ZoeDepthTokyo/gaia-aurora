@@ -5,6 +5,52 @@ AURORA is the dedicated UX/UI Lead (Shared Service #9) in GAIA. It oversees desi
 
 Named after Aurora, goddess of dawn — continuous renewal, learning, illumination.
 
+## Quick Start
+1. Invoke agent: `claude --agent aurora-ux-lead`
+2. Run intake: `/aurora-intake <project_name>`
+3. Follow 6-phase workflow: intake → inspire → spec → build → refine → deploy
+4. Access design system: `design_system/master/tokens.json`
+
+## Setup & Launch
+
+### Setup
+```bash
+# From GAIA root
+cd /x/Projects/_GAIA/_AURORA
+
+# Agent is in ~/.claude/agents/aurora-ux-lead.md (already available)
+# Skills are in ~/.claude/skills/aurora-* (already available)
+
+# Verify agent availability
+claude agents list | grep aurora
+```
+
+### Usage
+```bash
+# Invoke agent directly
+claude --agent aurora-ux-lead
+
+# Or use skills from any context
+/aurora-intake project-name
+/aurora-inspire project-name
+/aurora-spec project-name
+/aurora-build project-name
+/aurora-refine project-name
+/aurora-deploy project-name
+```
+
+### Design System Access
+```bash
+# View master design tokens
+cat design_system/master/tokens.json
+
+# Create new brand kit (from template)
+cp -r design_system/brands/_template design_system/brands/new-product
+
+# View inspiration library
+cat inspiration/library.json
+```
+
 ## Directory Structure
 ```
 _AURORA/
@@ -82,6 +128,14 @@ All designs must satisfy:
 ## Agent & Skills
 - Agent: `aurora-ux-lead` (in `~/.claude/agents/`)
 - Skills: `/aurora-intake`, `/aurora-inspire`, `/aurora-spec`, `/aurora-build`, `/aurora-refine`, `/aurora-brand`
+
+## Gotchas
+- **Agent-only workflows**: AURORA work must use the aurora-ux-lead agent, not general agents
+- **30/70 enforcement**: Master tokens (30%) cannot be overridden in brand kits
+- **Sequential phases**: Cannot skip phases in the 6-phase workflow (integrity check)
+- **MNEMIS dependency**: UX learnings require MNEMIS to be configured
+- **Figma sync**: Manual sync to Figma required (no auto-sync yet)
+- **Brand kit naming**: Must match project name in registry.json exactly
 
 ## DO NOT
 - Skip the 6-phase workflow for "quick" UI fixes
