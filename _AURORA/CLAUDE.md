@@ -1,15 +1,25 @@
 # AURORA — UX/UI Lead for GAIA Ecosystem
 
+> **Context**: Read `GAIA_MANIFEST.md` first for ecosystem state.
+> This component is part of the GAIA ecosystem. See cascade rules below.
+
 ## Role
 AURORA is the dedicated UX/UI Lead (Shared Service #9) in GAIA. It oversees design systems, creates UX specifications, manages inspiration libraries, builds prototypes, and learns from user feedback across ALL GAIA products.
 
 Named after Aurora, goddess of dawn — continuous renewal, learning, illumination.
 
 ## Quick Start
-1. Invoke agent: `claude --agent aurora-ux-lead`
-2. Run intake: `/aurora-intake <project_name>`
-3. Follow 6-phase workflow: intake → inspire → spec → build → refine → deploy
-4. Access design system: `design_system/master/tokens.json`
+1. Extract styles: `/aurora-extract-style <url>` — Learn from successful sites
+2. Generate mood board: `/aurora-mood <project>` — Creative brief + visual direction
+3. Quick design: `/aurora-quick "<description>"` — Single component in < 5 min
+4. Full workflow: `/aurora-intake` → `/aurora-mood` → `/aurora-spec` → `/aurora-build` → `/aurora-refine`
+5. Access design system: `design_system/master/tokens.json`
+
+**Version:** v0.2.0
+**Status:** Development
+**GAIA Role:** Shared Service #9 (UX/UI)
+
+**New in v0.2.0**: Creative Direction System (style extraction, mood boards, quick tasks)
 
 ## Setup & Launch
 
@@ -130,6 +140,10 @@ All designs must satisfy:
 - Skills: `/aurora-intake`, `/aurora-inspire`, `/aurora-spec`, `/aurora-build`, `/aurora-refine`, `/aurora-brand`
 
 ## Gotchas
+- **Workflow selection**: Use `/aurora-quick` for single components (< 5 min), `/aurora-mood` for creative direction, full 6-phase for complete projects
+- **Style extraction first**: Build reference library with `/aurora-extract-style` on 5-10 sites before generating mood boards
+- **Mood board checkpoints**: 3 user approvals required (brief, references, final) - don't skip them
+- **Creative direction location**: All files in `creative_direction/` (extracted_styles, mood_boards, learnings)
 - **Agent-only workflows**: AURORA work must use the aurora-ux-lead agent, not general agents
 - **30/70 enforcement**: Master tokens (30%) cannot be overridden in brand kits
 - **Sequential phases**: Cannot skip phases in the 6-phase workflow (integrity check)
@@ -142,3 +156,12 @@ All designs must satisfy:
 - Override master design tokens in brand kits (30% DNA is enforced)
 - Deploy prototypes without user approval
 - Delegate design decisions to sub-agents
+
+## When I Change
+<!-- CASCADE_MAP: machine-readable, do not edit manually -->
+- registry.json: version field → auto
+- GAIA_MANIFEST.md: component table row → auto
+- GECO_REVIEW_MATRIX.md: component row → auto
+- GAIA_PRD.md: Section 4.8 (UX/Design) → ask
+- VERSION_LOG.md: new entry → ask
+<!-- END_CASCADE_MAP -->

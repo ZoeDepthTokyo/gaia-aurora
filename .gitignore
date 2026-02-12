@@ -37,5 +37,9 @@ htmlcov/
 # Large data directories (belong in their own repos)
 _ECHO/
 
+# GAIA reconciliation state (session-local)
+.gaia_changes
+.gaia_reconcile_log
+
 # Claude Code local state
 .claude/

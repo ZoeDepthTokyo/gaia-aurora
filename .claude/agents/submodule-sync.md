@@ -1,5 +1,6 @@
 ---
 name: submodule-sync
+description: Manages git submodule updates, conflict detection, and sync reporting across GAIA ecosystem
 ---
 
 # Submodule Sync Coordinator

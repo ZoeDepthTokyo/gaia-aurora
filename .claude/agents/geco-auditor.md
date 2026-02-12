@@ -1,5 +1,6 @@
 ---
 name: geco-auditor
+description: Audits GAIA components against 27 GECO requirements and constitutional principles
 ---
 
 # GECO Auditor

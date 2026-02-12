@@ -1,0 +1,98 @@
+{
+  "$schema": "gaia-mcp-registry-v1",
+  "description": "Registry of all GAIA-native MCP servers. Each entry defines a module that can be exposed to Claude Code as a set of callable tools via the Model Context Protocol.",
+  "updated": "2026-02-09",
+  "servers": [
+    {
+      "name": "gaia-warden",
+      "module": "WARDEN",
+      "path": "_WARDEN/mcp_server.py",
+      "version": "0.3.0",
+      "status": "stub",
+      "description": "Governance & Compliance -- secrets scanning, env validation, project compliance checks.",
+      "tools": [
+        "warden_validate",
+        "warden_scan_secrets",
+        "warden_check_env"
+      ],
+      "claude_code_config": {
+        "command": "python",
+        "args": ["X:/Projects/_GAIA/_WARDEN/mcp_server.py"]
+      }
+    },
+    {
+      "name": "gaia-argus",
+      "module": "ARGUS",
+      "path": "_ARGUS/mcp_server.py",
+      "version": "0.5.1",
+      "status": "stub",
+      "description": "Monitoring & Telemetry -- event querying, health checks, ecosystem status.",
+      "tools": [
+        "argus_health_check",
+        "argus_query_events",
+        "argus_ecosystem_status"
+      ],
+      "claude_code_config": {
+        "command": "python",
+        "args": ["X:/Projects/_GAIA/_ARGUS/mcp_server.py"]
+      }
+    },
+    {
+      "name": "gaia-mnemis",
+      "module": "MNEMIS",
+      "path": "_MNEMIS/mcp_server.py",
+      "version": "0.1.0",
+      "status": "stub",
+      "description": "Cross-Project Memory -- store, retrieve, and search memories with provenance tracking.",
+      "tools": [
+        "mnemis_store_memory",
+        "mnemis_retrieve",
+        "mnemis_search"
+      ],
+      "claude_code_config": {
+        "command": "python",
+        "args": ["X:/Projects/_GAIA/_MNEMIS/mcp_server.py"]
+      }
+    },
+    {
+      "name": "gaia-mycel",
+      "module": "MYCEL",
+      "path": "_MYCEL/mcp_server.py",
+      "version": null,
+      "status": "planned",
+      "description": "Shared Intelligence Library -- embedding, querying, chunking.",
+      "tools": [
+        "mycel_embed",
+        "mycel_query",
+        "mycel_chunk"
+      ],
+      "claude_code_config": null
+    },
+    {
+      "name": "gaia-loom",
+      "module": "LOOM",
+      "path": "_LOOM/mcp_server.py",
+      "version": null,
+      "status": "planned",
+      "description": "Visual Agent Editor -- workflow listing and execution.",
+      "tools": [
+        "loom_list_workflows",
+        "loom_run_workflow"
+      ],
+      "claude_code_config": null
+    },
+    {
+      "name": "gaia-raven",
+      "module": "RAVEN",
+      "path": "_RAVEN/mcp_server.py",
+      "version": null,
+      "status": "planned",
+      "description": "Autonomous Research Agent -- ad-hoc investigations and summarization.",
+      "tools": [
+        "raven_investigate",
+        "raven_summarize"
+      ],
+      "claude_code_config": null
+    }
+  ]
+}

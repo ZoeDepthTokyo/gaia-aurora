@@ -1,7 +1,7 @@
 # GAIA - Constitutional AI Governance Framework
 
 ## Role
-GAIA is the master meta-layer orchestrating 17 AI projects with constitutional governance, shared intelligence, cross-project memory, and runtime observability. It solves fragmentation by providing unified architecture, shared components, and ecosystem-wide governance.
+GAIA is the master meta-layer orchestrating 18 projects (9 shared services + 8 products + 1 library) with constitutional governance, shared intelligence, cross-project memory, and runtime observability. It solves fragmentation by providing unified architecture, shared components, and ecosystem-wide governance.
 
 **Current Version:** v0.5.2 (Phases 1-3 Complete + GECO v1.1.0)
 
@@ -23,6 +23,23 @@ GAIA is the master meta-layer orchestrating 17 AI projects with constitutional g
 3. Run GECO audit: `grep "TODO\|FIXME" GECO_AUDIT.md`
 4. Launch ARGUS dashboard: `cd _ARGUS && streamlit run dashboard/app.py --server.port 8501`
 5. Create new project: `cd _VULCAN && streamlit run ui/main.py`
+6. Launch GAIA Simulator: `cd _ARGUS/sim && python -m streamlit run gaia_sim.py --server.port 8503`
+
+## Agent Onboarding Protocol
+
+When starting work on any GAIA component:
+
+1. **Read GAIA_MANIFEST.md** — canonical state, architecture, cascade rules (~120 lines)
+2. **Read target component CLAUDE.md** — component-specific constraints and cascade map
+3. **Check MANIFEST "Active Priorities"** — understand current focus
+4. **Before finishing**: Run `/reconcile` or remind user to run it
+
+Do NOT read GAIA_BIBLE.md, GAIA_PRD.md, or GECO_AUDIT.md unless:
+- The task specifically requires constitutional interpretation (use BIBLE)
+- The task requires product requirements detail (use PRD)
+- The task requires governance audit status (use GECO_AUDIT)
+
+If MANIFEST `last_reconciled` is more than 3 days old, run `/reconcile --dry-run` first to check for drift.
 
 ## Setup & Launch
 
@@ -77,6 +94,9 @@ cd _ARGUS && streamlit run dashboard/app.py --server.port 8501
 # VULCAN Project Creator
 cd _VULCAN && streamlit run ui/main.py
 
+# GAIA Ecosystem Simulator (test any intent against governance rules)
+cd _ARGUS/sim && python -m streamlit run gaia_sim.py --server.port 8503
+
 # Run WARDEN governance scan
 python -m warden.cli validate --project .
 ```
@@ -95,13 +115,15 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 ## Directory Structure
 ```
 _GAIA/
-├── registry.json              # 17 registered projects
+├── GAIA_MANIFEST.md          # Canonical state (~120 lines, read FIRST)
+├── registry.json              # 18 registered projects
 ├── GAIA_BIBLE.md             # Constitutional document
 ├── GAIA_PRD.md               # Product requirements
 ├── GECO_AUDIT.md             # Governance audit
 ├── GECO_REVIEW_MATRIX.md     # Implementation matrix
 ├── VERSION_LOG.md            # Version history
-├── CALIBRATION.md            # Phase completion tracking
+├── CALIBRATION.md            # Phase completion tracking (archived)
+├── runtime/                   # Background tasks + change tracker
 ├── _ARGUS/                   # Monitoring + Mental Models
 ├── _AURORA/                  # UX/UI Design Lead
 ├── _LOOM/                    # Workflow Engine
@@ -114,37 +136,7 @@ _GAIA/
 └── docs/                     # Ecosystem documentation
 ```
 
-## Constitutional Principles
-
-1. **Glass-Box Transparency** - All agent logic must be inspectable
-2. **Human-in-the-Loop** - No irreversible autonomous actions
-3. **Progressive Trust** - Complexity scales with confidence
-4. **Sovereignty** - User always has override capability
-5. **Three-Tier Memory** - Explicit promotion workflow (AGENT → PROJECT → GAIA)
-6. **Governance at Design Time** - Rules defined before execution
-
-## Shared Services (9)
-
-1. **MYCEL** - RAG Intelligence & LLM routing (v0.2.0)
-2. **VULCAN** - Project creator & scaffolder (v0.4.0-dev)
-3. **LOOM** - Visual workflow engine (v0.1.0)
-4. **MNEMIS** - Cross-project memory (v0.1.0)
-5. **ARGUS** - Monitoring & mental models (v0.5.1)
-6. **WARDEN** - Governance & compliance (v0.3.0)
-7. **RAVEN** - Autonomous research (v0.1.0 spec)
-8. **AURORA** - UX/UI design lead (v0.1.0)
-9. **Mental Model Library** - 59 decision models (v1.0.0)
-
-## Products (8)
-
-1. HART OS (v6.2.8) - Production
-2. VIA Intelligence (v6.4) - Production
-3. DATA FORGE (v1.1) - Production
-4. ABIS Visual Builder (v0.0.1) - Planning
-5. PROTEUS/jSeeker (v0.2.1) - Active development
-6. GPT_ECHO (v0.1.0) - Active
-7. Semantic RM (v2.0.8) - Production
-8. Data Cleansing RAG (v0.6) - Active
+For full component list with versions, status, and dependencies see **GAIA_MANIFEST.md** Component State Table.
 
 ## Development Workflow
 
@@ -186,6 +178,7 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 
 ## Integration Points
 
+- **Cascade Propagation**: `/reconcile` skill propagates component changes to ecosystem docs
 - **Registry**: All components read `registry.json` for ecosystem state
 - **MYCEL Bridge**: All components use MYCEL for LLM access
 - **MNEMIS Integration**: Pattern storage via memory promotion workflow
@@ -194,7 +187,8 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 
 ## Key Files
 
-- `registry.json` - Central source of truth for 17 projects
+- `GAIA_MANIFEST.md` - Canonical state document (~120 lines, read FIRST)
+- `registry.json` - Central source of truth for 18 projects
 - `GAIA_BIBLE.md` - Constitutional document (149KB, comprehensive)
 - `GECO_AUDIT.md` - Governance audit with 27 requirements
 - `GECO_REVIEW_MATRIX.md` - Implementation tracking matrix
@@ -203,9 +197,12 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 
 ## Gotchas
 
+- **Registry hook**: `registry.json` edits are BLOCKED by PreToolUse hook — get user approval first
+- **Change tracking**: Edits to `_[A-Z]+/` paths auto-log to `.gaia_changes` via PostToolUse hook
+- **Cascade maps**: Component CLAUDE.md files have `<!-- CASCADE_MAP -->` sections parsed by `/reconcile`
 - **Submodules**: Some components (_ARGUS, _MYCEL, etc.) are git submodules - use `git submodule update`
 - **MYCEL dependency**: Most projects require MYCEL installed as editable: `pip install -e _MYCEL`
-- **Port conflicts**: ARGUS uses 8501, jSeeker uses 8502, avoid collisions
+- **Port conflicts**: ARGUS=8501, jSeeker=8502, Simulator=8503 — avoid collisions
 - **Registry sync**: Manual updates to registry.json require WARDEN validation
 - **Pre-commit scope**: Root `.pre-commit-config.yaml` is template - each component has own config
 - **GECO audit**: 27 requirements, currently 10/27 resolved (v0.5.2)
@@ -213,7 +210,7 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 
 ## DO NOT
 
-- Modify registry.json without running WARDEN validation
+- Modify registry.json directly (blocked by hook) — use `/registry-sync` or get user approval
 - Skip pre-commit hooks installation for new components
 - Use Opus model at runtime (budget constraint across ecosystem)
 - Write to GAIA-tier memory without explicit promotion workflow

@@ -15,8 +15,13 @@ AURORA is the 9th Shared Service in the GAIA ecosystem. It serves as the dedicat
 ## Quick Start
 
 ```bash
+# NEW v0.2.0: Quick workflows
+/aurora-extract-style <url>         # Extract design tokens from successful sites
+/aurora-mood <project>               # Generate creative brief + mood board
+/aurora-quick "<description>"        # Single component design (< 5 min)
+
 # Full workflow for a new project
-/aurora-intake → /aurora-inspire → /aurora-spec → /aurora-build → /aurora-refine
+/aurora-intake → /aurora-mood → /aurora-spec → /aurora-build → /aurora-refine
 
 # Create/update a brand kit
 /aurora-brand
@@ -70,10 +75,19 @@ Tokens → Atoms → Molecules → Organisms → Pages
 
 ## Version
 
-- **Current**: 0.1.0
-- **Status**: Development (Phase A complete)
+- **Current**: 0.2.0 (Creative Direction System)
+- **Status**: Development (Phase A + Creative Intelligence complete)
 - **Python**: 3.10+
 - **Framework**: Library (design system + specifications)
+
+## What's New in v0.2.0
+
+**Creative Direction System** — AURORA now has systematic creative intelligence:
+1. **Style Extraction** (`/aurora-extract-style`) — Analyze successful sites, extract design tokens
+2. **Mood Boards** (`/aurora-mood`) — Generate creative briefs and visual direction
+3. **Quick Tasks** (`/aurora-quick`) — Single component design in < 5 minutes
+
+See `QUICK_START_v0.2.0.md` for usage guide.
 
 ## License
 

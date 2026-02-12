@@ -6,7 +6,19 @@
         "pathPattern": "\\.py$",
         "hooks": [
           {
+            "type": "command",
             "command": "ruff format {{path}}",
+            "continueOnError": true
+          }
+        ]
+      },
+      {
+        "pattern": "Edit|Write",
+        "pathPattern": "_[A-Z]+/",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python X:/Projects/_GAIA/runtime/track_change.py {{path}}",
             "continueOnError": true
           }
         ]
@@ -18,6 +30,7 @@
         "pathPattern": "registry\\.json$",
         "hooks": [
           {
+            "type": "command",
             "command": "echo '⚠️  BLOCKED: Use /registry-sync skill or manually validate with WARDEN after edit. Run: python -m warden.cli validate' && exit 1"
           }
         ]
@@ -27,7 +40,18 @@
         "pathPattern": "GAIA_BIBLE\\.md$",
         "hooks": [
           {
+            "type": "command",
             "command": "echo '⚠️  WARNING: Editing constitutional document. Ensure GECO compliance.' && exit 0"
+          }
+        ]
+      },
+      {
+        "pattern": "Edit|Write",
+        "pathPattern": "GAIA_MANIFEST\\.md$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'INFO: MANIFEST should be updated via /reconcile, not manually. Manual edits are allowed but may be overwritten.' && exit 0"
           }
         ]
       }
@@ -41,7 +65,8 @@
       "Bash(pytest:*)",
       "Bash(ruff:*)",
       "Bash(git:*)",
-      "Bash(python -m warden:*)"
+      "Bash(python -m warden:*)",
+      "Bash(python X:/Projects/_GAIA/runtime/track_change.py:*)"
     ]
   }
 }

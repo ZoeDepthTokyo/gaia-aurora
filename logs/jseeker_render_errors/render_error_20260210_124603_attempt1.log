@@ -1,0 +1,14 @@
+Render Error Log
+================
+
+Timestamp: 2026-02-10T12:46:03.318716
+Attempt: 1
+Output Path: C:\Users\Fede\AppData\Local\Temp\jseeker_pytest_tmp\tmp_b4ecbbcb756b4a4193bfb524a57f28d7\test.pdf
+
+STDERR (full, not truncated):
+--------------------------------------------------------------------------------
+Persistent failure
+--------------------------------------------------------------------------------
+
+STDOUT:
+--------------------------------------------------------------------------------

@@ -110,6 +110,9 @@ GAIA is a **constitutional AI governance framework** that sits between human cre
 4. **Orchestrates workflows** (LOOM provides glass-box agent editing with execution contracts)
 5. **Monitors transparently** (ARGUS provides mental model library, pattern detection, explainability)
 6. **Governs constitutionally** (WARDEN enforces git hygiene, test coverage, secrets safety)
+7. **UXUI Creative Director** (AURORA creates design specs, manages design system, researches inspiration design)
+8. **RAVEN** (RAVEN is a research orchestator)
+9  **ABIS** (ABIS node based Ai architecture editor and generator for products)
 
 #### 1.2.2 What GAIA Is Not
 
@@ -166,7 +169,7 @@ It teaches you to build with AI safely while actually doing the work. You learn 
 #### 1.4.1.2 Primary Persona: The Creative Solopreneur
 
 **Profile:**
-- zero Technical knowledge 
+- zero Technical knowledge
 - Overwhelmed by managing multiple projects, lt alone AI
 - Strong domain expertise (therapy, finance, data processing) but weak on software architecture and divergent creative thinking
 - Using Claude/Gemini to generate apps quickly but struggling to maintain it
@@ -181,7 +184,7 @@ It teaches you to build with AI safely while actually doing the work. You learn 
 - Share LLM client code so one upgrade flows to all projects
 - Track costs across all projects from single dashboard
 - Grow technical capability through glass-box transparency
-- Help Persona achieve discipline and clear workflow 
+- Help Persona achieve discipline and clear workflow
 
 **Success Metrics:**
 - All production projects under git version control within 1 day (using VULCAN retroactive registration)

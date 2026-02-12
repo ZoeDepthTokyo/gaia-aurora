@@ -1,0 +1,63 @@
+{
+  "$schema": "gaia-token-budget-v1",
+  "updated": "2026-02-09",
+  "defaults": {
+    "model_routing": {
+      "cheap_tasks": "haiku",
+      "quality_tasks": "sonnet",
+      "architecture_tasks": "opus"
+    },
+    "session_budgets": {
+      "quick_fix": {"max_tokens": 50000, "models": ["haiku", "sonnet"]},
+      "feature_dev": {"max_tokens": 200000, "models": ["sonnet", "opus"]},
+      "architecture": {"max_tokens": 500000, "models": ["opus"]}
+    }
+  },
+  "per_module": {
+    "jseeker": {
+      "provider": "anthropic",
+      "models": ["haiku", "sonnet"],
+      "monthly_budget_usd": 10.00,
+      "alert_threshold_pct": 80
+    },
+    "hart_os": {
+      "provider": "openai",
+      "models": ["gpt-4o-mini", "gpt-4o"],
+      "monthly_budget_usd": 15.00,
+      "alert_threshold_pct": 80
+    },
+    "via": {
+      "provider": "gemini",
+      "models": ["gemini-2.0-flash", "gemini-2.0-pro"],
+      "monthly_budget_usd": 20.00,
+      "alert_threshold_pct": 80
+    },
+    "mycel": {
+      "provider": "multi",
+      "models": ["haiku", "gpt-4o-mini", "gemini-2.0-flash"],
+      "monthly_budget_usd": 5.00,
+      "alert_threshold_pct": 80
+    },
+    "raven": {
+      "provider": "anthropic",
+      "models": ["sonnet", "opus"],
+      "monthly_budget_usd": 10.00,
+      "alert_threshold_pct": 80
+    }
+  },
+  "pricing_snapshot": {
+    "anthropic": {
+      "haiku": {"input_per_1m": 0.80, "output_per_1m": 4.00, "cache_read_per_1m": 0.08},
+      "sonnet": {"input_per_1m": 3.00, "output_per_1m": 15.00, "cache_read_per_1m": 0.30},
+      "opus": {"input_per_1m": 15.00, "output_per_1m": 75.00, "cache_read_per_1m": 1.50}
+    },
+    "openai": {
+      "gpt-4o-mini": {"input_per_1m": 0.15, "output_per_1m": 0.60},
+      "gpt-4o": {"input_per_1m": 2.50, "output_per_1m": 10.00}
+    },
+    "gemini": {
+      "gemini-2.0-flash": {"input_per_1m": 0.075, "output_per_1m": 0.30},
+      "gemini-2.0-pro": {"input_per_1m": 1.25, "output_per_1m": 5.00}
+    }
+  }
+}
