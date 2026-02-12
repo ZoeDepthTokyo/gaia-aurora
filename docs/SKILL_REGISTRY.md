@@ -48,18 +48,18 @@ Custom agents installed at `C:\Users\Fede\.claude\agents\`:
 
 ---
 
-## AURORA Slash Commands
+## AURORA Skills & Agent
 
-AURORA's 6-phase workflow provides these invokable commands:
+**Standalone skills** (invokable from any context):
 
-| Command | Phase | Description |
-|---------|-------|-------------|
-| `/aurora-intake` | Phase 1 | PRD intake and UX requirements extraction. Analyzes product requirements document to identify UX-relevant features, user personas, and constraints |
-| `/aurora-inspire` | Phase 2 | Inspiration and reference gathering. Curates design references from the inspiration library, tasks RAVEN for missing sources, aligns direction with user |
-| `/aurora-spec` | Phase 3 | UX specification creation. 7-pass analysis: mental model, information architecture, affordance, progressive disclosure, feedback, interaction, accessibility |
-| `/aurora-build` | Phase 4 | Frontend prototyping. Translates UX spec into numbered build prompts for implementation |
-| `/aurora-refine` | Phase 5 | Usability refinement. UX engineering loop: build, review, gather feedback, iterate |
-| `/aurora-brand` | Phase 6 | Brand kit creation. Finalizes design tokens, Figma sync, documentation, and handoff |
+| Command | Description |
+|---------|-------------|
+| `/aurora-extract-style <url>` | Extract design tokens and patterns from a website |
+| `/aurora-mood <project>` | Generate creative brief + mood board with 3 checkpoints |
+| `/aurora-quick "<description>"` | Single component design in < 5 min |
+
+**Full 6-phase workflow** is handled by the `aurora-ux-lead` agent (not standalone skills):
+Intake → Inspire → Spec → Build → Refine → Deploy
 
 ---
 

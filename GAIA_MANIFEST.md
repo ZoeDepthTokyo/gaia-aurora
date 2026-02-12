@@ -32,7 +32,7 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 | Component | Version | Status | Type | Role | Dependencies | Last Changed |
 |-----------|---------|--------|------|------|--------------|--------------|
 | ARGUS | 0.5.1 | dev | Service | Monitor + Mental Models | mycel | 2026-02-09 |
-| AURORA | 0.1.0 | dev | Service | UX/UI Lead | mnemis | 2026-02-11 |
+| AURORA | 0.2.0 | dev | Service | UX/UI Lead | mnemis | 2026-02-12 |
 | LOOM | 0.1.0 | dev | Service | Workflow Engine | mycel, mnemis | 2026-02-04 |
 | MNEMIS | 0.1.0 | dev | Service | Cross-Project Memory | mycel | 2026-02-04 |
 | MYCEL | 0.2.0 | active | Service | Shared Intelligence (RAG) | — | 2026-02-08 |

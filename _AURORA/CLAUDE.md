@@ -12,7 +12,7 @@ Named after Aurora, goddess of dawn — continuous renewal, learning, illuminati
 1. Extract styles: `/aurora-extract-style <url>` — Learn from successful sites
 2. Generate mood board: `/aurora-mood <project>` — Creative brief + visual direction
 3. Quick design: `/aurora-quick "<description>"` — Single component in < 5 min
-4. Full workflow: `/aurora-intake` → `/aurora-mood` → `/aurora-spec` → `/aurora-build` → `/aurora-refine`
+4. Full workflow: Use `aurora-ux-lead` agent for intake → mood → spec → build → refine
 5. Access design system: `design_system/master/tokens.json`
 
 **Version:** v0.2.0
@@ -37,16 +37,13 @@ claude agents list | grep aurora
 
 ### Usage
 ```bash
-# Invoke agent directly
+# Invoke agent directly (handles full 6-phase workflow)
 claude --agent aurora-ux-lead
 
-# Or use skills from any context
-/aurora-intake project-name
-/aurora-inspire project-name
-/aurora-spec project-name
-/aurora-build project-name
-/aurora-refine project-name
-/aurora-deploy project-name
+# Standalone skills (work from any context)
+/aurora-extract-style <url>        # Extract design tokens from a site
+/aurora-mood <project>              # Generate creative brief + mood board
+/aurora-quick "<description>"       # Single component design (< 5 min)
 ```
 
 ### Design System Access
@@ -89,13 +86,13 @@ _AURORA/
 ```
 
 ## The 6-Phase Workflow
-Every project engagement follows this sequence:
-1. **PRD Intake** (`/aurora-intake`) — Extract UX requirements from PRD
-2. **Inspiration** (`/aurora-inspire`) — Curate references, align direction
-3. **UX Specification** (`/aurora-spec`) — 7-pass analysis
-4. **Build Order** (`/aurora-build`) — Numbered implementation prompts
-5. **Refine** (`/aurora-refine`) — UX Eng Loop (build → review → iterate)
-6. **Deploy** (`/aurora-deploy`) — Finalize + Figma sync + docs
+Every project engagement follows this sequence (via `aurora-ux-lead` agent):
+1. **PRD Intake** — Extract UX requirements from PRD
+2. **Inspiration** — Curate references, align direction (`/aurora-mood` for creative brief)
+3. **UX Specification** — 7-pass analysis
+4. **Build Order** — Numbered implementation prompts
+5. **Refine** — UX Eng Loop (build → review → iterate)
+6. **Deploy** — Finalize + Figma sync + docs
 
 ## 7-Pass UX Analysis (Phase 3)
 1. Mental Model Alignment — What does the user THINK should happen?
@@ -136,8 +133,8 @@ All designs must satisfy:
 - **Figma MCP**: Component library, design tokens, Code Connect
 
 ## Agent & Skills
-- Agent: `aurora-ux-lead` (in `~/.claude/agents/`)
-- Skills: `/aurora-intake`, `/aurora-inspire`, `/aurora-spec`, `/aurora-build`, `/aurora-refine`, `/aurora-brand`
+- Agent: `aurora-ux-lead` (in `~/.claude/agents/`) — handles full 6-phase workflow
+- Skills: `/aurora-extract-style`, `/aurora-mood`, `/aurora-quick` (standalone convenience skills)
 
 ## Gotchas
 - **Workflow selection**: Use `/aurora-quick` for single components (< 5 min), `/aurora-mood` for creative direction, full 6-phase for complete projects

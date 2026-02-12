@@ -20,11 +20,8 @@ AURORA is the 9th Shared Service in the GAIA ecosystem. It serves as the dedicat
 /aurora-mood <project>               # Generate creative brief + mood board
 /aurora-quick "<description>"        # Single component design (< 5 min)
 
-# Full workflow for a new project
-/aurora-intake → /aurora-mood → /aurora-spec → /aurora-build → /aurora-refine
-
-# Create/update a brand kit
-/aurora-brand
+# Full workflow for a new project (via aurora-ux-lead agent)
+# Agent handles: intake → mood → spec → build → refine → deploy
 
 # Spawn AURORA agent for ad-hoc UX work
 # Use Task tool → subagent_type: "aurora-ux-lead"
@@ -32,13 +29,15 @@ AURORA is the 9th Shared Service in the GAIA ecosystem. It serves as the dedicat
 
 ## The 6-Phase Workflow
 
-| Phase | Skill | Input | Output |
-|-------|-------|-------|--------|
-| 1. PRD Intake | `/aurora-intake` | Project PRD | `specs/{project}/ux_requirements.md` |
-| 2. Inspiration | `/aurora-inspire` | UX requirements | `specs/{project}/inspiration.md` |
-| 3. UX Spec | `/aurora-spec` | Requirements + Inspiration | `specs/{project}/ux_spec.md` |
-| 4. Build Order | `/aurora-build` | UX Specification | `specs/{project}/build_order.md` |
-| 5. Refine | `/aurora-refine` | Build order + prototype | Working prototype |
+Phases are executed by the `aurora-ux-lead` agent (not standalone skills):
+
+| Phase | Agent Step | Input | Output |
+|-------|-----------|-------|--------|
+| 1. PRD Intake | Intake | Project PRD | `specs/{project}/ux_requirements.md` |
+| 2. Inspiration | Mood/Inspire | UX requirements | `specs/{project}/inspiration.md` |
+| 3. UX Spec | Spec | Requirements + Inspiration | `specs/{project}/ux_spec.md` |
+| 4. Build Order | Build | UX Specification | `specs/{project}/build_order.md` |
+| 5. Refine | Refine | Build order + prototype | Working prototype |
 | 6. Deploy | manual | Approved prototype | Production frontend |
 
 ## Design System Architecture

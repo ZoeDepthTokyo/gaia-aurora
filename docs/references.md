@@ -106,25 +106,10 @@ Central knowledge base for all URLs, documentation links, and external reference
 | References KB | `docs/references.md` | This document |
 | Skill Registry | `docs/SKILL_REGISTRY.md` | Claude Code skill auto-discovery registry |
 
-### Phase Reports (docs/phase_reports/)
+### Phase Reports (archived → archive/phase_reports/)
 
-| Document | Purpose |
-|----------|---------|
-| `PHASE_1_COMPLETE.md` | Phase 1 completion report |
-| `PHASE_1_HANDOFF.md` | Phase 1 handoff notes |
-| `PHASE_2_IMPLEMENTATION_STATUS.md` | Phase 2 progress tracking |
-| `PHASE_2_IMPLEMENTATION_SUMMARY.md` | Phase 2 summary |
-| `PHASE_3_IMPLEMENTATION_STATUS.md` | Phase 3 progress tracking |
-| `PHASE_3_IMPLEMENTATION_REPORT.md` | Phase 3 detailed report |
-| `PHASE_3_HANDOFF.md` | Phase 3 handoff notes |
-| `PHASE_3_COMPLETE.md` | Phase 3 completion report |
-| `PHASE_3_INDEX.md` | Phase 3 document index |
-| `PHASE_2_3_IMPLEMENTATION_SUMMARY.md` | Combined Phases 2-3 summary |
-| `PHASE_2_3_CODE_REVIEW.md` | Code review for Phases 2-3 |
-| `PHASE_2_3_VALIDATION_SCENARIOS.md` | Validation test scenarios |
-| `INTEGRATION_TESTS_SUMMARY.md` | Integration test results |
-| `APPENDICES_SUMMARY.md` | GAIA Bible appendix summary |
-| `BIBLE_COMPLETION_REPORT.md` | Bible document completion status |
+Phase 1-3 completion reports have been archived. See `archive/phase_reports/` for historical reference.
+For current ecosystem state, see `GAIA_MANIFEST.md`.
 
 ### Strategic Documents (docs/strategic/)
 
