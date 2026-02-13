@@ -1,5 +1,16 @@
 {
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash X:/projects/_GAIA/.claude/skills/gaia-loop/scripts/stop_hook.sh",
+            "continueOnError": true
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "pattern": "Edit|Write",

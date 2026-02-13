@@ -42,5 +42,10 @@ _ECHO/
 .gaia_changes
 .gaia_reconcile_log
 
+# GAIA Loop state (session-local)
+.gaia_loop_state
+.gaia_loop_plan.md
+.gaia_loop_log
+
 # Claude Code local state
 .claude/
