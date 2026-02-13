@@ -201,6 +201,8 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 - **Change tracking**: Edits to `_[A-Z]+/` paths auto-log to `.gaia_changes` via PostToolUse hook
 - **Cascade maps**: Component CLAUDE.md files have `<!-- CASCADE_MAP -->` sections parsed by `/reconcile`
 - **Submodules**: Some components (_ARGUS, _MYCEL, etc.) are git submodules - use `git submodule update`
+- **Submodule commits**: Commit inside submodule first (`cd _ARGUS && git commit`), then `git add _ARGUS && git commit` from GAIA root
+- **Pre-commit Python**: Some submodule hooks require Python 3.11; `--no-verify` needed on Python 3.14 systems
 - **MYCEL dependency**: Most projects require MYCEL installed as editable: `pip install -e _MYCEL`
 - **Port conflicts**: ARGUS=8501, jSeeker=8502, Simulator=8503 — avoid collisions
 - **Registry sync**: Manual updates to registry.json require WARDEN validation

@@ -108,7 +108,7 @@
       "name": "ARGUS",
       "gaia_role": "Monitoring + Kanban (The Watchman)",
       "path": "X:/Projects/_GAIA/_ARGUS",
-      "version": "0.5.1",
+      "version": "0.6.0",
       "status": "development",
       "git": true,
       "git_remote": "https://github.com/ZoeDepthTokyo/gaia-argus.git",

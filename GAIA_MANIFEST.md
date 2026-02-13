@@ -1,7 +1,7 @@
-# GAIA MANIFEST v1.0.0 — Last Updated: 2026-02-11
+# GAIA MANIFEST v1.0.1 — Last Updated: 2026-02-13
 
-<!-- last_reconciled: 2026-02-11 -->
-<!-- manifest_version: 1.0.0 -->
+<!-- last_reconciled: 2026-02-13 -->
+<!-- manifest_version: 1.0.1 -->
 
 ## Identity
 
@@ -31,7 +31,7 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 
 | Component | Version | Status | Type | Role | Dependencies | Last Changed |
 |-----------|---------|--------|------|------|--------------|--------------|
-| ARGUS | 0.5.1 | dev | Service | Monitor + Mental Models | mycel | 2026-02-09 |
+| ARGUS | 0.6.0 | dev | Service | Monitor + Mental Models | mycel | 2026-02-13 |
 | AURORA | 0.2.0 | dev | Service | UX/UI Lead | mnemis | 2026-02-12 |
 | LOOM | 0.1.0 | dev | Service | Workflow Engine | mycel, mnemis | 2026-02-04 |
 | MNEMIS | 0.1.0 | dev | Service | Cross-Project Memory | mycel | 2026-02-04 |
@@ -97,7 +97,7 @@ Each component CLAUDE.md contains a `<!-- CASCADE_MAP -->` section with componen
 
 Run `/reconcile` at end of each session to propagate changes. Use `--dry-run` to preview.
 
-- **Last reconciled**: 2026-02-11
+- **Last reconciled**: 2026-02-13
 - **Reconciliation log**: `.gaia_reconcile_log`
 - **Session changes**: `.gaia_changes` (auto-tracked by hooks)
 
