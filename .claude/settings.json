@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash X:/projects/_GAIA/.claude/skills/gaia-loop/scripts/stop_hook.sh",
+            "command": "bash X:/projects/_GAIA/.claude/skills/running-autonomous-loop/scripts/stop_hook.sh",
             "continueOnError": true
           }
         ]
@@ -33,6 +33,38 @@
             "continueOnError": true
           }
         ]
+      },
+      {
+        "pattern": "Edit|Write",
+        "pathPattern": "_AURORA/.*\\.py$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'TIP: Run /auditing-ux or /reviewing-design after AURORA UI changes'",
+            "continueOnError": true
+          }
+        ]
+      },
+      {
+        "pattern": "Edit|Write",
+        "pathPattern": "changes/.*/proposal\\.md$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'REMINDER: Complete all 4 artifacts (proposal.md, specs/, design.md, tasks.md) before implementing.'",
+            "continueOnError": true
+          }
+        ]
+      },
+      {
+        "pattern": "Edit|Write",
+        "pathPattern": "_[A-Z]+/.*\\.py$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import sys; from pathlib import Path; changes=list(Path('changes').glob('*/proposal.md')) if Path('changes').exists() else []; print('BLOCKED: Active change spec (' + changes[0].parent.name + ') exists. Update specs before modifying component code.') if changes else None; sys.exit(1) if changes else None\""
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -42,7 +74,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '⚠️  BLOCKED: Use /registry-sync skill or manually validate with WARDEN after edit. Run: python -m warden.cli validate' && exit 1"
+            "command": "echo '⚠️  BLOCKED: Use /syncing-registry skill or manually validate with WARDEN after edit. Run: python -m warden.cli validate' && exit 1"
           }
         ]
       },
@@ -52,7 +84,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '⚠️  WARNING: Editing constitutional document. Ensure GECO compliance.' && exit 0"
+            "command": "echo 'BLOCKED: Constitutional document requires GECO review. Use /reconciling-gaia for approved edits.' && exit 1"
           }
         ]
       },
@@ -62,7 +94,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'INFO: MANIFEST should be updated via /reconcile, not manually. Manual edits are allowed but may be overwritten.' && exit 0"
+            "command": "echo 'INFO: MANIFEST should be updated via /reconciling-gaia, not manually. Manual edits are allowed but may be overwritten.' && exit 0"
           }
         ]
       }

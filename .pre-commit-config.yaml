@@ -41,3 +41,10 @@ repos:
         entry: python -c "import sys; sys.exit(1) if any('.env' == f.split('/')[-1] for f in sys.argv[1:]) else sys.exit(0)"
         language: system
         types: [file]
+
+      - id: validate-specs
+        name: Validate Change Specs
+        entry: python .claude/skills/validating-specs/scripts/validate_specs.py --all --check-only
+        language: system
+        pass_filenames: false
+        files: ^changes/
