@@ -39,7 +39,7 @@ Do NOT read GAIA_BIBLE.md, GAIA_PRD.md, or GECO_AUDIT.md unless:
 - The task requires product requirements detail (use PRD)
 - The task requires governance audit status (use GECO_AUDIT)
 
-If MANIFEST `last_reconciled` is more than 3 days old, run `/reconcile --dry-run` first to check for drift.
+If MANIFEST `last_reconciled` is more than 3 days old, run `/reconciling-gaia --dry-run` first to check for drift.
 
 ## Setup & Launch
 

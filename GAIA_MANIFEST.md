@@ -1,7 +1,7 @@
-# GAIA MANIFEST v1.0.3 — Last Updated: 2026-02-18
+# GAIA MANIFEST v1.0.4 — Last Updated: 2026-02-18
 
 <!-- last_reconciled: 2026-02-18 -->
-<!-- manifest_version: 1.0.3 -->
+<!-- manifest_version: 1.0.4 -->
 
 ## Identity
 
@@ -37,11 +37,11 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 | MNEMIS | 0.1.0 | dev | Service | Cross-Project Memory | mycel | 2026-02-04 |
 | MYCEL | 0.2.0 | active | Service | Shared Intelligence (RAG) | — | 2026-02-08 |
 | VULCAN | 0.4.0-dev | dev | Service | Project Creator | mycel | 2026-02-08 |
-| WARDEN | 0.3.0 | active | Service | Governance & Compliance | mycel | 2026-02-09 |
+| WARDEN | 0.3.1 | active | Service | Governance & Compliance | mycel | 2026-02-18 |
 | RAVEN | 0.3.0 | active | Service | Research Agent | mycel, mnemis, argus | 2026-02-17 |
 | ABIS | 0.0.1 | planning | Service | Visual System Builder | mycel, loom, argus, mnemis | 2026-02-09 |
 | Mental Models | 1.0.0 | active | Library | Decision Support (59 models) | — | 2026-02-04 |
-| GAIA Runtime | 1.0.0 | active | Service | Background Tasks | warden, argus, mnemis | 2026-02-09 |
+| GAIA Runtime | 1.1.0 | active | Service | Background Tasks + Skill Oracle | warden, argus, mnemis | 2026-02-18 |
 | HART OS | 6.2.8 | prod | Product | Therapy Scoring | — | — |
 | VIA Intelligence | 6.4 | prod | Product | Investment RAG | mycel | — |
 | DATA FORGE | 1.1 | prod | Product | Data Processing | — | — |
@@ -54,11 +54,11 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 
 ## Active Priorities
 
-1. Governance pipeline: cascade propagation, reconciliation skill, agent onboarding
+1. Skill usability system live (v1.0): 16 skills, 4 hook scripts, 22 tests — proactive surfacing active
 2. ARGUS: wire telemetry to MYCEL/VULCAN (stable v0.7.0, dashboard UX complete)
 3. MNEMIS: activate first real memory entries, test promotion protocol
-4. WARDEN: integrate compliance scan into CI pipeline
-5. AURORA: creative direction system operational (v0.2.0)
+4. WARDEN: integrate compliance scan into CI pipeline (v0.3.1 subprocess fix applied)
+5. Submodule CLAUDE.md updates: /running-autonomous-loop refs added to 7 components (pending submodule commits)
 
 ## Cascade Rules
 

@@ -456,6 +456,41 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 
 ---
 
+## v0.5.4 - Skill Usability System (Feb 18, 2026) [COMPLETE]
+
+**Session:** 9e44eca | **Agent:** Claude Opus 4.6 (orchestrator) + Sonnet team
+
+**3-Pillar Skill Usability System v1.0:**
+- REDUCE: 5 external skills absorbed into existing (no new bloat)
+- AUTOMATE: 4 runtime hook scripts replacing fragile inline hooks
+- SURFACE: All 16 skills get phase tags, trigger keywords, "why" statements
+
+**New Runtime Scripts (runtime/scripts/):**
+- `skill_suggester.py` — PostToolUse Announce→Explain→Escape tips (path→skill mapping)
+- `skill_guard.py` — PreToolUse spec-before-code guard (replaces inline Python one-liner)
+- `session_exit_check.py` — Stop hook session recap + advisories (never blocks)
+- `skill_health.py` — skill audit (phase tags, line count, references, phantoms)
+
+**New Skill:**
+- `/testing-webapp` — Playwright E2E testing for 5 GAIA Streamlit apps (Python 3.14/Windows)
+
+**Skill Updates (all 16):**
+- Phase classification: [OPENING] (3), [CLOSING] (3), [CONTEXT] (10)
+- Trigger keywords + "why" statements added to all SKILL.md descriptions
+- `listing-skills` overhauled: phase-organized output, `--open`/`--context`/`--health`/`--explain` flags
+- `explaining-code`: `--debug` flag + error-handling analysis at Expert level
+- `orchestrating-agents`: When-to-Decompose decision tree added
+- `running-autonomous-loop`: `references/python-testing-patterns.md` absorbed
+- `reconciling-gaia`: Step 0.5 skill health check added
+
+**CI Gate:** 22/22 TDD tests pass (`runtime/tests/test_skill_oracle.py`)
+
+**Bonus fix:** WARDEN `NameError: subprocess not imported` in `cli.py` (pre-existing bug)
+
+**Skill count:** 15 → 16 | **Hook scripts:** 0 → 4 | **Tests:** 0 → 22
+
+---
+
 ## Planned Versions (Roadmap)
 
 ---
