@@ -55,6 +55,11 @@ pytest tests/test_mental_models.py
 - _ARGUS/CLAUDE.md: update if model API changed → ask
 <!-- END_CASCADE_MAP -->
 
+## Relevant Skills
+- `/creating-change` — before adding or modifying mental models
+- `/explaining-code` — when documenting model selection logic
+- `/reconciling-gaia` — end of every session
+
 ## DO NOT
 - Add models without updating both `models.py` and `registry.json`
 - Remove models that ARGUS Process Observer references

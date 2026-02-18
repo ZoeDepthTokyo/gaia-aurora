@@ -7,6 +7,11 @@
             "type": "command",
             "command": "bash X:/projects/_GAIA/.claude/skills/running-autonomous-loop/scripts/stop_hook.sh",
             "continueOnError": true
+          },
+          {
+            "type": "command",
+            "command": "python X:/projects/_GAIA/runtime/scripts/session_exit_check.py",
+            "continueOnError": true
           }
         ]
       }
@@ -36,11 +41,11 @@
       },
       {
         "pattern": "Edit|Write",
-        "pathPattern": "_AURORA/.*\\.py$",
+        "pathPattern": "(_AURORA/|_ARGUS/dashboard/|changes/.*/tasks\\.md|_[A-Z]+/CLAUDE\\.md|tests/test_spec_)",
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'TIP: Run /auditing-ux or /reviewing-design after AURORA UI changes'",
+            "command": "python X:/projects/_GAIA/runtime/scripts/skill_suggester.py --path {{path}}",
             "continueOnError": true
           }
         ]
@@ -55,26 +60,26 @@
             "continueOnError": true
           }
         ]
-      },
+      }
+    ],
+    "PreToolUse": [
       {
         "pattern": "Edit|Write",
         "pathPattern": "_[A-Z]+/.*\\.py$",
         "hooks": [
           {
             "type": "command",
-            "command": "python -c \"import sys; from pathlib import Path; changes=list(Path('changes').glob('*/proposal.md')) if Path('changes').exists() else []; print('BLOCKED: Active change spec (' + changes[0].parent.name + ') exists. Update specs before modifying component code.') if changes else None; sys.exit(1) if changes else None\""
+            "command": "python X:/projects/_GAIA/runtime/scripts/skill_guard.py --check spec-before-code --path {{path}}"
           }
         ]
-      }
-    ],
-    "PreToolUse": [
+      },
       {
         "pattern": "Edit|Write",
         "pathPattern": "registry\\.json$",
         "hooks": [
           {
             "type": "command",
-            "command": "echo '⚠️  BLOCKED: Use /syncing-registry skill or manually validate with WARDEN after edit. Run: python -m warden.cli validate' && exit 1"
+            "command": "echo 'BLOCKED: Use /syncing-registry skill or manually validate with WARDEN after edit.' && exit 1"
           }
         ]
       },

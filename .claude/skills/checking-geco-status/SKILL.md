@@ -1,6 +1,6 @@
 ---
-name: geco-status
-description: GECO audit status dashboard and next action recommendations
+name: checking-geco-status
+description: "[CONTEXT] Displays GECO governance audit progress across all 27 requirements with priority-ranked next actions. Use when checking compliance status, planning governance work, or onboarding to understand what requirements remain unresolved. Triggers on: geco, governance audit, compliance status, what requirements, sprint planning. Why: tracks 27 GECO requirements for production readiness."
 disable-model-invocation: true
 ---
 

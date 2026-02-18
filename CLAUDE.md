@@ -209,7 +209,8 @@ pytest _ARGUS/tests/test_spec_core_behaviors.py _LOOM/tests/test_spec_core_behav
 - **Submodule commits**: Commit inside submodule first (`cd _ARGUS && git commit`), then `git add _ARGUS && git commit` from GAIA root
 - **Pre-commit Python**: Some submodule hooks require Python 3.11; `--no-verify` needed on Python 3.14 systems
 - **MYCEL dependency**: Most projects require MYCEL installed as editable: `pip install -e _MYCEL`
-- **Port conflicts**: ARGUS=8501, jSeeker=8502, Simulator=8503 — avoid collisions
+- **Port conflicts**: ARGUS=8501, jSeeker=8502, Simulator=8503, JobPulse=8504 — avoid collisions
+- **JobPulse Dashboard**: `X:\Projects\JobPulse\` — standalone Streamlit+Plotly app, reads RAVEN data, port 8504
 - **Registry sync**: Manual updates to registry.json require WARDEN validation
 - **Pre-commit scope**: Root `.pre-commit-config.yaml` is template - each component has own config
 - **GECO audit**: 27 requirements, currently 10/27 resolved (v0.5.2)
@@ -220,22 +221,24 @@ pytest _ARGUS/tests/test_spec_core_behaviors.py _LOOM/tests/test_spec_core_behav
 
 ## Relevant Skills
 
-| Task | Skill |
-|------|-------|
-| Starting a new feature | `/creating-change` |
-| End of session | `/reconciling-gaia` |
-| Check governance status | `/checking-geco-status` |
-| Component orientation | `/orienting-to-component` |
-| Review UI design | `/reviewing-design` |
-| UX quality audit | `/auditing-ux` |
-| Accessibility check | `/checking-accessibility` |
-| Explain unfamiliar code | `/explaining-code` |
-| Autonomous iteration | `/running-autonomous-loop` |
-| Registry validation | `/syncing-registry` |
-| Multi-agent coordination | `/orchestrating-agents` |
-| Archive completed change | `/archiving-change` |
-| Validate spec format | `/validating-specs` |
-| List all skills | `/listing-skills` |
+| Task | Skill | Phase |
+|------|-------|-------|
+| Starting a new feature | `/creating-change` | OPENING |
+| Component orientation | `/orienting-to-component` | OPENING |
+| List all skills | `/listing-skills` | OPENING |
+| End of session | `/reconciling-gaia` | CLOSING |
+| Archive completed change | `/archiving-change` | CLOSING |
+| Validate spec format | `/validating-specs` | CLOSING |
+| Check governance status | `/checking-geco-status` | CONTEXT |
+| Review UI design | `/reviewing-design` | CONTEXT |
+| UX quality audit | `/auditing-ux` | CONTEXT |
+| Accessibility check | `/checking-accessibility` | CONTEXT |
+| Explain unfamiliar code | `/explaining-code` | CONTEXT |
+| Autonomous iteration | `/running-autonomous-loop` | CONTEXT |
+| Registry validation | `/syncing-registry` | CONTEXT |
+| Multi-agent coordination | `/orchestrating-agents` | CONTEXT |
+| External research | `/researching` | CONTEXT |
+| E2E testing (Streamlit) | `/testing-webapp` | CONTEXT |
 
 ## DO NOT
 

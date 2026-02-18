@@ -1,6 +1,6 @@
 ---
-name: registry-sync
-description: Validate and sync GAIA registry.json with governance checks
+name: syncing-registry
+description: "[CONTEXT] Validates and synchronizes GAIA registry.json with filesystem state, running WARDEN governance checks and integrity validation. Use after version bumps, when adding new components, or when registry data looks stale. Triggers on: registry, sync versions, validate registry, version bump. Why: keeps registry.json accurate with WARDEN governance."
 disable-model-invocation: true
 ---
 

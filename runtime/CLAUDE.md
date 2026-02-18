@@ -66,6 +66,11 @@ pytest tests/
 - VERSION_LOG.md: new entry if tasks changed → ask
 <!-- END_CASCADE_MAP -->
 
+## Relevant Skills
+- `/creating-change` — before implementing any new feature
+- `/explaining-code` — when documenting task runner or hook logic
+- `/reconciling-gaia` — end of every session
+
 ## DO NOT
 - Remove `track_change.py` — it's wired into Claude Code hooks
 - Run scheduler without checking port/process conflicts first

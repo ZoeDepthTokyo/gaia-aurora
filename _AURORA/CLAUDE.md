@@ -148,11 +148,91 @@ All designs must satisfy:
 - **Figma sync**: Manual sync to Figma required (no auto-sync yet)
 - **Brand kit naming**: Must match project name in registry.json exactly
 
+## Relevant Skills
+- `/creating-change` — before implementing any new feature
+- `/auditing-ux` — when reviewing design decisions or UX patterns
+- `/reviewing-design` — before finalizing any component or spec
+- `/checking-accessibility` — during Phase 7 (Accessibility) of UX analysis
+- `/reconciling-gaia` — end of every session
+- `/running-autonomous-loop` — for batch design token or template updates
+
 ## DO NOT
 - Skip the 6-phase workflow for "quick" UI fixes
 - Override master design tokens in brand kits (30% DNA is enforced)
 - Deploy prototypes without user approval
 - Delegate design decisions to sub-agents
+
+## Testing Specifications
+
+Coverage target: 70%
+
+### Requirement: Style Extraction
+The system MUST extract a complete set of design tokens (colors, typography, spacing) from a target URL.
+
+#### Scenario: Successful style extraction
+- GIVEN a valid URL pointing to a live website
+- WHEN `/aurora-extract-style <url>` is invoked
+- THEN a JSON file is written to `creative_direction/extracted_styles/` containing at minimum primary color, font families, and spacing scale
+
+#### Scenario: Extraction preserves source provenance
+- GIVEN a URL is extracted
+- WHEN the tokens file is written
+- THEN it includes the source URL, extraction timestamp, and token count metadata
+
+---
+
+### Requirement: Mood Board Generation
+The system MUST generate a structured creative brief and visual direction through 3 user-approval checkpoints.
+
+#### Scenario: Checkpoint gating enforced
+- GIVEN a mood board is initiated via `/aurora-mood <project>`
+- WHEN the user does not approve checkpoint 1 (brief)
+- THEN the workflow pauses at that checkpoint and does not advance to checkpoint 2 (references)
+
+#### Scenario: Mood board produces design token output
+- GIVEN a project with an existing brand kit path
+- WHEN all 3 checkpoints are approved
+- THEN a `mood_board.json` file is written to `creative_direction/mood_boards/<project>/` with palette, typography, and mood keywords
+
+---
+
+### Requirement: Quick Component Design
+The system MUST produce a single-component design spec in under 5 minutes without requiring the full 6-phase workflow.
+
+#### Scenario: Quick task completes without mood board
+- GIVEN a component description is provided to `/aurora-quick`
+- WHEN no existing mood board exists for the project
+- THEN the system uses master tokens as fallback and produces a spec without blocking
+
+---
+
+### Requirement: Master Token Enforcement
+The system MUST prevent brand kits from overriding 30% master DNA tokens.
+
+#### Scenario: Override attempt is blocked
+- GIVEN a brand kit file attempts to set a spacing scale value that conflicts with `master/tokens.json`
+- WHEN the brand kit is validated
+- THEN an error is raised identifying the conflicting key and referencing the master token path
+
+---
+
+### Requirement: 6-Phase Workflow Integrity
+The system MUST enforce sequential phase execution — phases cannot be skipped.
+
+#### Scenario: Phase skip attempt is blocked
+- GIVEN a workflow instance is in Phase 2 (Inspiration)
+- WHEN a caller attempts to invoke Phase 4 (Build Order) directly
+- THEN the workflow raises an integrity violation and returns the current phase state
+
+---
+
+### Requirement: MNEMIS Pattern Storage
+The system MUST store approved UX patterns to MNEMIS at PROJECT tier after the refine phase.
+
+#### Scenario: Pattern stored with provenance
+- GIVEN Phase 5 (Refine) completes with user approval
+- WHEN a reusable pattern is identified
+- THEN `MnemisWorkflowBridge.store_agent_output_to_memory()` is called with scope=PROJECT and source attribution matching the AURORA session
 
 ## When I Change
 <!-- CASCADE_MAP: machine-readable, do not edit manually -->

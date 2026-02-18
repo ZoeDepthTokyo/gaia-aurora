@@ -1,48 +1,7 @@
----
-name: component-overview
-description: Quick overview of any GAIA component with setup, status, and key files
-disable-model-invocation: false
----
+# Component Overview — Output Examples
 
-# Component Overview
+## Single Component Example
 
-Provides instant orientation on any GAIA component - what it does, how to run it, current status, and where to start.
-
-## Usage
-```
-/component-overview <component_name>
-/component-overview --all [--status <filter>]
-```
-
-## Process
-
-1. **Component Identification**
-   - Read registry.json for component metadata
-   - Load CLAUDE.md for detailed info
-   - Check git status for current state
-
-2. **Status Assessment**
-   - Version number
-   - Development status (production/active/development/planning)
-   - Recent commits
-   - Test coverage (if available)
-   - Open issues/TODOs
-
-3. **Quick Reference**
-   - Setup commands
-   - Launch commands
-   - Test commands
-   - Key files to know
-   - Gotchas/warnings
-
-4. **Integration Map**
-   - Dependencies (what it needs)
-   - Dependents (what needs it)
-   - GAIA ecosystem role
-
-## Output Format
-
-### Single Component
 ```
 /component-overview _MYCEL
 ```
@@ -106,7 +65,8 @@ Tests: 92-100% coverage (gold standard)
 ✅ No autonomous actions without approval
 ```
 
-### All Components (Summary)
+## All Components Summary Example
+
 ```
 /component-overview --all
 ```
@@ -179,56 +139,10 @@ Complete/External: 2 (12%)
 📋 Audit: X:/Projects/_GAIA/GECO_AUDIT.md
 ```
 
-### Filtered View
+## Filtered View Example
+
 ```
 /component-overview --all --status production
 ```
 
 Shows only production-ready components.
-
-## Use Cases
-
-### 1. New Developer Onboarding
-```
-/component-overview --all
-# Get ecosystem map in 30 seconds
-```
-
-### 2. Before Editing a Component
-```
-/component-overview _VULCAN
-# Quick refresh on role, setup, gotchas
-```
-
-### 3. Dependency Analysis
-```
-/component-overview _MYCEL
-# See "Used by" to understand impact of changes
-```
-
-### 4. Sprint Planning
-```
-/component-overview --all --status development
-# Focus on components under active development
-```
-
-## Integration
-
-### With Explain-Code
-```
-/component-overview _ARGUS
-/explain-code _ARGUS/subconscious/pattern_detector.py
-```
-
-### With GECO Status
-```
-/component-overview --all
-/geco-status --component _LOOM
-```
-
-### With Registry Sync
-```
-/component-overview _WARDEN
-# Check version before registry update
-/registry-sync --component _WARDEN
-```

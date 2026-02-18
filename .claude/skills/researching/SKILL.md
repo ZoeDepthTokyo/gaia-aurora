@@ -1,16 +1,6 @@
 ---
 name: researching
-description: |
-  Dispatches Master Raven epistemic research engine for structured investigation.
-  Performs web search, source tiering, triangulation, hypothesis generation,
-  red team analysis, and executive synthesis. Can spawn an unkindness (multi-raven
-  agent team) for comprehensive/deep research. Runs autonomously with full permissions.
-
-  Use when any GAIA task requires external research, competitive analysis,
-  technology scouting, dependency auditing, or knowledge gap discovery.
-
-  Triggers on: 'research', 'investigate', 'find out', 'scout', 'competitive analysis',
-  'what is X', 'how does X compare', 'find information about'.
+description: "[CONTEXT] Dispatches Master Raven epistemic research engine for structured investigation with web search, source tiering, triangulation, and executive synthesis. Use when any GAIA task requires external research, competitive analysis, technology scouting, or knowledge gap discovery. Triggers on: research, investigate, find out, scout, competitive analysis, compare. Why: structured research with provenance tracking."
 ---
 
 # /researching -- Master Raven Research Dispatch
