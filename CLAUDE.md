@@ -32,7 +32,7 @@ When starting work on any GAIA component:
 1. **Read GAIA_MANIFEST.md** — canonical state, architecture, cascade rules (~120 lines)
 2. **Read target component CLAUDE.md** — component-specific constraints and cascade map
 3. **Check MANIFEST "Active Priorities"** — understand current focus
-4. **Before finishing**: Run `/reconcile` or remind user to run it
+4. **Before finishing**: Run `/reconciling-gaia` or remind user to run it
 
 Do NOT read GAIA_BIBLE.md, GAIA_PRD.md, or GECO_AUDIT.md unless:
 - The task specifically requires constitutional interpretation (use BIBLE)
@@ -172,13 +172,18 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 # Coverage targets:
 # - MYCEL: 80% minimum (enforced in CI)
 # - VULCAN: 60% minimum (enforced in CI)
-# - ARGUS: 80% target
-# - WARDEN: TBD
+# - ARGUS: 80% target (--cov-fail-under=50 in CI)
+# - LOOM: 50% minimum (enforced in CI)
+# - MNEMIS: 50% minimum (enforced in CI)
+# - WARDEN: 50% minimum (enforced in CI)
+
+# Run spec tests across all components (avoid module name collisions)
+pytest _ARGUS/tests/test_spec_core_behaviors.py _LOOM/tests/test_spec_core_behaviors.py _MNEMIS/tests/test_spec_behaviors.py _AURORA/tests/test_spec_core_behaviors.py --import-mode=importlib
 ```
 
 ## Integration Points
 
-- **Cascade Propagation**: `/reconcile` skill propagates component changes to ecosystem docs
+- **Cascade Propagation**: `/reconciling-gaia` skill propagates component changes to ecosystem docs
 - **Registry**: All components read `registry.json` for ecosystem state
 - **MYCEL Bridge**: All components use MYCEL for LLM access
 - **MNEMIS Integration**: Pattern storage via memory promotion workflow
@@ -199,7 +204,7 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 
 - **Registry hook**: `registry.json` edits are BLOCKED by PreToolUse hook — get user approval first
 - **Change tracking**: Edits to `_[A-Z]+/` paths auto-log to `.gaia_changes` via PostToolUse hook
-- **Cascade maps**: Component CLAUDE.md files have `<!-- CASCADE_MAP -->` sections parsed by `/reconcile`
+- **Cascade maps**: Component CLAUDE.md files have `<!-- CASCADE_MAP -->` sections parsed by `/reconciling-gaia`
 - **Submodules**: Some components (_ARGUS, _MYCEL, etc.) are git submodules - use `git submodule update`
 - **Submodule commits**: Commit inside submodule first (`cd _ARGUS && git commit`), then `git add _ARGUS && git commit` from GAIA root
 - **Pre-commit Python**: Some submodule hooks require Python 3.11; `--no-verify` needed on Python 3.14 systems
@@ -209,10 +214,32 @@ cd _MYCEL && pytest tests/ --cov=rag_intelligence -v
 - **Pre-commit scope**: Root `.pre-commit-config.yaml` is template - each component has own config
 - **GECO audit**: 27 requirements, currently 10/27 resolved (v0.5.2)
 - **Version management**: VERSION_LOG.md must be updated with each ecosystem release
+- **pytest cross-submodule**: Same-named test files across submodules cause import collisions — use `--import-mode=importlib`
+- **`.claude/` gitignored**: Skills/settings files need `git add -f` to stage
+- **GWT coverage**: Run `python runtime/scripts/gwt_coverage.py` (or `--json`) to check spec-test coverage ratio
+
+## Relevant Skills
+
+| Task | Skill |
+|------|-------|
+| Starting a new feature | `/creating-change` |
+| End of session | `/reconciling-gaia` |
+| Check governance status | `/checking-geco-status` |
+| Component orientation | `/orienting-to-component` |
+| Review UI design | `/reviewing-design` |
+| UX quality audit | `/auditing-ux` |
+| Accessibility check | `/checking-accessibility` |
+| Explain unfamiliar code | `/explaining-code` |
+| Autonomous iteration | `/running-autonomous-loop` |
+| Registry validation | `/syncing-registry` |
+| Multi-agent coordination | `/orchestrating-agents` |
+| Archive completed change | `/archiving-change` |
+| Validate spec format | `/validating-specs` |
+| List all skills | `/listing-skills` |
 
 ## DO NOT
 
-- Modify registry.json directly (blocked by hook) — use `/registry-sync` or get user approval
+- Modify registry.json directly (blocked by hook) — use `/syncing-registry` or get user approval
 - Skip pre-commit hooks installation for new components
 - Use Opus model at runtime (budget constraint across ecosystem)
 - Write to GAIA-tier memory without explicit promotion workflow
