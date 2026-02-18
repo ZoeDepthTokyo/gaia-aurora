@@ -1,7 +1,7 @@
-# GAIA MANIFEST v1.0.1 — Last Updated: 2026-02-13
+# GAIA MANIFEST v1.0.3 — Last Updated: 2026-02-18
 
-<!-- last_reconciled: 2026-02-13 -->
-<!-- manifest_version: 1.0.1 -->
+<!-- last_reconciled: 2026-02-18 -->
+<!-- manifest_version: 1.0.3 -->
 
 ## Identity
 
@@ -31,14 +31,14 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 
 | Component | Version | Status | Type | Role | Dependencies | Last Changed |
 |-----------|---------|--------|------|------|--------------|--------------|
-| ARGUS | 0.6.0 | dev | Service | Monitor + Mental Models | mycel | 2026-02-13 |
+| ARGUS | 0.7.0 | stable | Service | Monitor + Mental Models | mycel | 2026-02-17 |
 | AURORA | 0.2.0 | dev | Service | UX/UI Lead | mnemis | 2026-02-12 |
 | LOOM | 0.1.0 | dev | Service | Workflow Engine | mycel, mnemis | 2026-02-04 |
 | MNEMIS | 0.1.0 | dev | Service | Cross-Project Memory | mycel | 2026-02-04 |
 | MYCEL | 0.2.0 | active | Service | Shared Intelligence (RAG) | — | 2026-02-08 |
 | VULCAN | 0.4.0-dev | dev | Service | Project Creator | mycel | 2026-02-08 |
 | WARDEN | 0.3.0 | active | Service | Governance & Compliance | mycel | 2026-02-09 |
-| RAVEN | 0.1.0 | defined | Service | Research Agent | mycel, mnemis, argus | 2026-02-09 |
+| RAVEN | 0.3.0 | active | Service | Research Agent | mycel, mnemis, argus | 2026-02-17 |
 | ABIS | 0.0.1 | planning | Service | Visual System Builder | mycel, loom, argus, mnemis | 2026-02-09 |
 | Mental Models | 1.0.0 | active | Library | Decision Support (59 models) | — | 2026-02-04 |
 | GAIA Runtime | 1.0.0 | active | Service | Background Tasks | warden, argus, mnemis | 2026-02-09 |
@@ -55,14 +55,14 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 ## Active Priorities
 
 1. Governance pipeline: cascade propagation, reconciliation skill, agent onboarding
-2. ARGUS: wire telemetry to MYCEL/VULCAN, implement Process Observer
+2. ARGUS: wire telemetry to MYCEL/VULCAN (stable v0.7.0, dashboard UX complete)
 3. MNEMIS: activate first real memory entries, test promotion protocol
 4. WARDEN: integrate compliance scan into CI pipeline
 5. AURORA: creative direction system operational (v0.2.0)
 
 ## Cascade Rules
 
-When a component changes, the following upstream documents MAY need updating. Each rule has a permission tier: `auto` (applied by /reconcile without asking), `ask` (requires HITL approval), `block` (requires dedicated session).
+When a component changes, the following upstream documents MAY need updating. Each rule has a permission tier: `auto` (applied by /reconciling-gaia without asking), `ask` (requires HITL approval), `block` (requires dedicated session).
 
 ### Universal Cascades (apply to ALL component changes)
 
@@ -79,7 +79,7 @@ When a component changes, the following upstream documents MAY need updating. Ea
 
 ### Component-Specific Cascades
 
-Each component CLAUDE.md contains a `<!-- CASCADE_MAP -->` section with component-specific cascade rules. The `/reconcile` skill reads these maps.
+Each component CLAUDE.md contains a `<!-- CASCADE_MAP -->` section with component-specific cascade rules. The `/reconciling-gaia` skill reads these maps.
 
 ## Document Authority Map
 
@@ -95,9 +95,9 @@ Each component CLAUDE.md contains a `<!-- CASCADE_MAP -->` section with componen
 
 ## Reconciliation
 
-Run `/reconcile` at end of each session to propagate changes. Use `--dry-run` to preview.
+Run `/reconciling-gaia` at end of each session to propagate changes. Use `--dry-run` to preview.
 
-- **Last reconciled**: 2026-02-13
+- **Last reconciled**: 2026-02-17
 - **Reconciliation log**: `.gaia_reconcile_log`
 - **Session changes**: `.gaia_changes` (auto-tracked by hooks)
 
@@ -111,5 +111,5 @@ Run `/reconcile` at end of each session to propagate changes. Use `--dry-run` to
 
 ---
 
-*This is the canonical state document for GAIA. Updated by `/reconcile`, not manually.*
+*This is the canonical state document for GAIA. Updated by `/reconciling-gaia`, not manually.*
 *Line budget: 116/250 max. Keep compact.*

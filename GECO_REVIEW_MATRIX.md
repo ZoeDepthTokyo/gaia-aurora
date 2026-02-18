@@ -25,11 +25,11 @@
 | 1 | **ARGUS** | Shared Service | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
 | 2 | **LOOM** | Shared Service | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
 | 3 | **MNEMIS** | Shared Service | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
-| 4 | **MYCEL** | Shared Service | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
-| 5 | **VULCAN** | Shared Service | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
-| 6 | **WARDEN** | Shared Service | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-| 7 | **RAVEN** | Shared Service | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-| 8 | **ABIS** | Shared Service | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
+| 4 | **MYCEL** | Shared Service | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
+| 5 | **VULCAN** | Shared Service | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
+| 6 | **WARDEN** | Shared Service | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
+| 7 | **RAVEN** | Shared Service | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 8 | **ABIS** | Shared Service | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
 | 9 | **HART OS** | Product | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: | :white_check_mark: |
 | 10 | **VIA** | Product | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
 | 11 | **DATA FORGE** | Product | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: | :white_check_mark: | :white_check_mark: |
@@ -37,7 +37,7 @@
 | 13 | **GPT_ECHO** | Product | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
 | 14 | **DOS** | Product | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
 | 15 | **The Palace** | Product | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-| 16 | **Mental Models** | Library | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
+| 16 | **Mental Models** | Library | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :white_check_mark: |
 
 ---
 
@@ -104,7 +104,7 @@
 #### MYCEL — Shared Intelligence Library
 | Feature | Status | Details |
 |---------|--------|---------|
-| **CLAUDE.md** | :x: | **Missing** — No CLAUDE.md file |
+| **CLAUDE.md** | :white_check_mark: | `_MYCEL/CLAUDE.md` — Role, API contracts, model routing, cost constraints |
 | **.claude/ folder** | :x: | No `.claude/` directory |
 | **Hooks** | :x: | No hooks |
 | **Subagents** | :x: | No custom agents |
@@ -115,14 +115,14 @@
 | **Permissions** | :x: | No permissions |
 | **Git** | :white_check_mark: | Git initialized |
 
-**Gap Assessment:** **Critical gap.** MYCEL is the shared intelligence library used by nearly every component (VIA, VULCAN, LOOM, MNEMIS, ARGUS, jSeeker, GPT_ECHO, WARDEN, RAVEN, ABIS, DOS). It needs a CLAUDE.md at minimum to define API contracts, model routing rules, and cost constraints.
+**Gap Assessment:** MYCEL now has a CLAUDE.md defining API contracts, model routing rules, and cost constraints. As the shared intelligence library used by nearly every component (VIA, VULCAN, LOOM, MNEMIS, ARGUS, jSeeker, GPT_ECHO, WARDEN, RAVEN, ABIS, DOS), remaining gaps are operational infrastructure: hooks for cost tracking, permissions to enforce model routing rules, and session config.
 
 ---
 
 #### VULCAN — The Forge
 | Feature | Status | Details |
 |---------|--------|---------|
-| **CLAUDE.md** | :x: | **Missing** — Has `claude_md_generator.py` (ENG-010) but no own CLAUDE.md |
+| **CLAUDE.md** | :white_check_mark: | `_VULCAN/CLAUDE.md` — Role, constraints, scaffold workflows, GECO compliance |
 | **.claude/ folder** | :x: | No `.claude/` directory |
 | **Hooks** | :x: | No hooks |
 | **Subagents** | :x: | No custom agents |
@@ -133,14 +133,14 @@
 | **Permissions** | :x: | No permissions |
 | **Git** | :white_check_mark: | Git initialized |
 
-**Gap Assessment:** Ironic: VULCAN has a CLAUDE.md *generator* (ENG-010) but lacks its own CLAUDE.md. Should be first to benefit from its own tooling.
+**Gap Assessment:** VULCAN now has its own CLAUDE.md. Remaining gaps are operational infrastructure: hooks, permissions, and subagents for its scaffold workflows.
 
 ---
 
 #### WARDEN — Governance & Compliance
 | Feature | Status | Details |
 |---------|--------|---------|
-| **CLAUDE.md** | :x: | **Missing** — Only has README.md placeholder |
+| **CLAUDE.md** | :white_check_mark: | `_WARDEN/CLAUDE.md` — Role, governance rules, CLI usage, hook integration patterns |
 | **.claude/ folder** | :x: | No `.claude/` directory |
 | **Hooks** | :x: | No Claude Code hooks (has pre-commit framework via ENG-009, but not integrated into `.claude/`) |
 | **Subagents** | :x: | No custom agents |
@@ -151,32 +151,32 @@
 | **Permissions** | :x: | No permissions |
 | **Git** | :x: | Not git initialized |
 
-**Gap Assessment:** **Critical gap.** WARDEN is the governance layer — it should be the *most* configured with hooks (pre-commit validation), permissions (deny destructive ops), and Claude Code integration. The CLI exists (ENG-001) but isn't wired into Claude Code's hook system.
+**Gap Assessment:** WARDEN now has a CLAUDE.md. As the governance layer, remaining critical gaps are operational: hooks for pre-commit validation, permissions to deny destructive ops, and wiring the CLI (ENG-001) into Claude Code's hook system.
 
 ---
 
-#### RAVEN — Autonomous Research Agent
+#### RAVEN — Master Raven Epistemic Research Engine
 | Feature | Status | Details |
 |---------|--------|---------|
-| **CLAUDE.md** | :x: | **Missing** — Has README.md with use cases and roadmap |
-| **.claude/ folder** | :x: | No `.claude/` directory |
-| **Hooks** | :x: | No hooks |
-| **Subagents** | :x: | No custom agents (ironically, RAVEN IS designed to be an agent) |
-| **Skills / Slash Commands** | :x: | No slash commands |
-| **Memory / Sessions** | :x: | No session persistence (critical for research continuity) |
+| **CLAUDE.md** | :white_check_mark: | `_RAVEN/CLAUDE.md` — Master Raven identity, 8 principles, 6-phase workflow, unkindness architecture |
+| **.claude/ folder** | :white_check_mark: | Agent (`raven-researcher.md`) + Skill (`researching/SKILL.md`) defined at GAIA root |
+| **Hooks** | :x: | No component-specific hooks (uses GAIA root hooks) |
+| **Subagents** | :white_check_mark: | `raven-researcher` agent (Opus), unkindness team spawning (Scout/Analyst/RedTeam) |
+| **Skills / Slash Commands** | :white_check_mark: | `/researching` skill — dispatches Master Raven with source tiering + red team |
+| **Memory / Sessions** | :white_check_mark: | MNEMIS cache integration (`cache.py`), 7-day TTL, PROJECT tier |
 | **Plugins** | :x: | No plugins |
-| **MCP Connections** | :x: | No MCP (would benefit from WebSearch, Notion integration) |
-| **Permissions** | :x: | No permissions |
-| **Git** | :x: | Not git initialized |
+| **MCP Connections** | :white_check_mark: | MCP bridge (`mcp_bridge.py`) — routes GitHub, Context7, Notion via main context |
+| **Permissions** | :white_check_mark: | All agents run `mode: bypassPermissions` for autonomous research |
+| **Git** | :white_check_mark: | Git submodule, remote: github.com/ZoeDepthTokyo/gaia-raven |
 
-**Gap Assessment:** RAVEN is defined but has zero Claude Code infrastructure. As an autonomous research agent, it critically needs: session persistence (multi-exchange research), MCP connections (web search, Notion for report storage), and custom subagents.
+**Gap Assessment:** RAVEN v0.3.0 is now operational with full pipeline: 92 tests, 12 modules, MYCEL synthesis, ARGUS telemetry, MNEMIS cache, MCP bridge, unkindness multi-agent teams. Remaining gaps: component-specific hooks, plugin system.
 
 ---
 
 #### ABIS — Visual System Builder
 | Feature | Status | Details |
 |---------|--------|---------|
-| **CLAUDE.md** | :x: | **Missing** — Only scaffolded (planning status) |
+| **CLAUDE.md** | :white_check_mark: | `_ABIS/CLAUDE.md` — Role, planning status, integration points, design system scope |
 | **.claude/ folder** | :x: | No `.claude/` directory |
 | **Hooks** | :x: | No hooks |
 | **Subagents** | :x: | No custom agents |
@@ -187,7 +187,7 @@
 | **Permissions** | :x: | No permissions |
 | **Git** | :x: | Not git initialized |
 
-**Gap Assessment:** Still in planning phase. Infrastructure setup should happen when active development begins. Would benefit from Figma MCP integration for visual design work.
+**Gap Assessment:** ABIS now has a CLAUDE.md. Still in planning phase — remaining infrastructure setup should happen when active development begins. Would benefit from Figma MCP integration for visual design work.
 
 ---
 
@@ -320,12 +320,12 @@
 #### Mental Models Library
 | Feature | Status | Details |
 |---------|--------|---------|
-| **CLAUDE.md** | :x: | Missing |
+| **CLAUDE.md** | :white_check_mark: | `mental_models/CLAUDE.md` — Role, model catalog, ARGUS integration |
 | **.claude/ folder** | :x: | No `.claude/` |
 | All other features | :x: | None configured |
 | **Git** | :white_check_mark: | Git initialized |
 
-**Gap Assessment:** Library component bundled with ARGUS. Could inherit ARGUS's eventual Claude Code config.
+**Gap Assessment:** Mental Models now has a CLAUDE.md. As a library component bundled with ARGUS, it can inherit ARGUS's eventual Claude Code config for remaining operational infrastructure.
 
 ---
 
@@ -358,16 +358,16 @@ Scoring: each feature = 1 point (max 10 per component)
 | **LOOM** | 2/10 | D | P2 — Good docs, needs ops config |
 | **MNEMIS** | 2/10 | D | P2 — Good docs, needs ops config |
 | **jSeeker** | 2/10 | D | P1 — Active product, needs permissions + hooks |
-| **MYCEL** | 1/10 | F | **P0** — Critical shared dependency, no docs at all |
-| **VULCAN** | 1/10 | F | P1 — Should use its own generator |
-| **WARDEN** | 0/10 | F | **P0** — Governance layer with zero governance on itself |
+| **MYCEL** | 2/10 | D | P1 — Has CLAUDE.md; needs ops config (hooks, permissions) |
+| **VULCAN** | 2/10 | D | P1 — Has CLAUDE.md; needs ops config |
+| **WARDEN** | 1/10 | F | P1 — Has CLAUDE.md; still needs hooks + Claude Code wiring |
 | **VIA** | 1/10 | F | P1 — Production product with nothing |
-| **RAVEN** | 0/10 | F | P2 — Defined but not built |
-| **ABIS** | 0/10 | F | P3 — Still planning |
+| **RAVEN** | 8/10 | A- | P1 — Full pipeline operational; missing hooks + plugins |
+| **ABIS** | 1/10 | F | P3 — Has CLAUDE.md; still planning |
 | **DOS** | 0/10 | F | P3 — Still planning |
 | **GPT_ECHO** | 0/10 | F | P3 — Stale |
 | **The Palace** | 0/10 | N/A | Static — no action needed |
-| **Mental Models** | 1/10 | F | P3 — Library, low priority |
+| **Mental Models** | 2/10 | D | P3 — Has CLAUDE.md; library, low priority |
 
 ---
 
@@ -376,8 +376,8 @@ Scoring: each feature = 1 point (max 10 per component)
 ### 5.1 Critical Gaps
 
 1. **Only 1 of 16 components has full Claude Code integration** (DATA FORGE)
-2. **MYCEL has no CLAUDE.md** despite being depended on by 10+ components
-3. **WARDEN (the governance service) has zero governance infrastructure** on itself
+2. **MYCEL, VULCAN, WARDEN, RAVEN, ABIS, Mental Models now have CLAUDE.md** — previously missing, now resolved
+3. **WARDEN (the governance service) still lacks hooks + Claude Code wiring** despite having CLAUDE.md
 4. **No component has project-level MCP connections** — all rely on global inheritance
 5. **No component has project-level plugins** — all rely on global inheritance
 6. **Session persistence exists only in DATA FORGE** via hooks
@@ -407,14 +407,14 @@ DATA FORGE demonstrates the target state for all components:
 ### P0 — Immediate (Structural Integrity)
 | Task | Component | Effort |
 |------|-----------|--------|
-| Create CLAUDE.md | MYCEL | Medium — define API contracts, model routing, cost rules |
-| Create CLAUDE.md | WARDEN | Medium — define governance rules, CLI usage, hook integration |
+| ~~Create CLAUDE.md~~ | ~~MYCEL~~ | ~~Medium~~ **DONE** |
+| ~~Create CLAUDE.md~~ | ~~WARDEN~~ | ~~Medium~~ **DONE** |
 | Wire WARDEN CLI into Claude Code hooks | WARDEN + Global | Low — add PreToolUse hook calling `warden validate` |
 
 ### P1 — Near-Term (Active Projects)
 | Task | Component | Effort |
 |------|-----------|--------|
-| Run VULCAN generator on itself | VULCAN | Low — eat your own dogfood |
+| ~~Run VULCAN generator on itself~~ | ~~VULCAN~~ | ~~Low~~ **DONE** |
 | Create CLAUDE.md | HART OS, VIA | Medium |
 | Add .claude/settings.json with permissions | jSeeker, HART OS (cleanup) | Low |
 | Remove stale `_PROTEUS/CLAUDE.md` | _GAIA/_PROTEUS | Trivial |
@@ -423,7 +423,7 @@ DATA FORGE demonstrates the target state for all components:
 ### P2 — Medium-Term (Ecosystem Consistency)
 | Task | Component | Effort |
 |------|-----------|--------|
-| Create CLAUDE.md | RAVEN, ABIS | Medium |
+| ~~Create CLAUDE.md~~ | ~~RAVEN, ABIS~~ | ~~Medium~~ **DONE** |
 | Add .claude/ folder with agents + commands | ARGUS, LOOM, MNEMIS | Medium — define service-specific agents |
 | Add permissions deny rules | All components with CLAUDE.md constraints | Low |
 | Wire pre-commit hooks into `.claude/settings.json` | Ecosystem-wide | Medium |

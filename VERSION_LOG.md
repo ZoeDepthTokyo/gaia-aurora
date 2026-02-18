@@ -422,6 +422,40 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 
 ---
 
+## v0.5.3 - RAVEN Master Raven v0.3.0 (Feb 17-18, 2026) [COMPLETE]
+
+**Session:** a3d245ac | **Agent:** Claude Sonnet 4.6 + 3 parallel subagents
+
+**RAVEN Transformation (v0.1.0 -> v0.3.0):**
+- Rewrote from mock researcher (18 tests) to full epistemic research engine (92 tests)
+- Master Raven identity: 8 operating principles, source tiering, triangulation, red team analysis
+- 12 Python modules: models, providers, output_limiter, synthesis, telemetry, cache, mcp_bridge, factory, unkindness, researcher, cli, __init__
+- 4-layer output limiting stack (source gate, token budget, structural compression, format optimization)
+- 4-step LLM synthesis chain via MYCEL (triangulate, hypothesize, red-team, synthesize)
+- ARGUS telemetry integration (research_started, research_completed, error events)
+- MNEMIS cache integration (PROJECT tier, 7-day TTL, SHA-256 keyed)
+- MCP bridge (GitHub, Context7, Notion routing via main context)
+- Graceful degradation: works with zero deps, partial (MYCEL only), or full pipeline
+
+**Unkindness Multi-Agent Architecture:**
+- Raven Master (Opus) orchestrates Scout Ravens (Sonnet), Analyst Raven (Sonnet), Red Team Raven (Sonnet)
+- Sprint-phased execution: Reconnaissance -> Analysis -> Adversarial -> Synthesis
+- All agents run with `mode: bypassPermissions` for autonomous research
+- Cost governance: quick $0.50, comprehensive $2.00, deep $5.00
+
+**New Skill + Agent:**
+- `/researching` skill (`.claude/skills/researching/SKILL.md`)
+- `raven-researcher` agent (`.claude/agents/raven-researcher.md`)
+
+**OpenClaw Research Report (Phase 6 Deliverable):**
+- Full 9-section Master Raven report at `_RAVEN/reports/openclaw.md`
+- 14 sources (5 PRIMARY, 6 SECONDARY, 3 TERTIARY), 3 hypotheses, minority report
+- Verdict: Bridge architecture (OpenClaw for messaging alongside Claude Code for development)
+
+**GECO Score:** RAVEN 1/10 -> 8/10 (A-)
+
+---
+
 ## Planned Versions (Roadmap)
 
 ---
