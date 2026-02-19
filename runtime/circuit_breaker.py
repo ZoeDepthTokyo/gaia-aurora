@@ -15,6 +15,7 @@ to "CIRCUIT_BREAKER_OPEN" or "RATE_LIMITED" when triggered.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -25,7 +26,8 @@ MAX_NO_CHANGE_ITERATIONS = 3
 MAX_SAME_ERROR_COUNT = 5
 DEFAULT_MAX_CALLS = 200
 
-LOG_FILE = Path("X:/projects/_GAIA/.gaia_loop_log")
+_GAIA_ROOT = Path(os.getenv("GAIA_ROOT", Path(__file__).parent.parent))
+LOG_FILE = _GAIA_ROOT / ".gaia_loop_log"
 
 
 def _get_changed_files() -> list[str]:
@@ -35,7 +37,7 @@ def _get_changed_files() -> list[str]:
             ["git", "diff", "--name-only"],
             capture_output=True,
             text=True,
-            cwd="X:/projects/_GAIA",
+            cwd=str(_GAIA_ROOT),
             timeout=10,
         )
         files = [f.strip() for f in result.stdout.strip().split("\n") if f.strip()]
@@ -50,7 +52,7 @@ def _get_test_errors() -> str | None:
     Returns a normalized error string for comparison, or None if no errors.
     """
     # Read the plan file for error mentions
-    plan_file = Path("X:/projects/_GAIA/.gaia_loop_plan.md")
+    plan_file = _GAIA_ROOT / ".gaia_loop_plan.md"
     if not plan_file.exists():
         return None
 

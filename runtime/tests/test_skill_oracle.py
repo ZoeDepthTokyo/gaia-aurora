@@ -2,13 +2,15 @@
 test_skill_oracle.py -- TDD tests for all 4 skill runtime scripts.
 Run: python -m pytest runtime/tests/test_skill_oracle.py -v
 """
+
 import os
 import subprocess
 import sys
 from pathlib import Path
 
-SCRIPTS_DIR = Path("X:/projects/_GAIA/runtime/scripts")
-GAIA_ROOT = Path("X:/projects/_GAIA")
+_HERE = Path(__file__).parent
+SCRIPTS_DIR = Path(os.getenv("GAIA_ROOT", _HERE.parent.parent)) / "runtime" / "scripts"
+GAIA_ROOT = Path(os.getenv("GAIA_ROOT", _HERE.parent.parent))
 
 
 # --- skill_guard.py tests ---------------------------------------------------
