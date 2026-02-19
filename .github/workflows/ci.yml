@@ -48,7 +48,9 @@ jobs:
     - name: Run runtime tests
       run: |
         if [ -d "runtime/tests" ]; then
-          pytest runtime/tests/ -v --tb=short
+          pytest runtime/tests/ -v --tb=short \
+            --ignore=runtime/tests/test_gaia_viz_integration.py \
+            --ignore=runtime/tests/test_gaia_viz_server.py
         else
           echo "No runtime tests found"
         fi

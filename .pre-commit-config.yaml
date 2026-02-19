@@ -57,5 +57,9 @@ repos:
         entry: python -m ruff format --check .
         pass_filenames: false
         stages: [pre-push]
-
-
+      - id: ruff-lint-check-all
+        name: ruff lint check (all files, pre-push gate)
+        language: system
+        entry: python -m ruff check .
+        pass_filenames: false
+        stages: [pre-push]
