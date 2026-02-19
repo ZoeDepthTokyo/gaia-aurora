@@ -1,13 +1,23 @@
 """Tests for GWT coverage tracker."""
+
 import sys
 from pathlib import Path
+
+import pytest
 
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 from gwt_coverage import count_spec_scenarios, count_test_functions, generate_report
 
+_GAIA_ROOT = Path(__file__).resolve().parents[2]
+_ARGUS_DIR = _GAIA_ROOT / "_ARGUS"
 
+
+@pytest.mark.skipif(
+    not (_ARGUS_DIR / "CLAUDE.md").exists(),
+    reason="ARGUS submodule not checked out",
+)
 def test_count_spec_scenarios_known_component():
     """ARGUS should have spec scenarios."""
     scenarios = count_spec_scenarios("ARGUS")
