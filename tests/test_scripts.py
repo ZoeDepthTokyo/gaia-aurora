@@ -6,8 +6,6 @@ No git commands are executed -- subprocess calls are mocked.
 import json
 import os
 import sys
-import tempfile
-from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -62,9 +60,11 @@ def registry_file(tmp_path):
 # tag_known_good: get_submodules
 # ---------------------------------------------------------------------------
 
+
 class TestTagKnownGoodGetSubmodules:
     def test_returns_only_gaia_submodule_paths(self, registry_file, monkeypatch):
         import tag_known_good
+
         monkeypatch.setattr(tag_known_good, "GAIA_ROOT", registry_file)
         paths = tag_known_good.get_submodules()
         # hart_os is NOT under _GAIA/_ so it must be excluded
@@ -74,6 +74,7 @@ class TestTagKnownGoodGetSubmodules:
 
     def test_returns_list_type(self, registry_file, monkeypatch):
         import tag_known_good
+
         monkeypatch.setattr(tag_known_good, "GAIA_ROOT", registry_file)
         result = tag_known_good.get_submodules()
         assert isinstance(result, list)
@@ -83,9 +84,11 @@ class TestTagKnownGoodGetSubmodules:
 # rollback: get_submodules
 # ---------------------------------------------------------------------------
 
+
 class TestRollbackGetSubmodules:
     def test_returns_only_gaia_submodule_paths(self, registry_file, monkeypatch):
         import rollback
+
         monkeypatch.setattr(rollback, "GAIA_ROOT", registry_file)
         paths = rollback.get_submodules()
         assert any("_MYCEL" in p for p in paths)
@@ -94,6 +97,7 @@ class TestRollbackGetSubmodules:
 
     def test_returns_list_type(self, registry_file, monkeypatch):
         import rollback
+
         monkeypatch.setattr(rollback, "GAIA_ROOT", registry_file)
         result = rollback.get_submodules()
         assert isinstance(result, list)
@@ -103,10 +107,12 @@ class TestRollbackGetSubmodules:
 # GENESISCollector roundtrip (cross-validation with scripts context)
 # ---------------------------------------------------------------------------
 
+
 class TestGENESISCollectorRoundtrip:
     def test_record_flush_roundtrip(self):
-        from genesis.protocol import GENESISCollector, GENESISEvent
         import json
+
+        from genesis.protocol import GENESISCollector, GENESISEvent
 
         collector = GENESISCollector("inst-rt", "test")
         ev = collector.record_event("pattern_detected", {"key": "value"})
@@ -124,7 +130,7 @@ class TestGENESISCollectorRoundtrip:
         assert collector.get_pending_events() == []
 
     def test_protocol_version_consistent(self):
-        from genesis.protocol import PROTOCOL_VERSION, GENESISCollector, GENESISEvent
+        from genesis.protocol import PROTOCOL_VERSION, GENESISCollector
 
         collector = GENESISCollector("inst-v")
         ev = collector.record_event("compliance_report", {})
