@@ -20,7 +20,7 @@ import signal
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict
 
 logger = logging.getLogger("gaia.runtime")
 
@@ -48,10 +48,11 @@ def register_task(name: str, func: Callable, schedule: str, description: str = "
 
 # --- Built-in tasks ---
 
+
 def task_warden_scan():
     """Run WARDEN compliance scan across all registered projects."""
-    from pathlib import Path
     import json
+    from pathlib import Path
 
     registry_path = Path("X:/Projects/_GAIA/registry.json")
     if not registry_path.exists():
@@ -69,6 +70,7 @@ def task_warden_scan():
                 # Import WARDEN scanner
                 sys.path.insert(0, str(Path("X:/Projects/_GAIA/_WARDEN")))
                 from scanner import ComplianceScanner
+
                 scanner = ComplianceScanner()
                 result = scanner.scan(project_path)
                 results[key] = {
@@ -76,7 +78,9 @@ def task_warden_scan():
                     "issues": len(result.issues),
                     "scanned_files": result.scanned_files,
                 }
-                logger.info(f"WARDEN scan {key}: {'PASS' if result.passed else 'FAIL'} ({len(result.issues)} issues)")
+                logger.info(
+                    f"WARDEN scan {key}: {'PASS' if result.passed else 'FAIL'} ({len(result.issues)} issues)"
+                )
             except Exception as e:
                 logger.error(f"WARDEN scan failed for {key}: {e}")
                 results[key] = {"error": str(e)}
@@ -131,9 +135,19 @@ def task_stale_cache_cleanup():
 
 
 # Register built-in tasks
-register_task("warden_scan", task_warden_scan, "daily", "WARDEN compliance scan across all projects")
+register_task(
+    "warden_scan",
+    task_warden_scan,
+    "daily",
+    "WARDEN compliance scan across all projects",
+)
 register_task("health_check", task_health_check, "hourly", "Ecosystem health check")
-register_task("stale_cache", task_stale_cache_cleanup, "every_15m", "Detect stale __pycache__ directories")
+register_task(
+    "stale_cache",
+    task_stale_cache_cleanup,
+    "every_15m",
+    "Detect stale __pycache__ directories",
+)
 
 
 def run_all_once():
@@ -158,7 +172,9 @@ def list_tasks():
     print(f"{'Name':<20} {'Schedule':<12} {'Last Run':<25} {'Description'}")
     print("-" * 80)
     for name, task in REGISTERED_TASKS.items():
-        print(f"{name:<20} {task['schedule']:<12} {task['last_run'] or 'never':<25} {task['description']}")
+        print(
+            f"{name:<20} {task['schedule']:<12} {task['last_run'] or 'never':<25} {task['description']}"
+        )
 
 
 def main():
@@ -167,7 +183,9 @@ def main():
     parser.add_argument("--list", action="store_true", help="List registered tasks")
     args = parser.parse_args()
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s"
+    )
 
     if args.list:
         list_tasks()
@@ -176,12 +194,14 @@ def main():
     if args.once:
         results = run_all_once()
         import json
+
         print(json.dumps(results, indent=2, default=str))
         return
 
     # Full scheduler mode (requires APScheduler)
     try:
         from apscheduler.schedulers.blocking import BlockingScheduler
+
         scheduler = BlockingScheduler()
 
         schedule_map = {

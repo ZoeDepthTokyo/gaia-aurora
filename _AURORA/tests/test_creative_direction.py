@@ -1,7 +1,6 @@
 """AURORA Creative Direction -- basic structural tests."""
 
 from pathlib import Path
-import json
 
 AURORA_ROOT = Path(__file__).resolve().parent.parent
 

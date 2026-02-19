@@ -1,0 +1,12 @@
+line-length = 100
+
+[lint]
+select = ["E", "F", "W", "I", "N"]
+ignore = ["E501", "N999", "F841"]
+
+[lint.per-file-ignores]
+"tests/integration/validate_imports.py" = ["F401"]  # Import validation script
+"tests/*" = ["F841"]
+"runtime/tests/*" = ["E402"]
+"_AURORA/**/test_*.py" = ["F841"]
+"_*/tests/*" = ["F841"]

@@ -2,9 +2,11 @@
 Tests for contract validator.
 """
 
-import pytest
 from unittest.mock import MagicMock, patch
-from runtime.contract_validator import ContractValidator, ValidationResult, CONTRACTS
+
+import pytest
+
+from runtime.contract_validator import CONTRACTS, ContractValidator, ValidationResult
 
 
 class TestContractValidator:

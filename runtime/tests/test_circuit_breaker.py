@@ -109,9 +109,7 @@ class TestCircuitBreakerRepeatedErrors:
         state["circuit_breaker"]["error_history"] = [error_sig] * 4
         state_file.write_text(json.dumps(state, indent=2))
 
-        with patch(
-            "runtime.circuit_breaker._get_test_errors", return_value=error_sig
-        ):
+        with patch("runtime.circuit_breaker._get_test_errors", return_value=error_sig):
             result = check(str(state_file))
 
         assert result["status"] == "CIRCUIT_BREAKER_OPEN"
@@ -128,9 +126,7 @@ class TestCircuitBreakerRepeatedErrors:
         ]
         state_file.write_text(json.dumps(state, indent=2))
 
-        with patch(
-            "runtime.circuit_breaker._get_test_errors", return_value="error_e"
-        ):
+        with patch("runtime.circuit_breaker._get_test_errors", return_value="error_e"):
             result = check(str(state_file))
 
         assert result["status"] == "running"
@@ -184,9 +180,7 @@ class TestEdgeCases:
         state["circuit_breaker"]["error_history"] = [f"error_{i}" for i in range(10)]
         state_file.write_text(json.dumps(state, indent=2))
 
-        with patch(
-            "runtime.circuit_breaker._get_test_errors", return_value="new_error"
-        ):
+        with patch("runtime.circuit_breaker._get_test_errors", return_value="new_error"):
             result = check(str(state_file))
 
         assert len(result["circuit_breaker"]["error_history"]) == 10

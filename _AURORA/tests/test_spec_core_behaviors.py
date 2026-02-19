@@ -16,7 +16,7 @@ import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import pytest
 
@@ -37,11 +37,11 @@ class ExtractedTokenFile:
     extracted_at: str  # ISO-8601 timestamp
     token_count: int
     primary_color: str
-    font_families: List[str]
-    spacing_scale: Dict[str, str]
-    raw: Dict[str, Any] = field(default_factory=dict)
+    font_families: list[str]
+    spacing_scale: dict[str, str]
+    raw: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "source_url": self.source_url,
             "extracted_at": self.extracted_at,
@@ -52,7 +52,7 @@ class ExtractedTokenFile:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ExtractedTokenFile":
+    def from_dict(cls, data: dict[str, Any]) -> ExtractedTokenFile:
         return cls(
             source_url=data["source_url"],
             extracted_at=data["extracted_at"],
@@ -69,11 +69,11 @@ class MoodBoardOutput:
     """Schema for mood_board.json produced by /aurora-mood."""
 
     project: str
-    palette: List[str]
-    typography: Dict[str, Any]
-    mood_keywords: List[str]
+    palette: list[str]
+    typography: dict[str, Any]
+    mood_keywords: list[str]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "project": self.project,
             "palette": self.palette,
@@ -82,7 +82,7 @@ class MoodBoardOutput:
         }
 
     @classmethod
-    def validate_schema(cls, data: Dict[str, Any]) -> None:
+    def validate_schema(cls, data: dict[str, Any]) -> None:
         """Raise AssertionError if required fields are missing."""
         required = ("palette", "typography", "mood_keywords")
         for key in required:
@@ -98,7 +98,7 @@ class CheckpointWorkflow:
     PHASES = ["brief", "references", "final"]
 
     def __init__(self) -> None:
-        self._approved: List[str] = []
+        self._approved: list[str] = []
 
     @property
     def current_checkpoint(self) -> str:
@@ -109,9 +109,7 @@ class CheckpointWorkflow:
 
     def approve(self, checkpoint: str) -> None:
         if checkpoint != self.current_checkpoint:
-            raise ValueError(
-                f"Cannot approve '{checkpoint}': expected '{self.current_checkpoint}'"
-            )
+            raise ValueError(f"Cannot approve '{checkpoint}': expected '{self.current_checkpoint}'")
         self._approved.append(checkpoint)
 
     def is_complete(self) -> bool:
@@ -144,7 +142,7 @@ class PhaseWorkflow:
         self._current_phase = phase
 
 
-def _load_master_tokens() -> Dict[str, Any]:
+def _load_master_tokens() -> dict[str, Any]:
     """Load master tokens.json; skip test if file is absent."""
     if not MASTER_TOKENS_PATH.exists():
         pytest.skip(f"master tokens.json not found at {MASTER_TOKENS_PATH}")
@@ -152,9 +150,9 @@ def _load_master_tokens() -> Dict[str, Any]:
         return json.load(f)
 
 
-def _collect_flat_keys(d: Dict[str, Any], prefix: str = "") -> List[str]:
+def _collect_flat_keys(d: dict[str, Any], prefix: str = "") -> list[str]:
     """Recursively flatten dict keys with dot notation."""
-    keys: List[str] = []
+    keys: list[str] = []
     for k, v in d.items():
         full = f"{prefix}.{k}" if prefix else k
         if isinstance(v, dict):
@@ -164,7 +162,7 @@ def _collect_flat_keys(d: Dict[str, Any], prefix: str = "") -> List[str]:
     return keys
 
 
-def validate_brand_kit(brand_kit: Dict[str, Any], master_tokens: Dict[str, Any]) -> None:
+def validate_brand_kit(brand_kit: dict[str, Any], master_tokens: dict[str, Any]) -> None:
     """Check brand_kit for master DNA key conflicts.
 
     Raises:
@@ -313,20 +311,20 @@ class TestQuickComponentDesign:
         WHEN /aurora-quick is invoked
         THEN it falls back to master tokens and does not block
         """
-        assert MASTER_TOKENS_PATH.exists(), (
-            f"Master tokens.json must exist at {MASTER_TOKENS_PATH} for fallback"
-        )
+        assert (
+            MASTER_TOKENS_PATH.exists()
+        ), f"Master tokens.json must exist at {MASTER_TOKENS_PATH} for fallback"
         tokens = _load_master_tokens()
         assert tokens, "Master tokens file must not be empty"
 
         # Simulate: no mood board dir for project
         project_mood_board = AURORA_ROOT / "creative_direction" / "mood_boards" / "nonexistent_proj"
-        has_mood_board = project_mood_board.exists()
+        _has_mood_board = project_mood_board.exists()
 
         # Regardless of mood board presence, master tokens are available
-        assert "spacing" in tokens or "typography" in tokens or "color" in tokens, (
-            "Master tokens must contain at least one of: spacing, typography, color"
-        )
+        assert (
+            "spacing" in tokens or "typography" in tokens or "color" in tokens
+        ), "Master tokens must contain at least one of: spacing, typography, color"
 
     def test_quick_task_references_master_tokens(self):
         """Scenario: Quick task references master token constraints.
@@ -340,9 +338,9 @@ class TestQuickComponentDesign:
         # Verify master token file has the top-level categories expected
         required_categories = {"typography", "spacing", "color"}
         present = {k for k in tokens if k in required_categories}
-        assert present == required_categories, (
-            f"Master tokens.json missing categories: {required_categories - present}"
-        )
+        assert (
+            present == required_categories
+        ), f"Master tokens.json missing categories: {required_categories - present}"
 
         # Verify spacing scale is populated
         spacing_scale = tokens.get("spacing", {}).get("scale", {})
@@ -437,9 +435,9 @@ class TestWorkflowIntegrity:
             workflow.advance_to(4)
 
         # Phase must remain at 2
-        assert workflow.current_phase == 2, (
-            "Workflow phase must remain at 2 after rejected skip attempt"
-        )
+        assert (
+            workflow.current_phase == 2
+        ), "Workflow phase must remain at 2 after rejected skip attempt"
 
     def test_sequential_advance_is_accepted(self):
         """Phases can advance one step at a time through all 6 phases."""

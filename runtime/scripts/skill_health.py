@@ -34,9 +34,7 @@ def main():
     claude_md_content = ""
     for claude_md in gaia_root.rglob("CLAUDE.md"):
         try:
-            claude_md_content += (
-                claude_md.read_text(encoding="utf-8", errors="ignore") + "\n"
-            )
+            claude_md_content += claude_md.read_text(encoding="utf-8", errors="ignore") + "\n"
         except Exception:
             pass
 
@@ -53,16 +51,13 @@ def main():
 
         # Check line count
         if len(lines) > MAX_LINES:
-            issues.append(
-                f"[ERR] {skill_name}: SKILL.md is {len(lines)} lines (max {MAX_LINES})"
-            )
+            issues.append(f"[ERR] {skill_name}: SKILL.md is {len(lines)} lines (max {MAX_LINES})")
 
         # Check phase tag in description
         has_phase = any(tag in content for tag in PHASE_TAGS)
         if not has_phase:
             warnings.append(
-                f"[WARN] {skill_name}: missing phase tag"
-                " ([OPENING], [CLOSING], or [CONTEXT])"
+                f"[WARN] {skill_name}: missing phase tag" " ([OPENING], [CLOSING], or [CONTEXT])"
             )
 
         # Check if referenced in any CLAUDE.md

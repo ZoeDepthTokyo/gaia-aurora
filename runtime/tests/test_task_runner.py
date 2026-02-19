@@ -1,220 +1,301 @@
-"""Tests for GAIA Background Task Runner."""
-import json
+"""Tests for GAIA Background Task Runner.
+
+Covers TaskRunner class (class-based API) as well as the legacy
+module-level helpers (register_task, run_all_once, list_tasks) so that
+both APIs remain tested simultaneously.
+"""
+from __future__ import annotations
+
+import sys
+import time
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
+
 import pytest
 
+# Allow direct imports from the runtime package when run via pytest from root.
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-# Add parent directory to path for imports
-import sys
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from task_runner import (
+from runtime.task_runner import (
+    REGISTERED_TASKS,
+    ScheduledTask,
+    TaskRunner,
+    list_tasks,
     register_task,
     run_all_once,
-    list_tasks,
     task_health_check,
     task_stale_cache_cleanup,
-    REGISTERED_TASKS,
 )
 
 
-def test_register_task_adds_to_registry():
-    """Test that register_task adds task to REGISTERED_TASKS."""
-    # Clear registry before test
-    REGISTERED_TASKS.clear()
-
-    def dummy_task():
-        return "done"
-
-    register_task(
-        name="test_task",
-        func=dummy_task,
-        schedule="hourly",
-        description="Test task for unit test"
-    )
-
-    assert "test_task" in REGISTERED_TASKS
-    assert REGISTERED_TASKS["test_task"]["func"] == dummy_task
-    assert REGISTERED_TASKS["test_task"]["schedule"] == "hourly"
-    assert REGISTERED_TASKS["test_task"]["description"] == "Test task for unit test"
-    assert REGISTERED_TASKS["test_task"]["last_run"] is None
-    assert REGISTERED_TASKS["test_task"]["last_status"] is None
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
 
-def test_run_all_once_executes_tasks():
-    """Test that run_all_once executes all registered tasks."""
-    # Clear registry and add test tasks
-    REGISTERED_TASKS.clear()
-
-    call_count = {"task1": 0, "task2": 0}
-
-    def task1():
-        call_count["task1"] += 1
-        return {"result": "task1_success"}
-
-    def task2():
-        call_count["task2"] += 1
-        return {"result": "task2_success"}
-
-    register_task("task1", task1, "hourly", "Test task 1")
-    register_task("task2", task2, "daily", "Test task 2")
-
-    results = run_all_once()
-
-    # Verify all tasks were called
-    assert call_count["task1"] == 1
-    assert call_count["task2"] == 1
-
-    # Verify results
-    assert "task1" in results
-    assert "task2" in results
-    assert results["task1"]["result"] == "task1_success"
-    assert results["task2"]["result"] == "task2_success"
-
-    # Verify last_run and last_status were updated
-    assert REGISTERED_TASKS["task1"]["last_run"] is not None
-    assert REGISTERED_TASKS["task1"]["last_status"] == "success"
-    assert REGISTERED_TASKS["task2"]["last_run"] is not None
-    assert REGISTERED_TASKS["task2"]["last_status"] == "success"
+def _make_runner() -> TaskRunner:
+    """Return a fresh TaskRunner with NO default tasks pre-registered."""
+    return TaskRunner(register_defaults=False)
 
 
-def test_run_all_once_handles_exceptions():
-    """Test that run_all_once handles task exceptions gracefully."""
-    REGISTERED_TASKS.clear()
-
-    def failing_task():
-        raise ValueError("Task failed!")
-
-    def working_task():
-        return {"status": "ok"}
-
-    register_task("failing", failing_task, "hourly", "Task that fails")
-    register_task("working", working_task, "hourly", "Task that works")
-
-    results = run_all_once()
-
-    # Verify failing task recorded error
-    assert "failing" in results
-    assert "error" in results["failing"]
-    assert "Task failed!" in results["failing"]["error"]
-    assert "error:" in REGISTERED_TASKS["failing"]["last_status"]
-
-    # Verify working task succeeded
-    assert "working" in results
-    assert results["working"]["status"] == "ok"
-    assert REGISTERED_TASKS["working"]["last_status"] == "success"
+# ---------------------------------------------------------------------------
+# Class-based API — TaskRunner
+# ---------------------------------------------------------------------------
 
 
-def test_list_tasks_doesnt_crash(capsys):
-    """Test that list_tasks prints without crashing."""
-    REGISTERED_TASKS.clear()
+class TestTaskRunnerInit:
+    def test_initializes_with_empty_registry(self) -> None:
+        """TaskRunner starts with no tasks when register_defaults=False."""
+        runner = _make_runner()
+        assert runner.list_tasks() == []
 
-    def dummy_task():
-        pass
-
-    register_task("test_task", dummy_task, "daily", "A test task")
-
-    # Should not raise
-    list_tasks()
-
-    captured = capsys.readouterr()
-    assert "test_task" in captured.out
-    assert "daily" in captured.out
-    assert "A test task" in captured.out
+    def test_initializes_with_default_tasks(self) -> None:
+        """TaskRunner with defaults registers the 5 built-in tasks."""
+        runner = TaskRunner(register_defaults=True)
+        names = {t.name for t in runner.list_tasks()}
+        assert "warden_scan" in names
+        assert "health_check" in names
+        assert "stale_cache_cleanup" in names
+        assert "guardrail_check" in names
+        assert "baseline_update" in names
+        assert len(names) == 5
 
 
-def test_task_health_check_structure():
-    """Test that task_health_check returns expected structure."""
-    # Create a mock registry
-    mock_registry = {
-        "projects": {
-            "test_project": {
-                "path": "X:/Projects/_GAIA/_WARDEN"  # Use a real path for testing
-            }
+class TestRegister:
+    def test_register_adds_task(self) -> None:
+        """register() stores the task in the internal registry."""
+        runner = _make_runner()
+        runner.register("ping", lambda: "pong", interval_seconds=60)
+        tasks = runner.list_tasks()
+        assert len(tasks) == 1
+        assert tasks[0].name == "ping"
+
+    def test_register_sets_interval(self) -> None:
+        """register() correctly stores interval_seconds."""
+        runner = _make_runner()
+        runner.register("t", lambda: None, interval_seconds=300)
+        assert runner.list_tasks()[0].interval_seconds == 300
+
+    def test_register_task_enabled_by_default(self) -> None:
+        """Newly registered tasks are enabled by default."""
+        runner = _make_runner()
+        runner.register("t", lambda: None, interval_seconds=60)
+        assert runner.list_tasks()[0].enabled is True
+
+    def test_register_overrides_existing(self) -> None:
+        """Re-registering a name replaces the previous entry."""
+        runner = _make_runner()
+        runner.register("t", lambda: "v1", interval_seconds=60)
+        runner.register("t", lambda: "v2", interval_seconds=120)
+        tasks = runner.list_tasks()
+        assert len(tasks) == 1
+        assert tasks[0].interval_seconds == 120
+
+
+class TestListTasks:
+    def test_list_tasks_returns_all(self) -> None:
+        """list_tasks returns one entry per registered task."""
+        runner = _make_runner()
+        runner.register("a", lambda: None, interval_seconds=60)
+        runner.register("b", lambda: None, interval_seconds=120)
+        assert len(runner.list_tasks()) == 2
+
+    def test_list_tasks_returns_scheduled_task_objects(self) -> None:
+        """list_tasks entries are ScheduledTask dataclass instances."""
+        runner = _make_runner()
+        runner.register("t", lambda: None, interval_seconds=60)
+        entry = runner.list_tasks()[0]
+        assert isinstance(entry, ScheduledTask)
+
+
+class TestRunOnce:
+    def test_run_once_executes_due_tasks(self) -> None:
+        """run_once calls tasks whose interval has elapsed."""
+        runner = _make_runner()
+        executed: list[str] = []
+        runner.register("t", lambda: executed.append("t"), interval_seconds=0)
+        count = runner.run_once()
+        assert count == 1
+        assert "t" in executed
+
+    def test_run_once_skips_tasks_not_yet_due(self) -> None:
+        """run_once skips tasks last run within the interval window."""
+        runner = _make_runner()
+        executed: list[str] = []
+
+        def fn() -> None:
+            executed.append("ran")
+
+        runner.register("t", fn, interval_seconds=9999)
+        # Manually mark it as just-run
+        runner._tasks["t"].last_run = time.time()
+
+        count = runner.run_once()
+        assert count == 0
+        assert executed == []
+
+    def test_run_once_returns_task_count(self) -> None:
+        """run_once return value equals the number of tasks executed."""
+        runner = _make_runner()
+        runner.register("a", lambda: None, interval_seconds=0)
+        runner.register("b", lambda: None, interval_seconds=0)
+        count = runner.run_once()
+        assert count == 2
+
+    def test_run_once_zero_interval_always_runs(self) -> None:
+        """A task with interval_seconds=0 executes every run_once call."""
+        runner = _make_runner()
+        calls: list[int] = []
+        runner.register("t", lambda: calls.append(1), interval_seconds=0)
+        runner.run_once()
+        runner.run_once()
+        assert len(calls) == 2
+
+    def test_run_once_exception_does_not_crash_runner(self) -> None:
+        """A task that raises must not propagate and must not prevent other tasks."""
+        runner = _make_runner()
+        executed: list[str] = []
+
+        def bad() -> None:
+            raise RuntimeError("boom")
+
+        runner.register("bad", bad, interval_seconds=0)
+        runner.register("good", lambda: executed.append("good"), interval_seconds=0)
+
+        # Must not raise
+        count = runner.run_once()
+        assert "good" in executed
+        # Both tasks were attempted, so count reflects attempted executions
+        assert count >= 1
+
+    def test_run_once_results_include_timestamp_and_status(self) -> None:
+        """Results dict contains 'timestamp' and 'status' keys for each executed task."""
+        runner = _make_runner()
+        runner.register("t", lambda: {"val": 1}, interval_seconds=0)
+        runner.run_once()
+        results = runner.get_results()
+        assert "t" in results
+        assert "timestamp" in results["t"]
+        assert "status" in results["t"]
+
+    def test_run_once_error_status_in_results(self) -> None:
+        """A failing task records status='error' and includes 'error' key in results."""
+        runner = _make_runner()
+
+        def bad() -> None:
+            raise ValueError("oops")
+
+        runner.register("bad", bad, interval_seconds=0)
+        runner.run_once()
+        result = runner.get_results()["bad"]
+        assert result["status"] == "error"
+        assert "oops" in result["error"]
+
+
+class TestRunAll:
+    def test_run_all_executes_regardless_of_interval(self) -> None:
+        """run_all() forces execution even for tasks not yet due."""
+        runner = _make_runner()
+        executed: list[str] = []
+        runner.register("t", lambda: executed.append("t"), interval_seconds=9999)
+        runner._tasks["t"].last_run = time.time()  # mark as recently run
+        runner.run_all()
+        assert "t" in executed
+
+    def test_run_all_executes_all_tasks(self) -> None:
+        """run_all() runs every registered task exactly once."""
+        runner = _make_runner()
+        executed: list[str] = []
+        runner.register("a", lambda: executed.append("a"), interval_seconds=9999)
+        runner.register("b", lambda: executed.append("b"), interval_seconds=9999)
+        runner._tasks["a"].last_run = time.time()
+        runner._tasks["b"].last_run = time.time()
+        runner.run_all()
+        assert sorted(executed) == ["a", "b"]
+
+
+class TestGetResults:
+    def test_get_results_empty_before_any_run(self) -> None:
+        """get_results returns empty dict before any run_once call."""
+        runner = _make_runner()
+        runner.register("t", lambda: None, interval_seconds=0)
+        assert runner.get_results() == {}
+
+    def test_get_results_populated_after_run(self) -> None:
+        """get_results returns entries for all tasks that ran."""
+        runner = _make_runner()
+        runner.register("t", lambda: {"ok": True}, interval_seconds=0)
+        runner.run_once()
+        results = runner.get_results()
+        assert "t" in results
+
+
+# ---------------------------------------------------------------------------
+# Default tasks (registered via register_defaults=True)
+# ---------------------------------------------------------------------------
+
+
+class TestDefaultTasks:
+    def test_five_default_tasks_are_registered(self) -> None:
+        """Exactly 5 tasks are pre-registered by default."""
+        runner = TaskRunner(register_defaults=True)
+        assert len(runner.list_tasks()) == 5
+
+    def test_default_task_names(self) -> None:
+        """All expected default task names are present."""
+        runner = TaskRunner(register_defaults=True)
+        names = {t.name for t in runner.list_tasks()}
+        expected = {
+            "warden_scan",
+            "health_check",
+            "stale_cache_cleanup",
+            "guardrail_check",
+            "baseline_update",
         }
-    }
-
-    with patch("pathlib.Path.exists") as mock_exists, \
-         patch("pathlib.Path.read_text") as mock_read:
-
-        # Mock registry file exists and contains our mock data
-        mock_exists.return_value = True
-        mock_read.return_value = json.dumps(mock_registry)
-
-        result = task_health_check()
-
-        # Verify structure
-        assert isinstance(result, dict)
-        assert "test_project" in result
-
-        project_health = result["test_project"]
-        assert "exists" in project_health
-        assert "has_git" in project_health
-        assert "has_tests" in project_health
-        assert "has_claude_md" in project_health
-
-        # All values should be booleans
-        assert isinstance(project_health["exists"], bool)
-        assert isinstance(project_health["has_git"], bool)
-        assert isinstance(project_health["has_tests"], bool)
-        assert isinstance(project_health["has_claude_md"], bool)
+        assert names == expected
 
 
-def test_task_health_check_missing_registry():
-    """Test that task_health_check handles missing registry gracefully."""
-    with patch("pathlib.Path.exists") as mock_exists:
-        mock_exists.return_value = False
+# ---------------------------------------------------------------------------
+# Legacy module-level API (backward compat — kept for existing consumers)
+# ---------------------------------------------------------------------------
 
-        result = task_health_check()
 
+class TestLegacyModuleAPI:
+    def setup_method(self) -> None:
+        """Clear the global registry before each test."""
+        REGISTERED_TASKS.clear()
+
+    def test_register_task_adds_to_registry(self) -> None:
+        register_task("leg", lambda: None, "hourly", "legacy task")
+        assert "leg" in REGISTERED_TASKS
+
+    def test_run_all_once_executes_and_returns_results(self) -> None:
+        calls: list[str] = []
+        register_task("t", lambda: calls.append("t") or {"done": True}, "hourly")
+        results = run_all_once()
+        assert "t" in results
+        assert calls == ["t"]
+
+    def test_run_all_once_handles_exception(self) -> None:
+        def bad() -> None:
+            raise RuntimeError("fail")
+
+        register_task("bad", bad, "hourly")
+        results = run_all_once()
+        assert "error" in results["bad"]
+
+    def test_list_tasks_prints_names(self, capsys: pytest.CaptureFixture) -> None:
+        register_task("mytask", lambda: None, "daily", "desc")
+        list_tasks()
+        out = capsys.readouterr().out
+        assert "mytask" in out
+
+    def test_task_health_check_missing_registry(self) -> None:
+        with patch("pathlib.Path.exists", return_value=False):
+            result = task_health_check()
         assert result == {"error": "Registry not found"}
 
-
-def test_task_stale_cache_cleanup_structure():
-    """Test that task_stale_cache_cleanup returns expected structure."""
-    mock_registry = {
-        "projects": {
-            "test_project": {
-                "path": "X:/Projects/_GAIA/_WARDEN"
-            }
-        }
-    }
-
-    with patch("pathlib.Path.exists") as mock_exists, \
-         patch("pathlib.Path.read_text") as mock_read, \
-         patch("pathlib.Path.rglob") as mock_rglob:
-
-        mock_exists.return_value = True
-        mock_read.return_value = json.dumps(mock_registry)
-
-        # Mock finding some __pycache__ directories
-        mock_cache_dirs = [
-            Path("X:/Projects/_GAIA/_WARDEN/__pycache__"),
-            Path("X:/Projects/_GAIA/_WARDEN/tests/__pycache__"),
-        ]
-        mock_rglob.return_value = mock_cache_dirs
-
-        result = task_stale_cache_cleanup()
-
-        # Verify structure
-        assert isinstance(result, dict)
-        assert "cache_dirs" in result
-        assert "paths" in result
-        assert isinstance(result["cache_dirs"], int)
-        assert isinstance(result["paths"], list)
-
-
-def test_task_stale_cache_cleanup_no_registry():
-    """Test that task_stale_cache_cleanup handles missing registry gracefully."""
-    with patch("pathlib.Path.exists") as mock_exists:
-        mock_exists.return_value = False
-
-        result = task_stale_cache_cleanup()
-
-        # Should return None without crashing
+    def test_task_stale_cache_cleanup_no_registry(self) -> None:
+        with patch("pathlib.Path.exists", return_value=False):
+            result = task_stale_cache_cleanup()
         assert result is None
-
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v"])

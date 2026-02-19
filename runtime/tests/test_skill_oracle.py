@@ -3,8 +3,8 @@ test_skill_oracle.py -- TDD tests for all 4 skill runtime scripts.
 Run: python -m pytest runtime/tests/test_skill_oracle.py -v
 """
 import os
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
 SCRIPTS_DIR = Path("X:/projects/_GAIA/runtime/scripts")
@@ -40,9 +40,7 @@ class TestSkillGuard:
         # Create a controlled temp dir with an active (unchecked) change spec
         changes_dir = tmp_path / "changes" / "my-feature"
         changes_dir.mkdir(parents=True)
-        (changes_dir / "tasks.md").write_text(
-            "- [ ] Implement thing\n- [x] Done thing\n"
-        )
+        (changes_dir / "tasks.md").write_text("- [ ] Implement thing\n- [x] Done thing\n")
         e = {**os.environ}
         e.pop("SKIP_SPEC_GUARD", None)
         result = subprocess.run(
@@ -111,8 +109,7 @@ class TestSkillGuard:
         if result.returncode == 1:
             combined = result.stdout + result.stderr
             assert any(
-                kw in combined
-                for kw in ["spec", "BLOCKED", "creating-change", "Rule", "Fix"]
+                kw in combined for kw in ["spec", "BLOCKED", "creating-change", "Rule", "Fix"]
             )
 
 
@@ -208,9 +205,7 @@ class TestSessionExitCheck:
         # Plant a registry.json so session_exit_check treats tmp_path as gaia_root
         (tmp_path / "registry.json").write_text('{"projects": []}')
         changes_file = tmp_path / ".gaia_changes"
-        changes_file.write_text(
-            "_ARGUS/dashboard/app.py modified\n_AURORA/app.py modified\n"
-        )
+        changes_file.write_text("_ARGUS/dashboard/app.py modified\n_AURORA/app.py modified\n")
         result = self.run_exit_check(tmp_path)
         output = result.stdout + result.stderr
         assert "reconcil" in output.lower() or "ADVISORIES" in output
@@ -222,9 +217,7 @@ class TestSessionExitCheck:
         result = self.run_exit_check(tmp_path)
         output = result.stdout + result.stderr
         assert (
-            "task" in output.lower()
-            or "unchecked" in output.lower()
-            or "archiv" in output.lower()
+            "task" in output.lower() or "unchecked" in output.lower() or "archiv" in output.lower()
         )
 
 
@@ -252,9 +245,7 @@ class TestSkillHealth:
         skills_dir = tmp_path / ".claude" / "skills" / "test-skill"
         skills_dir.mkdir(parents=True)
         skill_md = skills_dir / "SKILL.md"
-        skill_md.write_text(
-            "---\nname: test-skill\ndescription: A test skill\n---\n# Test\n"
-        )
+        skill_md.write_text("---\nname: test-skill\ndescription: A test skill\n---\n# Test\n")
         result = self.run_health(tmp_path)
         output = result.stdout + result.stderr
         # Should mention phase tags or report warnings

@@ -3,15 +3,12 @@
 import sys
 from pathlib import Path
 
-import pytest
-
 # Ensure the runtime package is importable via absolute path
 RUNTIME_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RUNTIME_DIR.parent))
 
 import runtime.track_change as track_change_module
 from runtime.track_change import classify_change, extract_component
-
 
 # ---------------------------------------------------------------------------
 # extract_component
@@ -125,9 +122,7 @@ class TestTrack:
         track_change_module.track("_ARGUS/dashboard/app.py")
         track_change_module.track("_ARGUS/dashboard/app.py")
 
-        lines = [
-            ln for ln in changes_file.read_text(encoding="utf-8").splitlines() if ln
-        ]
+        lines = [ln for ln in changes_file.read_text(encoding="utf-8").splitlines() if ln]
         assert lines.count("_ARGUS|code|app.py") == 1
 
     def test_track_appends_distinct_entries(self, tmp_path, monkeypatch):

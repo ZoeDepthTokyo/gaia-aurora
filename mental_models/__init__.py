@@ -20,8 +20,8 @@ Usage:
     analysis = model.analyze(data)
 """
 
-from mental_models.selector import MentalModelSelector, get_model
 from mental_models.models import MentalModel, ModelCategory
+from mental_models.selector import MentalModelSelector, get_model
 
 __version__ = "1.0.0"
 __all__ = ["MentalModelSelector", "get_model", "MentalModel", "ModelCategory"]

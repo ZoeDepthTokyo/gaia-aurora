@@ -5,16 +5,11 @@ Analyzes context and selects appropriate mental models for analysis.
 """
 
 import json
-from pathlib import Path
-from typing import List, Dict, Optional, Set
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, List, Optional, Set
 
-from mental_models.models import (
-    MentalModel,
-    ModelCategory,
-    ModelInvocation,
-    ContextPattern
-)
+from mental_models.models import ContextPattern, MentalModel, ModelCategory
 
 
 @dataclass
@@ -54,9 +49,7 @@ class MentalModelSelector:
     """
 
     def __init__(
-        self,
-        registry_path: Optional[Path] = None,
-        rules_path: Optional[Path] = None
+        self, registry_path: Optional[Path] = None, rules_path: Optional[Path] = None
     ) -> None:
         """
         Initialize mental model selector.
@@ -91,7 +84,7 @@ class MentalModelSelector:
 
     def _load_registry(self) -> None:
         """Load mental models from registry JSON."""
-        with open(self.registry_path, 'r') as f:
+        with open(self.registry_path, "r") as f:
             data = json.load(f)
 
         for category, models in data["mental_models"].items():
@@ -104,13 +97,13 @@ class MentalModelSelector:
                     when_to_use=model_data["when_to_use"],
                     output_format=model_data["output_format"],
                     confidence_threshold=model_data["confidence_threshold"],
-                    examples=model_data.get("examples", [])
+                    examples=model_data.get("examples", []),
                 )
                 self.models[model.id] = model
 
     def _load_rules(self) -> None:
         """Load invocation rules from rules JSON."""
-        with open(self.rules_path, 'r') as f:
+        with open(self.rules_path, "r") as f:
             data = json.load(f)
 
         # Load context patterns
@@ -120,7 +113,7 @@ class MentalModelSelector:
                 description=pattern_data["description"],
                 trigger_keywords=pattern_data["trigger_keywords"],
                 recommended_models=pattern_data["recommended_models"],
-                explanation=pattern_data["explanation"]
+                explanation=pattern_data["explanation"],
             )
             self.patterns[pattern_id] = pattern
 
@@ -129,10 +122,7 @@ class MentalModelSelector:
             self.combination_patterns[combo_id] = combo_data["model_sequence"]
 
     def select_for_context(
-        self,
-        context: str,
-        max_models: int = 5,
-        min_confidence: float = 0.5
+        self, context: str, max_models: int = 5, min_confidence: float = 0.5
     ) -> SelectionResult:
         """
         Select mental models for given context.
@@ -167,9 +157,7 @@ class MentalModelSelector:
 
         for pattern, score in pattern_matches[:3]:  # Top 3 patterns
             recommended_model_ids.update(pattern.recommended_models)
-            rationale_parts.append(
-                f"{pattern.description} (match: {score:.0%})"
-            )
+            rationale_parts.append(f"{pattern.description} (match: {score:.0%})")
 
         # Score each recommended model against context
         model_scores: List[tuple[MentalModel, float]] = []
@@ -178,7 +166,8 @@ class MentalModelSelector:
                 model = self.models[model_id]
                 # Combine pattern-based confidence with model-specific confidence
                 pattern_confidence = max(
-                    score for pattern, score in pattern_matches
+                    score
+                    for pattern, score in pattern_matches
                     if model_id in pattern.recommended_models
                 )
                 context_confidence = model.applies_to_context(context, keywords)
@@ -192,18 +181,26 @@ class MentalModelSelector:
 
         # Select top models
         selected_models = [m for m, _ in model_scores[:max_models]]
-        avg_confidence = sum(s for _, s in model_scores[:max_models]) / len(selected_models) if selected_models else 0.0
+        avg_confidence = (
+            sum(s for _, s in model_scores[:max_models]) / len(selected_models)
+            if selected_models
+            else 0.0
+        )
 
         # Alternative models (next tier)
-        alternative_models = [m for m, _ in model_scores[max_models:max_models+3]]
+        alternative_models = [m for m, _ in model_scores[max_models : max_models + 3]]
 
-        rationale = "; ".join(rationale_parts) if rationale_parts else "No strong pattern match, using keyword-based selection"
+        rationale = (
+            "; ".join(rationale_parts)
+            if rationale_parts
+            else "No strong pattern match, using keyword-based selection"
+        )
 
         return SelectionResult(
             models=selected_models,
             confidence=avg_confidence,
             rationale=rationale,
-            alternative_models=alternative_models
+            alternative_models=alternative_models,
         )
 
     def get_combination_pattern(self, pattern_name: str) -> Optional[List[MentalModel]]:
@@ -261,8 +258,25 @@ class MentalModelSelector:
 
         # Remove common stop words
         stop_words = {
-            "the", "a", "an", "and", "or", "but", "in", "on", "at",
-            "to", "for", "of", "with", "by", "from", "is", "are", "was", "were"
+            "the",
+            "a",
+            "an",
+            "and",
+            "or",
+            "but",
+            "in",
+            "on",
+            "at",
+            "to",
+            "for",
+            "of",
+            "with",
+            "by",
+            "from",
+            "is",
+            "are",
+            "was",
+            "were",
         }
 
         keywords = [w.strip(".,!?;:") for w in words if w not in stop_words]

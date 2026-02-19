@@ -109,7 +109,11 @@ def merge_spec(delta_path: Path, dry_run: bool = False) -> dict:
     total_changes = sum(len(v) for v in sections.values())
 
     if total_changes == 0:
-        return {"file": spec_name, "status": "skip", "reason": "no delta sections found"}
+        return {
+            "file": spec_name,
+            "status": "skip",
+            "reason": "no delta sections found",
+        }
 
     baseline_path = find_baseline(spec_name)
 
@@ -127,7 +131,11 @@ def merge_spec(delta_path: Path, dry_run: bool = False) -> dict:
                 "target": str(target),
                 "changes": total_changes,
             }
-        return {"file": spec_name, "status": "skip", "reason": f"unknown component: {component}"}
+        return {
+            "file": spec_name,
+            "status": "skip",
+            "reason": f"unknown component: {component}",
+        }
 
     baseline_text = baseline_path.read_text(encoding="utf-8")
     result = baseline_text
@@ -189,7 +197,9 @@ def main():
         status = result["status"]
         if status == "merged":
             print(f"  [MERGED] {result['file']} -> {result['target']}")
-            print(f"           +{result['added']} added, ~{result['modified']} modified, -{result['removed']} removed")
+            print(
+                f"           +{result['added']} added, ~{result['modified']} modified, -{result['removed']} removed"
+            )
         elif status == "promoted":
             print(f"  [NEW]    {result['file']} -> {result['target']}")
         elif status == "skip":

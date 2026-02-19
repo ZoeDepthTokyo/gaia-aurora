@@ -5,9 +5,9 @@ Defines mental model schemas and categories for GAIA analytical framework.
 """
 
 from dataclasses import dataclass, field
-from enum import Enum
-from typing import List, Dict, Any, Optional
 from datetime import datetime
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class ModelCategory(Enum):
@@ -113,7 +113,7 @@ class MentalModel:
             "output_format": self.output_format,
             "confidence_threshold": self.confidence_threshold,
             "examples": self.examples,
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
 
 
@@ -154,7 +154,7 @@ class ModelInvocation:
             "timestamp": self.timestamp.isoformat(),
             "auto_applied": self.auto_applied,
             "user_confirmed": self.user_confirmed,
-            "analysis_result": self.analysis_result
+            "analysis_result": self.analysis_result,
         }
 
 
@@ -192,9 +192,10 @@ class ContextPattern:
             Match score (0.0-1.0)
         """
         matches = sum(
-            1 for trigger in self.trigger_keywords
-            if trigger.lower() in context.lower() or
-            any(trigger.lower() in kw.lower() for kw in keywords)
+            1
+            for trigger in self.trigger_keywords
+            if trigger.lower() in context.lower()
+            or any(trigger.lower() in kw.lower() for kw in keywords)
         )
 
         return matches / len(self.trigger_keywords) if self.trigger_keywords else 0.0

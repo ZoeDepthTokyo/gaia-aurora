@@ -10,9 +10,7 @@ Usage:
 import argparse
 import json
 import subprocess
-import sys
 from pathlib import Path
-
 
 GAIA_ROOT = Path(r"X:\Projects\_GAIA")
 REGISTRY_PATH = GAIA_ROOT / "registry.json"

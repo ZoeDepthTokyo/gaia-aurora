@@ -13,25 +13,24 @@ This example shows how all components work together.
 """
 
 import sys
-from pathlib import Path
 from datetime import datetime, timedelta
+from pathlib import Path
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from argus.explainability import Explainer, ExplanationLevel
 from argus.subconscious import (
+    ContextEnricher,
     ExternalMemory,
-    MemoryEntry,
-    MemoryType,
-    MemoryScope,
-    PatternDetector,
     HypothesisGenerator,
-    ContextEnricher
+    MemoryEntry,
+    MemoryScope,
+    MemoryType,
+    PatternDetector,
 )
 
 from mental_models import MentalModelSelector
-
-from argus.explainability import Explainer, ExplanationLevel
 
 
 def main():
@@ -59,11 +58,11 @@ def main():
     explainer = Explainer()
 
     print(f"✓ External memory initialized: {memory_path}")
-    print(f"✓ Pattern detector ready")
-    print(f"✓ Hypothesis generator ready")
-    print(f"✓ Context enricher ready")
+    print("✓ Pattern detector ready")
+    print("✓ Hypothesis generator ready")
+    print("✓ Context enricher ready")
     print(f"✓ Mental model selector ready ({len(model_selector.models)} models)")
-    print(f"✓ Explainer ready")
+    print("✓ Explainer ready")
     print()
 
     # =========================================================================
@@ -92,7 +91,7 @@ def main():
             source="hart_os",
             confidence=confidence,
             tags=["hart_os", "confidence", "stage_3"],
-            context={"project": "hart_os", "stage": 3}
+            context={"project": "hart_os", "stage": 3},
         )
         entry.timestamp = base_time + timedelta(days=days_offset)
         memory.store(entry)
@@ -103,7 +102,7 @@ def main():
     errors = [
         "Stage 3 failed: confidence below threshold (0.75)",
         "Stage 3 retry: still below threshold",
-        "Stage 3 failed: confidence below threshold (0.75)"
+        "Stage 3 failed: confidence below threshold (0.75)",
     ]
 
     for error_content in errors:
@@ -113,7 +112,7 @@ def main():
             content=error_content,
             source="hart_os",
             confidence=1.0,
-            tags=["hart_os", "error", "stage_3"]
+            tags=["hart_os", "error", "stage_3"],
         )
         entry.timestamp = datetime.now() - timedelta(days=3)
         memory.store(entry)
@@ -128,9 +127,7 @@ def main():
     print("-" * 80)
 
     patterns = pattern_detector.detect_patterns(
-        lookback_days=30,
-        min_frequency=2,
-        min_confidence=0.5
+        lookback_days=30, min_frequency=2, min_confidence=0.5
     )
 
     print(f"✓ Detected {len(patterns)} patterns")
@@ -143,7 +140,7 @@ def main():
         print(f"  Severity: {pattern.severity:.0%}")
         print(f"  Frequency: {pattern.frequency}")
         print(f"  Evidence: {len(pattern.evidence)} memory entries")
-        print(f"  Recommended actions:")
+        print("  Recommended actions:")
         for action in pattern.recommended_actions:
             print(f"    - {action}")
         print()
@@ -166,7 +163,7 @@ def main():
                 print(f"    Confidence: {hyp.confidence:.0%}")
                 print(f"    Status: {hyp.status.value}")
                 print(f"    Proposed test: {hyp.proposed_test}")
-                print(f"    Implications:")
+                print("    Implications:")
                 for impl in hyp.implications[:3]:  # First 3
                     print(f"      - {impl}")
                 print()
@@ -183,11 +180,7 @@ def main():
     else:
         context = "confidence scores declining over time"
 
-    result = model_selector.select_for_context(
-        context=context,
-        max_models=5,
-        min_confidence=0.5
-    )
+    result = model_selector.select_for_context(context=context, max_models=5, min_confidence=0.5)
 
     print(f"Context: {context}")
     print(f"Overall confidence: {result.confidence:.0%}")
@@ -211,7 +204,7 @@ def main():
     enriched = context_enricher.enrich_for_observation(
         observation="HART OS confidence scores declining",
         project="hart_os",
-        lookback_days=30
+        lookback_days=30,
     )
 
     print(f"Enriched context for: {enriched['observation']}")
@@ -238,7 +231,7 @@ def main():
         (ExplanationLevel.SIMPLE, "Beginner (Growth Rung 1)"),
         (ExplanationLevel.METAPHOR, "Intermediate (Growth Rung 2)"),
         (ExplanationLevel.DEFAULT, "Proficient (Growth Rung 3)"),
-        (ExplanationLevel.ADVANCED, "Expert (Growth Rung 4-5)")
+        (ExplanationLevel.ADVANCED, "Expert (Growth Rung 4-5)"),
     ]
 
     for level, audience in levels:
@@ -263,25 +256,27 @@ def main():
     observations_count = memory.count(type=MemoryType.OBSERVATION)
     errors_count = memory.count(type=MemoryType.ERROR)
 
-    print(f"External Memory:")
+    print("External Memory:")
     print(f"  Total entries: {total_memories}")
     print(f"  Observations: {observations_count}")
     print(f"  Errors: {errors_count}")
     print()
 
-    print(f"Pattern Detection:")
+    print("Pattern Detection:")
     print(f"  Patterns detected: {len(patterns)}")
     if patterns:
         print(f"  Highest severity: {max(p.severity for p in patterns):.0%}")
     print()
 
-    print(f"Mental Models:")
+    print("Mental Models:")
     print(f"  Models selected: {len(result.models)}")
     print(f"  Selection confidence: {result.confidence:.0%}")
     print()
 
-    print(f"Context Enrichment:")
-    print(f"  Related context items: {len(enriched['related_observations']) + len(enriched['related_patterns'])}")
+    print("Context Enrichment:")
+    print(
+        f"  Related context items: {len(enriched['related_observations']) + len(enriched['related_patterns'])}"
+    )
     print(f"  Temporal trend: {enriched['temporal_context']['trend']}")
     print()
 

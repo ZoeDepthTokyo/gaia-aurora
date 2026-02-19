@@ -72,13 +72,9 @@ def validate_change(change_dir: Path) -> dict:
         checkboxes = re.findall(r"- \[([ x])\]", text)
         if checkboxes:
             checked = sum(1 for c in checkboxes if c == "x")
-            results["checks"].append(
-                f"tasks.md ({len(checkboxes)} items, {checked} checked)"
-            )
+            results["checks"].append(f"tasks.md ({len(checkboxes)} items, {checked} checked)")
         else:
-            results["warnings"].append(
-                "tasks.md has no checkbox items (expected '- [ ] ...')"
-            )
+            results["warnings"].append("tasks.md has no checkbox items (expected '- [ ] ...')")
     else:
         results["errors"].append("tasks.md not found")
 
@@ -106,11 +102,7 @@ def _validate_spec_file(path: Path, results: dict):
         match = re.search(pattern, text, re.DOTALL)
         if match:
             section = match.group(1)
-            if (
-                "- GIVEN" not in section
-                or "- WHEN" not in section
-                or "- THEN" not in section
-            ):
+            if "- GIVEN" not in section or "- WHEN" not in section or "- THEN" not in section:
                 results["errors"].append(
                     f"{fname}: ADDED '{req_name.strip()}' has no Given-When-Then scenario"
                 )
@@ -155,15 +147,11 @@ def _validate_spec_file(path: Path, results: dict):
 
     # Check for Windows paths
     if re.search(r"[A-Z]:\\", text):
-        results["warnings"].append(
-            f"{fname}: Contains Windows-style paths (use forward slashes)"
-        )
+        results["warnings"].append(f"{fname}: Contains Windows-style paths (use forward slashes)")
 
     req_count = len(all_reqs)
     scenario_count = len(re.findall(r"####\s+Scenario:", text))
-    results["checks"].append(
-        f"{fname}: {req_count} requirements, {scenario_count} scenarios"
-    )
+    results["checks"].append(f"{fname}: {req_count} requirements, {scenario_count} scenarios")
 
 
 def print_report(results: dict, as_json: bool = False):
@@ -217,14 +205,11 @@ def main():
         if not changes_dir.exists():
             print("No changes/ directory found.")
             sys.exit(0)
-        paths = [
-            str(d) for d in changes_dir.iterdir() if d.is_dir() and d.name != "archive"
-        ]
+        paths = [str(d) for d in changes_dir.iterdir() if d.is_dir() and d.name != "archive"]
 
     if not paths:
         print(
-            "Usage: python validate_specs.py changes/<change-name> "
-            "[--strict] [--json] [--all]"
+            "Usage: python validate_specs.py changes/<change-name> " "[--strict] [--json] [--all]"
         )
         sys.exit(2)
 

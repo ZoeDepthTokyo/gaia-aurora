@@ -6,10 +6,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from task_runner import (
+    REGISTERED_TASKS,
+    list_tasks,
     register_task,
     run_all_once,
-    list_tasks,
-    REGISTERED_TASKS,
 )
 
 
@@ -35,9 +35,9 @@ def main():
         name="test_custom",
         func=custom_test_task,
         schedule="hourly",
-        description="Verification test task"
+        description="Verification test task",
     )
-    print(f"   Registered 'test_custom' task")
+    print("   Registered 'test_custom' task")
     print(f"   Total tasks: {len(REGISTERED_TASKS)}")
     print()
 
@@ -79,10 +79,13 @@ def main():
         ("Cache cleanup present", "stale_cache" in REGISTERED_TASKS),
         ("Custom tasks supported", "test_custom" in REGISTERED_TASKS),
         ("All tasks executed", all(t["last_run"] for t in REGISTERED_TASKS.values())),
-        ("No critical failures", all(
-            t["last_status"] == "success" or "error:" in t["last_status"]
-            for t in REGISTERED_TASKS.values()
-        )),
+        (
+            "No critical failures",
+            all(
+                t["last_status"] == "success" or "error:" in t["last_status"]
+                for t in REGISTERED_TASKS.values()
+            ),
+        ),
     ]
 
     all_passed = True
@@ -104,5 +107,6 @@ def main():
 
 if __name__ == "__main__":
     import logging
+
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     main()

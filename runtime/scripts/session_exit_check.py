@@ -67,8 +67,7 @@ def main():
         advisories.append(
             (
                 f"changes/{name}/tasks.md has {count} unchecked item(s)",
-                "Why: incomplete tasks block /archiving-change"
-                " and leave the audit trail open",
+                "Why: incomplete tasks block /archiving-change" " and leave the audit trail open",
             )
         )
 

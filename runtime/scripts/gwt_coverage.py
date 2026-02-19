@@ -17,7 +17,17 @@ import sys
 from pathlib import Path
 
 GAIA_ROOT = Path(__file__).resolve().parents[2]
-COMPONENTS = ["ARGUS", "AURORA", "LOOM", "MNEMIS", "MYCEL", "VULCAN", "WARDEN", "RAVEN", "ABIS"]
+COMPONENTS = [
+    "ARGUS",
+    "AURORA",
+    "LOOM",
+    "MNEMIS",
+    "MYCEL",
+    "VULCAN",
+    "WARDEN",
+    "RAVEN",
+    "ABIS",
+]
 
 
 def count_spec_scenarios(component: str) -> list[str]:
@@ -107,7 +117,8 @@ def generate_report(as_json: bool = False) -> dict:
 
     report["overall_coverage_pct"] = round(
         min(report["total_tests"], report["total_scenarios"])
-        / max(report["total_scenarios"], 1) * 100,
+        / max(report["total_scenarios"], 1)
+        * 100,
         1,
     )
     return report

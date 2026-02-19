@@ -3,8 +3,6 @@
 import sys
 from pathlib import Path
 
-import pytest
-
 sys.path.insert(0, str(Path(__file__).parent))
 from validate_specs import _validate_spec_file, validate_change  # noqa: E402
 
@@ -109,6 +107,7 @@ class TestMissingArtifacts:
         change = _make_change_dir(tmp_path)
         # Remove specs directory after creation
         import shutil
+
         shutil.rmtree(change / "specs")
         result = validate_change(change)
         assert any("specs/" in e for e in result["errors"])
@@ -135,7 +134,9 @@ class TestProposalSections:
     def test_missing_proposal_section_produces_warning(self, tmp_path):
         # Remove the "intent" section so the validator warns about it.
         # (Removing "scope" doesn't work because "out of scope" still contains "scope".)
-        proposal_no_intent = VALID_PROPOSAL.replace("## intent\nIntroduce new governance pipeline.\n\n", "")
+        proposal_no_intent = VALID_PROPOSAL.replace(
+            "## intent\nIntroduce new governance pipeline.\n\n", ""
+        )
         change = _make_change_dir(tmp_path, **{"proposal.md": proposal_no_intent})
         result = validate_change(change)
         assert any("intent" in w for w in result["warnings"])
@@ -143,9 +144,7 @@ class TestProposalSections:
     def test_complete_proposal_no_section_warnings(self, tmp_path):
         change = _make_change_dir(tmp_path)
         result = validate_change(change)
-        section_warnings = [
-            w for w in result["warnings"] if "missing sections" in w
-        ]
+        section_warnings = [w for w in result["warnings"] if "missing sections" in w]
         assert section_warnings == []
 
 
@@ -335,9 +334,7 @@ Now: The new behavior after change.
         spec.write_text(spec_content, encoding="utf-8")
         results = {"errors": [], "warnings": [], "checks": []}
         _validate_spec_file(spec, results)
-        mod_errors = [
-            e for e in results["errors"] if "MODIFIED" in e or "Was:" in e or "Now:" in e
-        ]
+        mod_errors = [e for e in results["errors"] if "MODIFIED" in e or "Was:" in e or "Now:" in e]
         assert mod_errors == []
 
 
@@ -366,7 +363,8 @@ version: 1.0
         results = {"errors": [], "warnings": [], "checks": []}
         _validate_spec_file(spec, results)
         header_warnings = [
-            w for w in results["warnings"]
+            w
+            for w in results["warnings"]
             if any(f in w for f in ("change:", "version:", "last updated:"))
         ]
         assert header_warnings == []

@@ -12,7 +12,7 @@ Usage:
 import importlib
 import sys
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 # Contract registry: defines expected interfaces
 CONTRACTS = {
@@ -116,9 +116,7 @@ class ContractValidator:
 
         return self._print_summary()
 
-    def validate_contract(
-        self, contract_name: str, spec: Dict[str, Any]
-    ) -> ValidationResult:
+    def validate_contract(self, contract_name: str, spec: Dict[str, Any]) -> ValidationResult:
         """
         Validate a single contract.
 
@@ -215,9 +213,7 @@ class ContractValidator:
             return model_class.__fields__
         return {}
 
-    def _check_type_compatibility(
-        self, actual: Any, expected: Any
-    ) -> bool:
+    def _check_type_compatibility(self, actual: Any, expected: Any) -> bool:
         """
         Check if actual type is compatible with expected type.
 
@@ -231,9 +227,7 @@ class ContractValidator:
         # Simple check - could be expanded for complex generics
         if isinstance(expected, tuple):
             # Union type (e.g., str | None)
-            return any(
-                self._type_matches(actual, exp_type) for exp_type in expected
-            )
+            return any(self._type_matches(actual, exp_type) for exp_type in expected)
         return self._type_matches(actual, expected)
 
     def _type_matches(self, actual: Any, expected: type) -> bool:

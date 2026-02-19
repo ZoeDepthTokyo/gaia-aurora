@@ -61,11 +61,11 @@ def install_precommit_config(project_path: Path, template_path: Path, dry_run: b
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Install pre-commit config to GAIA projects')
+    parser = argparse.ArgumentParser(description="Install pre-commit config to GAIA projects")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--all', action='store_true', help='Install to all projects')
-    group.add_argument('--project', type=str, help='Install to specific project')
-    parser.add_argument('--dry-run', action='store_true', help='Show what would be done')
+    group.add_argument("--all", action="store_true", help="Install to all projects")
+    group.add_argument("--project", type=str, help="Install to specific project")
+    parser.add_argument("--dry-run", action="store_true", help="Show what would be done")
 
     args = parser.parse_args()
 
@@ -93,5 +93,5 @@ def main():
     print(f"Done: {success}/{len(project_paths)} projects configured")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
