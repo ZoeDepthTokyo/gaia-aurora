@@ -26,7 +26,13 @@ jobs:
         pip install ruff pytest
 
     - name: Validate registry.json
-      run: python -c "import json; data=json.load(open('registry.json')); print(f'Registry valid: {len(data.get(\"projects\", []))} projects')"
+      run: |
+        python -c "
+        import json
+        data = json.load(open('registry.json'))
+        count = len(data.get('projects', []))
+        print(f'Registry valid: {count} projects')
+        "
 
     - name: Check MANIFEST exists
       run: test -f GAIA_MANIFEST.md && echo "MANIFEST present" || (echo "MANIFEST missing" && exit 1)

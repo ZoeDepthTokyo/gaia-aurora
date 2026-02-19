@@ -1,7 +1,7 @@
-# GAIA MANIFEST v1.0.4 — Last Updated: 2026-02-18
+# GAIA MANIFEST v1.0.5 — Last Updated: 2026-02-18
 
-<!-- last_reconciled: 2026-02-18 -->
-<!-- manifest_version: 1.0.4 -->
+<!-- last_reconciled: 2026-02-18 (session: RAVEN v1.0.0 McKinsey-Grade) -->
+<!-- manifest_version: 1.0.5 -->
 
 ## Identity
 
@@ -38,7 +38,7 @@ VULCAN (Create)  →  LOOM (Modify)  →  ARGUS (Monitor)
 | MYCEL | 0.2.0 | active | Service | Shared Intelligence (RAG) | — | 2026-02-08 |
 | VULCAN | 0.4.0-dev | dev | Service | Project Creator | mycel | 2026-02-08 |
 | WARDEN | 0.3.1 | active | Service | Governance & Compliance | mycel | 2026-02-18 |
-| RAVEN | 0.3.0 | active | Service | Research Agent | mycel, mnemis, argus | 2026-02-17 |
+| RAVEN | 1.0.0 | active | Service | Research Agent | mycel, mnemis, argus | 2026-02-18 |
 | ABIS | 0.0.1 | planning | Service | Visual System Builder | mycel, loom, argus, mnemis | 2026-02-09 |
 | Mental Models | 1.0.0 | active | Library | Decision Support (59 models) | — | 2026-02-04 |
 | GAIA Runtime | 1.1.0 | active | Service | Background Tasks + Skill Oracle | warden, argus, mnemis | 2026-02-18 |
@@ -97,7 +97,7 @@ Each component CLAUDE.md contains a `<!-- CASCADE_MAP -->` section with componen
 
 Run `/reconciling-gaia` at end of each session to propagate changes. Use `--dry-run` to preview.
 
-- **Last reconciled**: 2026-02-17
+- **Last reconciled**: 2026-02-18
 - **Reconciliation log**: `.gaia_reconcile_log`
 - **Session changes**: `.gaia_changes` (auto-tracked by hooks)
 

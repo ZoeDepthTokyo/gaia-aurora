@@ -23,13 +23,14 @@ warnings = []
 # Test Mental Models imports
 print("Checking Mental Models...")
 try:
-    from mental_models.selector import MentalModelSelector, SelectionResult
     from mental_models.models import (
+        ContextPattern,
         MentalModel,
         ModelCategory,
-        ContextPattern,
-        ModelInvocation
+        ModelInvocation,
     )
+    from mental_models.selector import MentalModelSelector, SelectionResult
+
     print("  ✓ Mental Models imports OK")
 except ImportError as e:
     errors.append(f"Mental Models: {e}")
@@ -41,9 +42,10 @@ try:
     from argus.subconscious.memory import (
         ExternalMemory,
         MemoryEntry,
+        MemoryScope,
         MemoryType,
-        MemoryScope
     )
+
     print("  ✓ ARGUS Memory imports OK")
 except ImportError as e:
     errors.append(f"ARGUS Memory: {e}")
@@ -51,10 +53,11 @@ except ImportError as e:
 
 try:
     from argus.subconscious.pattern_detector import (
-        PatternDetector,
         DetectedPattern,
-        PatternType
+        PatternDetector,
+        PatternType,
     )
+
     print("  ✓ ARGUS Pattern Detector imports OK")
 except ImportError as e:
     errors.append(f"ARGUS Pattern Detector: {e}")
@@ -62,10 +65,11 @@ except ImportError as e:
 
 try:
     from argus.subconscious.hypothesis_generator import (
-        HypothesisGenerator,
         Hypothesis,
-        HypothesisType
+        HypothesisGenerator,
+        HypothesisType,
     )
+
     print("  ✓ ARGUS Hypothesis Generator imports OK")
 except ImportError as e:
     errors.append(f"ARGUS Hypothesis Generator: {e}")
@@ -74,11 +78,8 @@ except ImportError as e:
 # Test ARGUS Explainability imports
 print("Checking ARGUS Explainability...")
 try:
-    from argus.explainability.explainer import (
-        Explainer,
-        Explanation,
-        ExplanationLevel
-    )
+    from argus.explainability.explainer import Explainer, Explanation, ExplanationLevel
+
     print("  ✓ ARGUS Explainer imports OK")
 except ImportError as e:
     errors.append(f"ARGUS Explainer: {e}")
@@ -87,17 +88,18 @@ except ImportError as e:
 # Test MNEMIS imports
 print("Checking MNEMIS...")
 try:
-    from mnemis.core.memory_store import MnemisStore
     from mnemis.core.contracts import MemoryAccessController
+    from mnemis.core.memory_store import MnemisStore
     from mnemis.core.promotion import MemoryPromotionEngine
     from mnemis.models.memory_models import (
-        MemoryEntry,
-        MemoryContract,
-        MemoryScope,
         MemoryAccessLevel,
         MemoryAccessViolation,
+        MemoryContract,
+        MemoryEntry,
         MemoryPromotionProposal,
+        MemoryScope,
     )
+
     print("  ✓ MNEMIS imports OK")
 except ImportError as e:
     errors.append(f"MNEMIS: {e}")
@@ -108,12 +110,13 @@ print("Checking LOOM...")
 try:
     from loom.core.workflow_engine import WorkflowEngine
     from loom.models.agent_models import (
-        AgentWorkflow,
-        AgentNode,
-        AgentExecutionState,
         AgentConnection,
+        AgentExecutionState,
+        AgentNode,
+        AgentWorkflow,
         GovernanceRule,
     )
+
     print("  ✓ LOOM imports OK")
 except ImportError as e:
     errors.append(f"LOOM: {e}")
@@ -123,6 +126,7 @@ except ImportError as e:
 print("Checking pytest...")
 try:
     import pytest
+
     print(f"  ✓ pytest {pytest.__version__} installed")
 except ImportError:
     errors.append("pytest not installed")
@@ -132,7 +136,8 @@ except ImportError:
 print("Checking optional dependencies...")
 try:
     import pytest_cov
-    print(f"  ✓ pytest-cov installed")
+
+    print("  ✓ pytest-cov installed")
 except ImportError:
     warnings.append("pytest-cov not installed (coverage reports unavailable)")
     print("  ⚠ pytest-cov not installed (optional, for coverage)")

@@ -6,16 +6,9 @@ recommendations across different scenarios.
 """
 
 import pytest
-from pathlib import Path
-from typing import List
 
+from mental_models.models import MentalModel, ModelCategory
 from mental_models.selector import MentalModelSelector, SelectionResult
-from mental_models.models import (
-    MentalModel,
-    ModelCategory,
-    ContextPattern,
-    ModelInvocation
-)
 
 
 class TestMentalModelSelection:
@@ -54,8 +47,10 @@ class TestMentalModelSelection:
 
         # Expected categories for performance issues
         model_categories = {model.category for model in result.models}
-        assert ModelCategory.SYSTEMS_THINKING in model_categories or \
-               ModelCategory.QUALITY_RELIABILITY in model_categories
+        assert (
+            ModelCategory.SYSTEMS_THINKING in model_categories
+            or ModelCategory.QUALITY_RELIABILITY in model_categories
+        )
 
     def test_error_handling_context(self, selector: MentalModelSelector):
         """
@@ -73,8 +68,9 @@ class TestMentalModelSelection:
         # Should include quality/reliability models
         model_names = [m.name.lower() for m in result.models]
         quality_models = [
-            name for name in model_names
-            if any(keyword in name for keyword in ['graceful', 'fail', 'defensive'])
+            name
+            for name in model_names
+            if any(keyword in name for keyword in ["graceful", "fail", "defensive"])
         ]
 
         # At least one quality-related model should be recommended
@@ -105,10 +101,7 @@ class TestMentalModelSelection:
         and only returns high-quality recommendations.
         """
         # Use high min_confidence
-        result = selector.select_for_context(
-            "vague ambiguous unclear problem",
-            min_confidence=0.8
-        )
+        result = selector.select_for_context("vague ambiguous unclear problem", min_confidence=0.8)
 
         # Should have fewer or no results with high threshold
         assert result.confidence >= 0.0  # Always valid
@@ -126,7 +119,7 @@ class TestMentalModelSelection:
         """
         result = selector.select_for_context(
             "Complex system with multiple feedback loops and performance issues",
-            max_models=3
+            max_models=3,
         )
 
         # Should not exceed max
@@ -291,9 +284,7 @@ class TestModelRetrieval:
         for category, model_names in all_models_by_cat.items():
             if len(model_names) > 0:
                 # Try to get a model from this category
-                category_models = selector.get_models_by_category(
-                    ModelCategory(category)
-                )
+                category_models = selector.get_models_by_category(ModelCategory(category))
                 if len(category_models) > 0:
                     test_model = category_models[0]
 
@@ -413,9 +404,11 @@ class TestConstitutionalBoundaries:
             assert len(result.rationale) > 10  # Substantive explanation
 
             # Rationale should reference pattern matching
-            assert "match" in result.rationale.lower() or \
-                   "pattern" in result.rationale.lower() or \
-                   "keyword" in result.rationale.lower()
+            assert (
+                "match" in result.rationale.lower()
+                or "pattern" in result.rationale.lower()
+                or "keyword" in result.rationale.lower()
+            )
 
     def test_confidence_scoring_validity(self, selector: MentalModelSelector):
         """
@@ -477,9 +470,10 @@ class TestRealWorldScenarios:
         model_names = " ".join(m.name.lower() for m in result.models)
 
         # Expect systems or quality models
-        assert any(keyword in model_names for keyword in [
-            'feedback', 'loop', 'quality', 'test', 'temporal', 'trend'
-        ])
+        assert any(
+            keyword in model_names
+            for keyword in ["feedback", "loop", "quality", "test", "temporal", "trend"]
+        )
 
     def test_cost_optimization_scenario(self, selector: MentalModelSelector):
         """
@@ -498,8 +492,10 @@ class TestRealWorldScenarios:
 
         # Should include decision-making or systems models
         categories = {m.category for m in result.models}
-        assert ModelCategory.DECISION_MAKING in categories or \
-               ModelCategory.SYSTEMS_THINKING in categories
+        assert (
+            ModelCategory.DECISION_MAKING in categories
+            or ModelCategory.SYSTEMS_THINKING in categories
+        )
 
     def test_agent_trust_building_scenario(self, selector: MentalModelSelector):
         """
@@ -517,5 +513,7 @@ class TestRealWorldScenarios:
 
         # Should include communication or learning models
         categories = {m.category for m in result.models}
-        assert ModelCategory.COMMUNICATION in categories or \
-               ModelCategory.LEARNING_PEDAGOGY in categories
+        assert (
+            ModelCategory.COMMUNICATION in categories
+            or ModelCategory.LEARNING_PEDAGOGY in categories
+        )

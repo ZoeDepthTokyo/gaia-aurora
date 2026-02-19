@@ -401,7 +401,7 @@ HART OS (v6.2.8) has GitHub remote (github.com/ZoeDepthTokyo/hart-os.git), but t
 
 ### Overview
 
-**Total Duration:** 8 weeks (Emergency → Enforcement → Observability → Memory → Automation)  
+**Total Duration:** 8 weeks (Emergency → Enforcement → Observability → Memory → Automation)
 **Success Metric:** Zero undetected agent failures, 100% CLAUDE.md compliance, 80%+ test coverage ecosystem-wide, cost visibility on every operation.
 
 **Dependency Chain:**
@@ -429,7 +429,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
 ---
 
 ### Phase 0: Emergency Fixes (Week 1)
-**Goal:** Stop the bleeding — prevent the errors that hit PROTEUS v0.2.1  
+**Goal:** Stop the bleeding — prevent the errors that hit PROTEUS v0.2.1
 **Success Criteria:**
 - Git hooks active on all repos (pre-commit ruff/mypy/pytest)
 - VULCAN has CLAUDE.md (constitutional compliance)
@@ -663,7 +663,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
 ---
 
 ### Phase 1: Enforcement Layer (Weeks 2-3)
-**Goal:** Prevent violations before they reach production  
+**Goal:** Prevent violations before they reach production
 **Success Criteria:**
 - WARDEN integrated into all workflows (hooks, CI/CD, agent edits)
 - GitHub Actions running on all repos (pytest, ruff, mypy, WARDEN scan)
@@ -851,11 +851,11 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    [tool.pytest.ini_options]
    testpaths = ["tests"]
    addopts = "--cov=src --cov-fail-under=60 --cov-report=term --cov-report=html"
-   
+
    [tool.coverage.run]
    source = ["src"]
    omit = ["*/tests/*", "*/test_*.py"]
-   
+
    [tool.coverage.report]
    exclude_lines = [
        "pragma: no cover",
@@ -932,7 +932,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    def create_project(name: str, config: ProjectConfig):
        structure = generate_project_structure(name, config)
        write_files(structure)
-       
+
        # Run WARDEN scan on new project
        scan_result = warden.scan(name)
        if not scan_result.is_valid:
@@ -976,7 +976,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
 ---
 
 ### Phase 2: Observability (Weeks 3-4)
-**Goal:** See everything in real-time — agents, costs, compliance, patterns  
+**Goal:** See everything in real-time — agents, costs, compliance, patterns
 **Success Criteria:**
 - Process Observer running on PROTEUS, HART OS, VIA (real-time agent monitoring)
 - Trust Dashboard deployed (cost per operation, compliance score, error rate)
@@ -998,12 +998,12 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def __init__(self, event_bus: EventBus):
            self.event_bus = event_bus
            self.active_processes = {}
-       
+
        def observe_agent(self, agent_id: str, agent_config: dict):
            """Attach to running agent and stream events."""
            process = AgentProcess(agent_id, agent_config)
            self.active_processes[agent_id] = process
-           
+
            # Stream events: tool_call, tool_result, thinking, response
            for event in process.stream_events():
                self.event_bus.publish('agent_event', {
@@ -1012,7 +1012,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                    'timestamp': event.timestamp,
                    'data': event.data
                })
-       
+
        def get_agent_status(self, agent_id: str) -> dict:
            """Get current agent status (active, idle, error)."""
            process = self.active_processes.get(agent_id)
@@ -1109,15 +1109,15 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            'claude-sonnet-4-5': {'input': 0.003, 'output': 0.015},
            'claude-haiku-4': {'input': 0.00025, 'output': 0.00125},
        }
-       
+
        def calculate_operation_cost(self, event: dict) -> float:
            """Calculate cost from agent event."""
            model = event.get('model', 'claude-sonnet-4-5')
            input_tokens = event.get('input_tokens', 0)
            output_tokens = event.get('output_tokens', 0)
-           
+
            costs = self.MODEL_COSTS[model]
-           return (input_tokens / 1000 * costs['input'] + 
+           return (input_tokens / 1000 * costs['input'] +
                    output_tokens / 1000 * costs['output'])
    ```
 
@@ -1127,18 +1127,18 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    class TrustDashboardComponent:
        def render(self):
            metrics = trust_engine.get_current_metrics()
-           
+
            col1, col2, col3 = st.columns(3)
-           col1.metric("Cost Today", f"${metrics.cost_per_operation:.4f}", 
+           col1.metric("Cost Today", f"${metrics.cost_per_operation:.4f}",
                        delta=metrics.cost_trend)
            col2.metric("Compliance Score", f"{metrics.compliance_score:.1f}%",
                        delta=metrics.compliance_trend)
            col3.metric("Error Rate", f"{metrics.error_rate:.2%}",
                        delta=metrics.error_trend, delta_color="inverse")
-           
+
            st.subheader("Cost Breakdown by Agent")
            st.bar_chart(trust_engine.get_cost_by_agent())
-           
+
            st.subheader("Recent Violations")
            for violation in metrics.recent_violations[:10]:
                st.warning(f"{violation.timestamp}: {violation.description}")
@@ -1151,7 +1151,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def __init__(self, event_bus: EventBus):
            event_bus.subscribe('agent_event', self.on_agent_event)
            event_bus.subscribe('compliance_scan', self.on_compliance_scan)
-       
+
        def on_agent_event(self, event: dict):
            cost = cost_tracker.calculate_operation_cost(event)
            self.metrics.cost_per_operation = self.update_rolling_average(cost)
@@ -1195,7 +1195,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def __init__(self, component_name: str, event_bus_url: str = 'http://localhost:8501/events'):
            self.component = component_name
            self.event_bus_url = event_bus_url
-       
+
        def emit(self, event_type: str, data: dict):
            """Emit event to ARGUS EventBus."""
            event = {
@@ -1205,7 +1205,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                'data': data
            }
            requests.post(self.event_bus_url, json=event)
-       
+
        def emit_operation(self, operation: str, duration: float, success: bool, metadata: dict = None):
            """Convenience method for operation events."""
            self.emit('operation', {
@@ -1217,12 +1217,12 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    ```
 
 2. **Add telemetry to each component:**
-   
+
    **MYCEL:**
    ```python
    # mycel/integrations/argus_telemetry.py
    argus = ArgusClient('MYCEL')
-   
+
    def install_package(name: str):
        start = time.time()
        try:
@@ -1233,12 +1233,12 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            argus.emit_operation('package_install', time.time() - start, False, {'package': name, 'error': str(e)})
            raise
    ```
-   
+
    **VULCAN:**
    ```python
    # vulcan_forge/integrations/argus_telemetry.py (NEW)
    argus = ArgusClient('VULCAN')
-   
+
    def create_project(name: str, config: ProjectConfig):
        argus.emit('project_creation_started', {'name': name, 'config': config.dict()})
        try:
@@ -1249,14 +1249,14 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            argus.emit('project_creation_failed', {'name': name, 'error': str(e)})
            raise
    ```
-   
+
    **WARDEN** (already implemented in Task 1.1)
-   
+
    **Mental Models:**
    ```python
    # mental_models/integrations/argus_telemetry.py (NEW)
    argus = ArgusClient('MentalModels')
-   
+
    def select_model(context: str) -> MentalModel:
        selected = selector.select(context)
        argus.emit('model_selected', {
@@ -1335,9 +1335,9 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
      ```python
      # hart_os/integrations/argus_telemetry.py (NEW)
      from argus.sdk import ArgusClient
-     
+
      argus = ArgusClient('HART-OS')
-     
+
      def process_patient_decision(patient_id: str, decision_data: dict):
          argus.emit('decision_engine_invoked', {'patient_id': patient_id})
          try:
@@ -1399,7 +1399,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        from echo.ui import ComponentRegistry
        registry = ComponentRegistry()
        assert len(registry.components) > 0
-   
+
    def test_dashboard_renders_without_data():
        """Dashboard should handle empty state gracefully."""
        from echo.ui import Dashboard
@@ -1412,7 +1412,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    ```python
    # tests/test_streamlit_integration.py
    from streamlit.testing.v1 import AppTest
-   
+
    def test_argus_dashboard_loads():
        """Test ARGUS dashboard loads in ECHO."""
        at = AppTest.from_file("echo/ui.py")
@@ -1432,7 +1432,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                TrustDashboardComponent,
                ComponentHealthComponent
            )
-           
+
            ProcessMonitorComponent().render()
            TrustDashboardComponent().render()
            ComponentHealthComponent().render()
@@ -1442,7 +1442,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    ```python
    # echo/integrations/argus_telemetry.py
    argus = ArgusClient('ECHO')
-   
+
    def render_component(component_name: str):
        argus.emit('ui_component_rendered', {'component': component_name})
        # ... render logic
@@ -1476,7 +1476,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
 ---
 
 ### Phase 3: Learning & Memory (Weeks 4-5)
-**Goal:** System learns from past to enforce future  
+**Goal:** System learns from past to enforce future
 **Success Criteria:**
 - MNEMIS auto-promotes patterns from ARGUS to long-term memory
 - Cross-session rule enforcement (agents remember past violations)
@@ -1499,7 +1499,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            self.argus = argus_client
            self.memory = memory_store
            argus_client.subscribe('pattern_detected', self.on_pattern_detected)
-       
+
        def on_pattern_detected(self, event: dict):
            """Promote pattern to MNEMIS if it meets criteria."""
            pattern = event['pattern']
@@ -1517,7 +1517,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                )
                self.memory.store(memory)
                self.argus.emit('memory_promoted', {'memory_id': memory.id, 'pattern': pattern.id})
-       
+
        def should_promote(self, pattern: Pattern) -> bool:
            """Promotion criteria."""
            return (
@@ -1545,10 +1545,10 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            """Search memories relevant to agent's current task."""
            # Search by task keywords
            keyword_results = self.search(current_task)
-           
+
            # Search by past agent behavior
            agent_history = self.search_by_metadata({'agent_id': agent_id})
-           
+
            # Combine and rank
            return self.rank_by_relevance(keyword_results + agent_history)
    ```
@@ -1623,7 +1623,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        """Check if proposed change violates past rules."""
        # Search MNEMIS for similar past violations
        similar_violations = mnemis.search(f"file:{file_path} type:violation")
-       
+
        for violation in similar_violations:
            similarity = calculate_similarity(proposed_change, violation.attempted_change)
            if similarity > 0.8:
@@ -1632,7 +1632,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                    reason=f"Similar change rejected before: {violation.rejection_reason}",
                    past_violation=violation
                )
-       
+
        return PreflightResult(allowed=True)
    ```
 
@@ -1695,7 +1695,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            # Use requests + BeautifulSoup or playwright for dynamic content
            response = requests.get(url)
            soup = BeautifulSoup(response.content, 'html.parser')
-           
+
            return Document(
                url=url,
                title=soup.title.string,
@@ -1715,15 +1715,15 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def __init__(self, memory_store: MemoryStore, fetcher: URLFetcher):
            self.memory = memory_store
            self.fetcher = fetcher
-       
+
        def get_or_fetch(self, url: str, max_age: timedelta = timedelta(days=7)) -> Document:
            """Get cached document or fetch if stale."""
            # Search for existing memory
            cached = self.memory.search_by_metadata({'url': url, 'type': 'url_document'})
-           
+
            if cached and (datetime.now() - cached[0].created_at) < max_age:
                return cached[0].content
-           
+
            # Fetch new
            doc = self.fetcher.fetch(url)
            memory = Memory(
@@ -1746,10 +1746,10 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    @tool
    def fetch_external_docs(url: str) -> str:
        """Fetch external documentation for reference.
-       
+
        Args:
            url: URL to fetch (GitHub, Anthropic docs, Stack Overflow, etc.)
-       
+
        Returns:
            Document content as markdown
        """
@@ -1801,18 +1801,18 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            'model': model.name,
            'context_summary': context[:200]
        })
-       
+
        start = time.time()
        try:
            result = model.apply(context)
            duration = time.time() - start
-           
+
            argus.emit('model_invocation_completed', {
                'model': model.name,
                'duration_ms': duration * 1000,
                'success': True
            })
-           
+
            return result
        except Exception as e:
            argus.emit('model_invocation_failed', {
@@ -1840,16 +1840,16 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                }
            )
            mnemis.store(memory)
-           
+
            # Check if model should be promoted
            self.check_model_promotion(model_name)
-       
+
        def check_model_promotion(self, model_name: str):
            """Promote model to core memory if success rate > 80%."""
            outcomes = mnemis.search_by_metadata({'type': 'model_outcome', 'model': model_name})
            if len(outcomes) < 10:
                return  # Need 10+ samples
-           
+
            success_rate = sum(1 for o in outcomes if o.metadata['success']) / len(outcomes)
            if success_rate >= 0.8:
                core_memory = Memory(
@@ -1871,13 +1871,13 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    def select_model(context: str) -> MentalModel:
        # Check MNEMIS for effective models
        effective_models = mnemis.search_by_metadata({'type': 'effective_model'})
-       
+
        # Prioritize models with high success rates
        for memory in effective_models:
            model_name = memory.metadata['model']
            if model_name in self.available_models:
                return self.available_models[model_name]
-       
+
        # Fall back to rule-based selection
        return self._select_by_rules(context)
    ```
@@ -1888,7 +1888,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    class MentalModelsPlugin:
        def render_dashboard(self):
            st.header("Mental Models Effectiveness")
-           
+
            models = outcome_tracker.get_all_models()
            for model in models:
                stats = outcome_tracker.get_model_stats(model)
@@ -1921,7 +1921,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
 ---
 
 ### Phase 4: Advanced Automation (Weeks 5-8)
-**Goal:** Full autonomy — auto-generated tests/docs, rollback, background monitoring  
+**Goal:** Full autonomy — auto-generated tests/docs, rollback, background monitoring
 **Success Criteria:**
 - Auto-generated tests for new code (80%+ coverage maintained)
 - Auto-generated documentation from docstrings
@@ -1945,26 +1945,26 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            """Generate pytest tests for function based on signature and docstring."""
            signature = inspect.signature(func)
            docstring = func.__doc__ or ""
-           
+
            # Parse return type and args
            return_type = signature.return_annotation
            args = [(name, param.annotation) for name, param in signature.parameters.items()]
-           
+
            # Generate basic test cases
            tests = []
            tests.append(self._generate_smoke_test(func, args))
            tests.append(self._generate_type_test(func, args, return_type))
-           
+
            if "raises" in docstring.lower():
                tests.append(self._generate_exception_test(func, args, docstring))
-           
+
            return "\n\n".join(tests)
-       
+
        def _generate_smoke_test(self, func: Callable, args: List[tuple]) -> str:
            """Generate basic smoke test (function doesn't crash)."""
            arg_names = [name for name, _ in args]
            arg_values = [self._get_default_value(typ) for _, typ in args]
-           
+
            return f"""
    def test_{func.__name__}_smoke():
        \"\"\"Basic smoke test for {func.__name__}.\"\"\"
@@ -1980,7 +1980,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        """Find functions lacking tests and generate them."""
        # Get all functions in changed files
        changed_files = get_changed_python_files()
-       
+
        for file in changed_files:
            module = import_module_from_file(file)
            for func in get_public_functions(module):
@@ -2004,19 +2004,19 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    @tool
    def generate_tests_for_file(file_path: str) -> str:
        """Generate unit tests for functions in file.
-       
+
        Args:
            file_path: Path to Python file
-       
+
        Returns:
            Generated test code as string
        """
        module = import_module_from_file(file_path)
        test_code = []
-       
+
        for func in get_public_functions(module):
            test_code.append(test_generator.generate_tests_for_function(func))
-       
+
        return "\n\n".join(test_code)
    ```
 
@@ -2060,35 +2060,35 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            """Generate Markdown docs for Python module."""
            module = import_module_from_file(module_path)
            docs = [f"# {module.__name__}\n"]
-           
+
            if module.__doc__:
                docs.append(f"{module.__doc__}\n")
-           
+
            # Functions
            docs.append("## Functions\n")
            for func in get_public_functions(module):
                docs.append(self._generate_function_docs(func))
-           
+
            # Classes
            docs.append("## Classes\n")
            for cls in get_public_classes(module):
                docs.append(self._generate_class_docs(cls))
-           
+
            return "\n".join(docs)
-       
+
        def _generate_function_docs(self, func: Callable) -> str:
            """Generate Markdown for single function."""
            signature = inspect.signature(func)
            docstring = func.__doc__ or "No documentation available."
-           
+
            return f"""
    ### `{func.__name__}{signature}`
-   
+
    {docstring}
-   
+
    **Arguments:**
    {self._format_arguments(signature)}
-   
+
    **Returns:** `{signature.return_annotation}`
    """
    ```
@@ -2099,7 +2099,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    def regenerate_docs():
        """Regenerate docs for changed modules."""
        changed_files = get_changed_python_files()
-       
+
        for file in changed_files:
            if file.startswith('src/'):
                doc_path = file.replace('src/', 'docs/api/').replace('.py', '.md')
@@ -2134,10 +2134,10 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    class DocsBrowserPlugin:
        def render_dashboard(self):
            st.header("Documentation Browser")
-           
+
            modules = get_all_modules()
            selected = st.selectbox("Module", modules)
-           
+
            doc_path = f"docs/api/{selected}.md"
            if os.path.exists(doc_path):
                st.markdown(read_file(doc_path))
@@ -2177,7 +2177,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
            """Tag commit that passed CI as 'known good'."""
            # Get CI status from GitHub
            ci_status = gh_client.get_ci_status(commit_sha)
-           
+
            if ci_status == 'success':
                tag_name = f"known-good/{datetime.now().strftime('%Y%m%d-%H%M%S')}"
                subprocess.run(['git', 'tag', tag_name, commit_sha])
@@ -2191,7 +2191,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    def geco():
        """GECO command-line tools."""
        pass
-   
+
    @geco.command()
    @click.option('--steps', default=1, help='Number of known-good states to roll back')
    def rollback(steps: int):
@@ -2199,18 +2199,18 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        # Find last N known-good tags
        tags = subprocess.check_output(['git', 'tag', '-l', 'known-good/*']).decode().strip().split('\n')
        tags = sorted(tags, reverse=True)
-       
+
        if len(tags) < steps:
            click.echo(f"Only {len(tags)} known-good states available")
            return
-       
+
        target_tag = tags[steps - 1]
        click.echo(f"Rolling back to {target_tag}...")
-       
+
        # Create rollback branch
        branch_name = f"rollback/{datetime.now().strftime('%Y%m%d-%H%M%S')}"
        subprocess.run(['git', 'checkout', '-b', branch_name, target_tag])
-       
+
        click.echo(f"Rolled back to {target_tag} on branch {branch_name}")
        click.echo("Review changes, then merge to main if correct")
    ```
@@ -2221,11 +2221,11 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    def rollback_with_telemetry(steps: int):
        """Rollback with ARGUS event emission."""
        argus.emit('rollback_started', {'steps': steps, 'current_commit': get_current_commit()})
-       
+
        try:
            result = perform_rollback(steps)
            argus.emit('rollback_completed', {'target_tag': result.target_tag})
-           
+
            # Store rollback in MNEMIS
            mnemis.store(Memory(
                content=f"Rollback performed: {steps} steps to {result.target_tag}",
@@ -2244,10 +2244,10 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    class RollbackPlugin:
        def render_dashboard(self):
            st.header("Rollback Control")
-           
+
            tags = get_known_good_tags()
            st.write(f"{len(tags)} known-good states available")
-           
+
            steps = st.slider("Rollback steps", 1, min(10, len(tags)))
            if st.button(f"Rollback {steps} steps"):
                result = rollback_with_telemetry(steps)
@@ -2290,7 +2290,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def discover_tools(self) -> List[MCPTool]:
            """Scan for available MCP tools."""
            tools = []
-           
+
            # Scan Claude Code MCP directory
            mcp_dir = Path.home() / '.claude' / 'mcp'
            for server_dir in mcp_dir.iterdir():
@@ -2298,9 +2298,9 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                    manifest = self._load_manifest(server_dir / 'manifest.json')
                    if manifest:
                        tools.extend(self._parse_tools(manifest))
-           
+
            return tools
-       
+
        def _parse_tools(self, manifest: dict) -> List[MCPTool]:
            """Extract tools from MCP manifest."""
            return [
@@ -2321,11 +2321,11 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def __init__(self):
            self.tools = {}
            self.auto_discover()
-       
+
        def auto_discover(self):
            """Discover and register MCP tools automatically."""
            discovered = mcp_discovery.discover_tools()
-           
+
            for tool in discovered:
                self.register(tool)
                argus.emit('tool_discovered', {
@@ -2333,11 +2333,11 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                    'server': tool.server,
                    'description': tool.description
                })
-       
+
        def register(self, tool: MCPTool):
            """Register tool and make available to agents."""
            self.tools[tool.name] = tool
-           
+
            # Store in MNEMIS for future reference
            mnemis.store(Memory(
                content=f"MCP Tool: {tool.name} - {tool.description}",
@@ -2357,7 +2357,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    def update_claude_md_with_tools():
        """Add discovered tools to CLAUDE.md agent instructions."""
        tools = tool_registry.get_all_tools()
-       
+
        for claude_md in find_all_claude_md_files():
            tool_section = generate_tool_section(tools)
            append_to_claude_md(claude_md, tool_section)
@@ -2369,13 +2369,13 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    class ToolBrowserPlugin:
        def render_dashboard(self):
            st.header("Available MCP Tools")
-           
+
            tools = tool_registry.get_all_tools()
            for tool in tools:
                with st.expander(f"{tool.name} ({tool.server})"):
                    st.write(tool.description)
                    st.json(tool.parameters)
-                   
+
                    # Usage stats
                    stats = get_tool_usage_stats(tool.name)
                    st.metric("Invocations", stats.count)
@@ -2415,12 +2415,12 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def __init__(self, check_interval: int = 60):
            self.check_interval = check_interval
            self.running = False
-       
+
        def start(self):
            """Start background monitoring."""
            self.running = True
            threading.Thread(target=self._monitor_loop, daemon=True).start()
-       
+
        def _monitor_loop(self):
            """Main monitoring loop."""
            while self.running:
@@ -2429,7 +2429,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                    time.sleep(self.check_interval)
                except Exception as e:
                    log.error(f"Monitor error: {e}")
-       
+
        def _run_health_checks(self):
            """Run all health checks."""
            # Check agent health
@@ -2437,17 +2437,17 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
                status = process_observer.get_agent_status(agent_id)
                if status['error_rate'] > 0.05:
                    self._alert(f"High error rate for {agent_id}: {status['error_rate']:.1%}")
-           
+
            # Check compliance
            compliance_score = trust_engine.get_metrics().compliance_score
            if compliance_score < 70:
                self._alert(f"Low compliance score: {compliance_score:.1f}%")
-           
+
            # Check cost
            daily_cost = trust_engine.get_daily_cost()
            if daily_cost > 50:  # $50/day threshold
                self._alert(f"High daily cost: ${daily_cost:.2f}")
-       
+
        def _alert(self, message: str):
            """Send alert (email, Slack, etc.)."""
            argus.emit('alert', {'message': message, 'severity': 'warning'})
@@ -2458,20 +2458,20 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    ```python
    # tools/install_service.py
    import win32serviceutil
-   
+
    class ArgusMonitorService(win32serviceutil.ServiceFramework):
        _svc_name_ = "ArgusMonitor"
        _svc_display_name_ = "ARGUS Background Monitor"
-       
+
        def __init__(self, args):
            win32serviceutil.ServiceFramework.__init__(self, args)
            self.monitor = BackgroundMonitor()
-       
+
        def SvcDoRun(self):
            self.monitor.start()
            while True:
                time.sleep(1)
-       
+
        def SvcStop(self):
            self.monitor.stop()
    ```
@@ -2483,7 +2483,7 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
        def route_alert(self, alert: dict):
            """Route alert to appropriate channel."""
            severity = alert['severity']
-           
+
            if severity == 'critical':
                # Email + Slack + SMS
                self.send_email(alert)
@@ -2503,12 +2503,12 @@ Phase 4 (Weeks 5-8): Advanced Automation → Auto-Tests + Rollback + MCP Tools +
    class MonitorStatusPlugin:
        def render_dashboard(self):
            st.header("Background Monitor Status")
-           
+
            status = background_monitor.get_status()
            st.metric("Uptime", format_duration(status.uptime))
            st.metric("Checks Performed", status.check_count)
            st.metric("Alerts Sent", status.alert_count)
-           
+
            st.subheader("Recent Alerts")
            for alert in status.recent_alerts[:10]:
                st.warning(f"{alert.timestamp}: {alert.message}")
@@ -2590,10 +2590,10 @@ Every module gets full treatment (even RAVEN placeholder), every roadmap task ha
 
 ## Part 5: PRD Draft — GAIA Ecosystem Product Suite
 
-**Version:** 0.1.0-draft  
-**Date:** 2026-02-08  
-**Status:** Draft for review by ENG, PROD, UX  
-**Derived from:** GAIA_BIBLE.md v0.4.3  
+**Version:** 0.1.0-draft
+**Date:** 2026-02-08
+**Status:** Draft for review by ENG, PROD, UX
+**Derived from:** GAIA_BIBLE.md v0.4.3
 **Document Owner:** Federico (Product Owner)
 
 ---
@@ -2619,7 +2619,7 @@ GAIA is a **constitutional AI governance framework** that sits between human cre
 - **For Teams**: Shared infrastructure means no duplicate work, automatic observability, and institutional learning across projects
 - **For Users**: Glass-box transparency means you understand what was built, can modify it safely, and grow your technical capability over time
 
-**North Star Principle:**  
+**North Star Principle:**
 GAIA is a bridge, not a replacement. It teaches you to build with AI safely while actually doing the work. You learn by doing. You grow in capability. You become the architect.
 
 ---
@@ -2726,7 +2726,7 @@ What GAIA provides to ALL products it builds:
 
 **Capabilities:**
 - **Human-in-the-Loop Questionnaire**: 7-step intake form captures project intent, constraints, and context
-- **Three Adapter Types**: 
+- **Three Adapter Types**:
   - Deterministic (for therapy, scoring systems)
   - Creative (for content generation, RAG systems)
   - Processor (for data pipelines, document generation)
@@ -2798,7 +2798,7 @@ What GAIA provides to ALL products it builds:
 **Capabilities:**
 - **Unified LLM Clients**: Single interface for OpenAI, Anthropic, Gemini
 - **Configuration Management**: `GaiaSettings` base class with pydantic-settings
-- **Core Algorithms**: 
+- **Core Algorithms**:
   - RecursiveCharacterChunker (text splitting)
   - OpenAIEmbedder (vectorization)
   - VectorRetriever (semantic search)
@@ -2977,8 +2977,8 @@ What GAIA provides to ALL products it builds:
 
 **Pipeline Architecture:**
 ```
-JD Paste → Parse & Prune → Block Matching → Content Adaptation → 
-ATS Scoring → Dual Rendering (PDF + DOCX) → Recruiter Outreach → 
+JD Paste → Parse & Prune → Block Matching → Content Adaptation →
+ATS Scoring → Dual Rendering (PDF + DOCX) → Recruiter Outreach →
 Application Tracking → Feedback Loop → MNEMIS Pattern Storage
 ```
 
@@ -3017,7 +3017,7 @@ Application Tracking → Feedback Loop → MNEMIS Pattern Storage
 
 **Critical Issue:** 19 manual version copies indicate lack of version control discipline during development.
 
-**Recommendation:** 
+**Recommendation:**
 - **Option A (Rescue)**: Consolidate to single version, add git discipline, integrate MYCEL
 - **Option B (Retire)**: Archive module, document learnings, focus resources on active products
 
@@ -3049,7 +3049,7 @@ GAIA's constitutional framework is defined by **Five Trust Principles** from GAI
 **Example:**
 ```
 ❌ Bad: "I created your project successfully" (when partially failed)
-✅ Good: "I created 4/5 components. Stage 3 failed because dependency X 
+✅ Good: "I created 4/5 components. Stage 3 failed because dependency X
          is unavailable. Should I proceed with 4, or investigate X first?"
 ```
 
@@ -3261,7 +3261,7 @@ GAIA: "You specified 'confidence scoring required' in Step 4.
 
 5. **Process Observer Implementation**: Should this monitor Claude Code agents via MCP, filesystem observers, or API calls?
 
-6. **GitHub Remote Strategy**: 
+6. **GitHub Remote Strategy**:
    - Separate repos per module or monorepo?
    - Public open source or private?
    - Branch strategy (trunk-based vs. GitFlow)?
@@ -3310,7 +3310,7 @@ GAIA: "You specified 'confidence scoring required' in Step 4.
 
 ## Metadata
 
-**Document Status:** Draft v0.1.0  
+**Document Status:** Draft v0.1.0
 **Next Steps:**
 1. PROD/ENG/UX review and comment (target: 3 business days)
 2. Open Questions resolution meeting (target: 1 week)
@@ -3326,7 +3326,7 @@ GAIA: "You specified 'confidence scoring required' in Step 4.
 - `X:\Projects\hart_os_v6\docs\PRD\HART_OS_v6.1_PRD.md` (product-level PRD example)
 - `X:\Projects\_GAIA\_PROTEUS\docs\PRD.md` (product-level PRD example)
 
-**Absolute File Path:** This content should be written to:  
+**Absolute File Path:** This content should be written to:
 `X:\Projects\_GAIA\GECO_AUDIT_Part5_PRD_DRAFT.md`
 
 ---

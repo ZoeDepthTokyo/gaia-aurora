@@ -5,8 +5,8 @@ Test runner for GAIA integration tests.
 Runs all integration tests and provides summary report.
 """
 
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
 

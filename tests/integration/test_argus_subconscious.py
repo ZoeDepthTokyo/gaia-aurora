@@ -5,34 +5,20 @@ Tests pattern detection with memory storage, hypothesis generation,
 and explainability across different complexity levels.
 """
 
-import pytest
 import tempfile
-import sqlite3
-from pathlib import Path
 from datetime import datetime, timedelta
-from typing import List
+from pathlib import Path
 
+import pytest
+from argus.explainability.explainer import Explainer, ExplanationLevel
+from argus.subconscious.hypothesis_generator import HypothesisGenerator, HypothesisType
 from argus.subconscious.memory import (
     ExternalMemory,
     MemoryEntry,
+    MemoryScope,
     MemoryType,
-    MemoryScope
 )
-from argus.subconscious.pattern_detector import (
-    PatternDetector,
-    DetectedPattern,
-    PatternType
-)
-from argus.subconscious.hypothesis_generator import (
-    HypothesisGenerator,
-    Hypothesis,
-    HypothesisType
-)
-from argus.explainability.explainer import (
-    Explainer,
-    Explanation,
-    ExplanationLevel
-)
+from argus.subconscious.pattern_detector import PatternDetector, PatternType
 
 
 class TestPatternDetectionWithMemory:
@@ -62,9 +48,7 @@ class TestPatternDetectionWithMemory:
         return PatternDetector(temp_memory)
 
     def test_recurring_error_detection(
-        self,
-        temp_memory: ExternalMemory,
-        detector: PatternDetector
+        self, temp_memory: ExternalMemory, detector: PatternDetector
     ):
         """
         Test detection of recurring error patterns.
@@ -81,7 +65,7 @@ class TestPatternDetectionWithMemory:
                 scope=MemoryScope.PROJECT,
                 content=f"{error_content} (occurrence {i+1})",
                 source="test_agent",
-                timestamp=datetime.now() - timedelta(days=i)
+                timestamp=datetime.now() - timedelta(days=i),
             )
             temp_memory.store(entry)
 
@@ -99,9 +83,7 @@ class TestPatternDetectionWithMemory:
         assert len(pattern.recommended_actions) > 0
 
     def test_performance_degradation_detection(
-        self,
-        temp_memory: ExternalMemory,
-        detector: PatternDetector
+        self, temp_memory: ExternalMemory, detector: PatternDetector
     ):
         """
         Test detection of performance degradation trends.
@@ -116,7 +98,7 @@ class TestPatternDetectionWithMemory:
                 scope=MemoryScope.PROJECT,
                 content="Performance metrics within normal range",
                 source="monitor",
-                timestamp=datetime.now() - timedelta(days=20+i)
+                timestamp=datetime.now() - timedelta(days=20 + i),
             )
             temp_memory.store(entry)
 
@@ -127,7 +109,7 @@ class TestPatternDetectionWithMemory:
                 scope=MemoryScope.PROJECT,
                 content="Performance degradation detected, slow response times",
                 source="monitor",
-                timestamp=datetime.now() - timedelta(days=i)
+                timestamp=datetime.now() - timedelta(days=i),
             )
             temp_memory.store(entry)
 
@@ -136,8 +118,7 @@ class TestPatternDetectionWithMemory:
 
         # Should detect degradation
         degradation_patterns = [
-            p for p in patterns
-            if p.type == PatternType.PERFORMANCE_DEGRADATION
+            p for p in patterns if p.type == PatternType.PERFORMANCE_DEGRADATION
         ]
 
         assert len(degradation_patterns) > 0
@@ -146,9 +127,7 @@ class TestPatternDetectionWithMemory:
         assert "degradation" in pattern.description.lower()
 
     def test_pattern_evidence_tracking(
-        self,
-        temp_memory: ExternalMemory,
-        detector: PatternDetector
+        self, temp_memory: ExternalMemory, detector: PatternDetector
     ):
         """
         Test that patterns track evidence (memory IDs).
@@ -162,7 +141,7 @@ class TestPatternDetectionWithMemory:
                 type=MemoryType.ERROR,
                 scope=MemoryScope.PROJECT,
                 content="API rate limit exceeded",
-                source="api_client"
+                source="api_client",
             )
             entry_id = temp_memory.store(entry)
             stored_ids.append(entry_id)
@@ -185,11 +164,7 @@ class TestPatternDetectionWithMemory:
                 memory = temp_memory.retrieve(evidence_id)
                 assert memory is not None
 
-    def test_non_intervening_behavior(
-        self,
-        temp_memory: ExternalMemory,
-        detector: PatternDetector
-    ):
+    def test_non_intervening_behavior(self, temp_memory: ExternalMemory, detector: PatternDetector):
         """
         Test that pattern detection is non-intervening.
 
@@ -201,7 +176,7 @@ class TestPatternDetectionWithMemory:
             type=MemoryType.OBSERVATION,
             scope=MemoryScope.PROJECT,
             content="Test observation",
-            source="test"
+            source="test",
         )
         entry_id = temp_memory.store(entry)
 
@@ -253,9 +228,7 @@ class TestHypothesisGeneration:
         return HypothesisGenerator(detector, temp_memory)
 
     def test_hypothesis_from_error_pattern(
-        self,
-        temp_memory: ExternalMemory,
-        generator: HypothesisGenerator
+        self, temp_memory: ExternalMemory, generator: HypothesisGenerator
     ):
         """
         Test hypothesis generation from error patterns.
@@ -269,7 +242,7 @@ class TestHypothesisGeneration:
                 type=MemoryType.ERROR,
                 scope=MemoryScope.PROJECT,
                 content="Memory allocation failed",
-                source="runtime"
+                source="runtime",
             )
             temp_memory.store(entry)
 
@@ -287,9 +260,7 @@ class TestHypothesisGeneration:
         assert len(hypothesis.test_criteria) > 0
 
     def test_hypothesis_storage_in_memory(
-        self,
-        temp_memory: ExternalMemory,
-        generator: HypothesisGenerator
+        self, temp_memory: ExternalMemory, generator: HypothesisGenerator
     ):
         """
         Test that hypotheses are stored in external memory.
@@ -302,7 +273,7 @@ class TestHypothesisGeneration:
                 type=MemoryType.ERROR,
                 scope=MemoryScope.GAIA,
                 content="Cost spike detected",
-                source="cost_monitor"
+                source="cost_monitor",
             )
             temp_memory.store(entry)
 
@@ -325,9 +296,7 @@ class TestHypothesisGeneration:
             assert len(stored_hypotheses) > 0
 
     def test_hypothesis_requires_human_approval(
-        self,
-        temp_memory: ExternalMemory,
-        generator: HypothesisGenerator
+        self, temp_memory: ExternalMemory, generator: HypothesisGenerator
     ):
         """
         Test that hypotheses don't trigger autonomous actions.
@@ -340,7 +309,7 @@ class TestHypothesisGeneration:
                 type=MemoryType.ERROR,
                 scope=MemoryScope.PROJECT,
                 content="Authentication failure",
-                source="auth_service"
+                source="auth_service",
             )
             temp_memory.store(entry)
 
@@ -359,7 +328,7 @@ class TestHypothesisGeneration:
                 HypothesisType.ROOT_CAUSE,
                 HypothesisType.CORRELATION,
                 HypothesisType.PREDICTIVE,
-                HypothesisType.DIAGNOSTIC
+                HypothesisType.DIAGNOSTIC,
             ]
 
             # Hypothesis itself is just a suggestion
@@ -434,9 +403,10 @@ class TestExplainabilityIntegration:
 
         # Should contain analogies
         content_lower = explanation.content.lower()
-        assert any(keyword in content_lower for keyword in [
-            'like', 'similar', 'thermostat', 'microphone', 'think of'
-        ])
+        assert any(
+            keyword in content_lower
+            for keyword in ["like", "similar", "thermostat", "microphone", "think of"]
+        )
 
     def test_advanced_level_explanation(self, explainer: Explainer):
         """
@@ -455,9 +425,10 @@ class TestExplainabilityIntegration:
 
         # Should have technical content
         content_lower = explanation.content.lower()
-        assert any(keyword in content_lower for keyword in [
-            'function', 'class', 'implementation', 'code', 'python'
-        ])
+        assert any(
+            keyword in content_lower
+            for keyword in ["function", "class", "implementation", "code", "python"]
+        )
 
         # Should have references
         assert len(explanation.references) > 0
@@ -519,7 +490,7 @@ class TestExplainabilityIntegration:
             topic="custom_concept",
             level=ExplanationLevel.SIMPLE,
             content="This is a custom concept for testing",
-            examples=["Example 1", "Example 2"]
+            examples=["Example 1", "Example 2"],
         )
 
         # Should be retrievable
@@ -551,10 +522,10 @@ class TestSubconsciousWorkflow:
         explainer = Explainer()
 
         yield {
-            'memory': memory,
-            'detector': detector,
-            'generator': generator,
-            'explainer': explainer
+            "memory": memory,
+            "detector": detector,
+            "generator": generator,
+            "explainer": explainer,
         }
 
         memory.close()
@@ -567,10 +538,10 @@ class TestSubconsciousWorkflow:
         Simulates: Observation -> Pattern Detection ->
         Hypothesis Generation -> Explanation
         """
-        memory = workflow_components['memory']
-        detector = workflow_components['detector']
-        generator = workflow_components['generator']
-        explainer = workflow_components['explainer']
+        memory = workflow_components["memory"]
+        detector = workflow_components["detector"]
+        generator = workflow_components["generator"]
+        explainer = workflow_components["explainer"]
 
         # 1. Store observations (simulating process observer)
         for i in range(5):
@@ -578,7 +549,7 @@ class TestSubconsciousWorkflow:
                 type=MemoryType.OBSERVATION,
                 scope=MemoryScope.PROJECT,
                 content="HART OS showing feedback loop in error recovery",
-                source="process_observer"
+                source="process_observer",
             )
             memory.store(entry)
 
@@ -602,8 +573,8 @@ class TestSubconsciousWorkflow:
 
         Verifies system handles empty/insufficient data gracefully.
         """
-        detector = workflow_components['detector']
-        generator = workflow_components['generator']
+        detector = workflow_components["detector"]
+        generator = workflow_components["generator"]
 
         # No data stored - should handle gracefully
         patterns = detector.detect_patterns()
@@ -621,8 +592,8 @@ class TestSubconsciousWorkflow:
         Verifies that low-confidence patterns and hypotheses
         are clearly marked as uncertain.
         """
-        memory = workflow_components['memory']
-        detector = workflow_components['detector']
+        memory = workflow_components["memory"]
+        detector = workflow_components["detector"]
 
         # Store minimal, ambiguous data
         for i in range(2):
@@ -630,7 +601,7 @@ class TestSubconsciousWorkflow:
                 type=MemoryType.OBSERVATION,
                 scope=MemoryScope.PROJECT,
                 content="Something happened",
-                source="test"
+                source="test",
             )
             memory.store(entry)
 

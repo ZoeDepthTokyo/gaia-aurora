@@ -168,7 +168,7 @@
       "name": "RAVEN",
       "gaia_role": "Autonomous Research Agent (ad-hoc investigations, competitive analysis, dependency audits)",
       "path": "X:/Projects/_GAIA/_RAVEN",
-      "version": "0.3.0",
+      "version": "1.0.0",
       "status": "active",
       "git": true,
       "git_remote": "https://github.com/ZoeDepthTokyo/gaia-raven.git",

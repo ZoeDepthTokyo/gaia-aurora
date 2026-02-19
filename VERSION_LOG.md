@@ -491,6 +491,36 @@ GAIA (constitutional) → Project Agent (accountable) → Execution Agents (task
 
 ---
 
+## v0.5.5 - RAVEN v1.0.0 McKinsey-Grade Research Intelligence (Feb 18, 2026) [COMPLETE]
+
+**Agent:** Claude Opus 4.6 (orchestrator) + 5 parallel subagents (Sonnet)
+
+**RAVEN Upgrade (v0.3.0 -> v1.0.0) — 4-Sprint Execution:**
+- 92 → 229 tests (+137 new across 4 sprints), zero regressions
+- 7 new modules: corpus.py, reranker.py, embedder.py, mental_models_bridge.py, viz_spec.py, quality.py, benchmarks/
+- Full RAG pipeline: BM25 + bi-encoder + RRF fusion + cross-encoder reranking
+- Evidence traceability: 15+ provenance fields on Finding (uri, chunk_id, char offsets, multi-stage scores)
+- EvidenceChain dataclass linking claims to source findings with SHA-256 evidence IDs
+- VizSpec contract (6 chart types) for AURORA integration
+- 7-metric quality scorer (evidence traceability, triangulation, contradiction coverage, red team depth, actionability, viz completeness, supported answer rate)
+- ActionItem dataclass for prescriptive recommendations with evidence backing
+- ARGUS MentalModelSelector bridge (59 models, context-aware red team lenses)
+- Citation enforcement: claims mapped to chunk_ids in synthesis
+- FAISS HNSW conditional integration for corpora > 50K chunks
+- VIA integration hooks (via_evidence_pointer, via_claim_ids)
+- Legacy dead code removed (_search_web, _search_design_platforms, _identify_gaps, _generate_recommendations)
+- Benchmark harness: Recall@50, MRR@10, NDCG@10, latency p95
+
+**RAG Invariants (Critical):**
+- MRL truncation: SLICE first, NORMALIZE second (never reverse)
+- Reranker scores: raw logits (never sigmoid)
+- RRF uses rank position (never raw scores)
+- All models pinned to specific revisions for offline reproducibility
+
+**Cost Governance:** quick $0.50 / comprehensive $2.00 / deep $5.00
+
+---
+
 ## Planned Versions (Roadmap)
 
 ---

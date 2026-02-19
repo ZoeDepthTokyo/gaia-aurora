@@ -3,10 +3,9 @@ Tests for mental model selector.
 """
 
 import pytest
-from pathlib import Path
 
-from mental_models.selector import MentalModelSelector, SelectionResult
 from mental_models.models import MentalModel, ModelCategory
+from mental_models.selector import MentalModelSelector, SelectionResult
 
 
 class TestMentalModelSelector:
@@ -26,9 +25,7 @@ class TestMentalModelSelector:
     def test_select_for_performance_context(self, selector):
         """Test selection for performance degradation context."""
         result = selector.select_for_context(
-            "system performance degradation detected",
-            max_models=5,
-            min_confidence=0.5
+            "system performance degradation detected", max_models=5, min_confidence=0.5
         )
 
         assert isinstance(result, SelectionResult)
@@ -42,9 +39,7 @@ class TestMentalModelSelector:
     def test_select_for_cost_context(self, selector):
         """Test selection for cost management context."""
         result = selector.select_for_context(
-            "API costs are spiking significantly",
-            max_models=5,
-            min_confidence=0.5
+            "API costs are spiking significantly", max_models=5, min_confidence=0.5
         )
 
         assert len(result.models) > 0
@@ -56,9 +51,7 @@ class TestMentalModelSelector:
     def test_select_for_error_context(self, selector):
         """Test selection for error pattern context."""
         result = selector.select_for_context(
-            "recurring errors and failures detected",
-            max_models=5,
-            min_confidence=0.5
+            "recurring errors and failures detected", max_models=5, min_confidence=0.5
         )
 
         assert len(result.models) > 0
@@ -66,10 +59,7 @@ class TestMentalModelSelector:
         # Should select reliability models
         model_ids = [m.id for m in result.models]
         model_categories = [m.category for m in result.models]
-        assert any(
-            cat == ModelCategory.QUALITY_RELIABILITY
-            for cat in model_categories
-        )
+        assert any(cat == ModelCategory.QUALITY_RELIABILITY for cat in model_categories)
 
     def test_get_combination_pattern(self, selector):
         """Test retrieving combination patterns."""
@@ -95,15 +85,10 @@ class TestMentalModelSelector:
 
     def test_get_models_by_category(self, selector):
         """Test retrieving models by category."""
-        systems_models = selector.get_models_by_category(
-            ModelCategory.SYSTEMS_THINKING
-        )
+        systems_models = selector.get_models_by_category(ModelCategory.SYSTEMS_THINKING)
 
         assert len(systems_models) > 0
-        assert all(
-            m.category == ModelCategory.SYSTEMS_THINKING
-            for m in systems_models
-        )
+        assert all(m.category == ModelCategory.SYSTEMS_THINKING for m in systems_models)
 
     def test_list_all_models(self, selector):
         """Test listing all available models."""
@@ -120,15 +105,9 @@ class TestMentalModelSelector:
     def test_min_confidence_threshold(self, selector):
         """Test min_confidence filtering works."""
         # High confidence threshold should return fewer results
-        high_confidence = selector.select_for_context(
-            "test context",
-            min_confidence=0.9
-        )
+        high_confidence = selector.select_for_context("test context", min_confidence=0.9)
 
-        low_confidence = selector.select_for_context(
-            "test context",
-            min_confidence=0.3
-        )
+        low_confidence = selector.select_for_context("test context", min_confidence=0.3)
 
         assert len(low_confidence.models) >= len(high_confidence.models)
 
@@ -137,7 +116,7 @@ class TestMentalModelSelector:
         result = selector.select_for_context(
             "performance degradation cost spike error pattern",
             max_models=3,
-            min_confidence=0.3
+            min_confidence=0.3,
         )
 
         assert len(result.models) <= 3
@@ -145,9 +124,7 @@ class TestMentalModelSelector:
     def test_alternative_models(self, selector):
         """Test alternative models are provided."""
         result = selector.select_for_context(
-            "performance degradation",
-            max_models=2,
-            min_confidence=0.5
+            "performance degradation", max_models=2, min_confidence=0.5
         )
 
         # Should have alternatives if there were more candidates
@@ -167,7 +144,7 @@ class TestMentalModel:
             when_to_use=["testing"],
             output_format="test_output",
             confidence_threshold=0.7,
-            examples=["example1", "example2"]
+            examples=["example1", "example2"],
         )
 
         assert model.id == "test_model"
@@ -185,7 +162,7 @@ class TestMentalModel:
                 description="Test",
                 when_to_use=[],
                 output_format="test",
-                confidence_threshold=1.5  # Invalid
+                confidence_threshold=1.5,  # Invalid
             )
 
     def test_applies_to_context(self):
@@ -198,21 +175,15 @@ class TestMentalModel:
             when_to_use=["performance issues", "bottleneck analysis"],
             output_format="test_output",
             confidence_threshold=0.7,
-            examples=["slow queries", "high latency"]
+            examples=["slow queries", "high latency"],
         )
 
         # Should match when keywords overlap
-        score1 = model.applies_to_context(
-            "performance degradation",
-            ["performance", "degradation"]
-        )
+        score1 = model.applies_to_context("performance degradation", ["performance", "degradation"])
         assert score1 > 0.0
 
         # Should not match when no overlap
-        score2 = model.applies_to_context(
-            "completely unrelated",
-            ["unrelated", "random"]
-        )
+        score2 = model.applies_to_context("completely unrelated", ["unrelated", "random"])
         assert score2 >= 0.0  # May be 0
 
     def test_to_dict(self):
@@ -224,7 +195,7 @@ class TestMentalModel:
             description="A test model",
             when_to_use=["testing"],
             output_format="test_output",
-            confidence_threshold=0.7
+            confidence_threshold=0.7,
         )
 
         data = model.to_dict()
