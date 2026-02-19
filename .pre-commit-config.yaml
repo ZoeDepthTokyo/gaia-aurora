@@ -48,3 +48,14 @@ repos:
         language: system
         pass_filenames: false
         files: ^changes/
+
+  - repo: local
+    hooks:
+      - id: ruff-format-check-all
+        name: ruff format check (all files, pre-push gate)
+        language: system
+        entry: python -m ruff format --check .
+        pass_filenames: false
+        stages: [pre-push]
+
+
