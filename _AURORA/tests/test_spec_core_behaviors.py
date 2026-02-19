@@ -10,6 +10,7 @@ Covers all 9 GWT scenarios from _AURORA/specs/core-behaviors.md:
 AURORA has no Python source code, so these are structural/schema tests.
 Helper stubs are defined within this file to model the expected contracts.
 """
+
 from __future__ import annotations
 
 import json

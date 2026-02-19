@@ -219,6 +219,16 @@ pytest _ARGUS/tests/test_spec_core_behaviors.py _LOOM/tests/test_spec_core_behav
 - **`.claude/` gitignored**: Skills/settings files need `git add -f` to stage
 - **GWT coverage**: Run `python runtime/scripts/gwt_coverage.py` (or `--json`) to check spec-test coverage ratio
 
+## CI Protocol (WARDEN-enforced)
+Before pushing any commit to a GAIA component:
+1. `cd X:/Projects/_GAIA/_<COMPONENT>`
+2. `python -m warden.cli ci` — runs lint, format, tests, secrets scan locally
+3. Fix any failures before pushing — CI uses identical checks
+4. If local passes but CI still fails: Python version diff (local=3.14, CI=3.10) — check for 3.14-only syntax
+
+Shortcut from GAIA root: `python scripts/ci_local.py --component <name>`
+Or run all: `python scripts/ci_local.py --all`
+
 ## Relevant Skills
 
 | Task | Skill | Phase |
