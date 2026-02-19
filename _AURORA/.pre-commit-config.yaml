@@ -1,0 +1,33 @@
+# AURORA Pre-Commit Configuration
+# Install: pip install pre-commit && pre-commit install
+
+repos:
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+
+  # Ruff linter + formatter (replaces black)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.0
+    hooks:
+      - id: ruff
+        args: ['--fix', '--exit-non-zero-on-fix']
+      - id: ruff-format
+
+  # WARDEN - disabled (false-positive secret scanning on docs/markdown files)
+  # Run manually: python -m warden.cli validate --project .
+  # - repo: local
+  #   hooks:
+  #     - id: warden-validate
+  #       name: WARDEN Governance Validation
+  #       entry: python -m warden.cli validate --project .
+  #       language: system
+  #       pass_filenames: false
+  #       always_run: true
